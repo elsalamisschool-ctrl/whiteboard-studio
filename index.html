@@ -16,7 +16,6 @@
       background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
       background-size: 20px 20px;
     }
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -25,7 +24,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- شاشة قفل الخصوصية (تظهر عند تفعيل الحماية) -->
+  <!-- شاشة قفل الخصوصية -->
   <div id="lockScreen" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border border-slate-200">
       <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -46,13 +45,12 @@
         S
       </div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full mr-1">نسخة خاصة</span></h1>
-        <p class="text-xs text-slate-500">رسم ذكي عنصراً تلو الآخر • مزامنة تلقائية • بدون قيود</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full mr-1">نسخة مطورة</span></h1>
+        <p class="text-xs text-slate-500">رسم ذكي عنصر تلو الآخر • يد احترافية • مزامنة تلقائية</p>
       </div>
     </div>
 
     <div class="flex items-center gap-3">
-      <!-- تغيير كلمة المرور -->
       <button onclick="changePasswordModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition">
         <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
         تغيير كلمة المرور
@@ -148,7 +146,6 @@
           إعدادات الرسام واليد والكابشن
         </h2>
 
-        <!-- اختيار شكل اليد الطبيعية -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-2">اختاري شكل اليد الاحترافية:</label>
           <div class="grid grid-cols-4 gap-2" id="handSelector">
@@ -171,7 +168,6 @@
           </div>
         </div>
 
-        <!-- أسلوب الرسم والمقاس -->
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">مقاس الفيديو:</label>
@@ -186,7 +182,6 @@
           </div>
         </div>
 
-        <!-- إعدادات الكابشن -->
         <div class="grid grid-cols-2 gap-3 pt-2 border-t">
           <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
             <input type="checkbox" id="showCaptions" checked class="w-4 h-4 accent-amber-500 rounded">
@@ -311,17 +306,14 @@
           </filter>
         </defs>
         <g filter="url(#shadow)">
-          <!-- القلم الاحترافي (رأس القلم عند 0,0) -->
+          <!-- رأس القلم الدقيق عند (0,0) -->
           <polygon points="0,0 14,6 6,14" fill="#1e293b"/>
           <polygon points="6,14 14,6 95,87 87,95" fill="#334155"/>
           <polygon points="20,28 28,20 33,25 25,33" fill="#f59e0b"/>
-          <!-- الأصابع الطبيعية تمسك القلم -->
+          <!-- أصابع اليد -->
           <path d="M 35,32 C 45,18 70,15 88,30 L 130,65 L 95,105 L 55,75 C 40,62 28,45 35,32 Z" fill="url(#skin)"/>
-          <!-- الإبهام -->
           <path d="M 28,42 C 40,38 58,48 65,62 C 52,68 35,60 28,42 Z" fill="#eab38f" stroke="#c6865c" stroke-width="1.5"/>
-          <!-- السبابة -->
           <path d="M 32,26 C 48,20 72,28 82,42 C 68,46 45,38 32,26 Z" fill="#f5c6a5" stroke="#c6865c" stroke-width="1.5"/>
-          <!-- كم القميص والبدلة -->
           <polygon points="95,105 130,65 145,78 108,120" fill="#ffffff"/>
           <polygon points="108,120 145,78 260,185 215,235" fill="url(#sleeve)"/>
         </g>
@@ -337,15 +329,11 @@
           </filter>
         </defs>
         <g filter="url(#shadow2)">
-          <!-- سن القلم الرصاص عند 0,0 -->
           <polygon points="0,0 16,7 7,16" fill="#fde68a"/>
           <polygon points="0,0 6,2.5 2.5,6" fill="#1e293b"/>
           <polygon points="7,16 16,7 100,91 91,100" fill="#f59e0b"/>
-          <polygon points="91,100 100,91 112,103 103,112" fill="#f43f5e"/>
-          <!-- اليد -->
           <path d="M 38,34 C 52,18 82,18 102,38 L 165,100 L 120,145 L 58,85 C 40,68 28,48 38,34 Z" fill="url(#skin2)"/>
           <path d="M 30,45 C 45,42 62,52 68,66 C 52,70 36,60 30,45 Z" fill="#eab38f" stroke="#c6865c" stroke-width="1.5"/>
-          <path d="M 35,28 C 52,22 76,30 86,44 C 70,48 48,38 35,28 Z" fill="#f8d2b8" stroke="#c6865c" stroke-width="1.5"/>
         </g>
       </svg>`,
       brush_real: `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260">
@@ -359,13 +347,9 @@
           </filter>
         </defs>
         <g filter="url(#shadow3)">
-          <!-- شعر الفرشاة عند 0,0 -->
           <path d="M 0,0 C 12,2 20,10 22,22 C 10,20 2,12 0,0 Z" fill="#dc2626"/>
-          <polygon points="16,22 22,16 32,26 26,32" fill="#cbd5e1"/>
           <polygon points="26,32 32,26 115,109 109,115" fill="#78350f"/>
-          <!-- اليد -->
           <path d="M 42,38 C 56,22 86,22 106,42 L 175,110 L 130,155 L 62,88 C 44,72 32,52 42,38 Z" fill="url(#skin3)"/>
-          <path d="M 35,48 C 50,45 66,55 72,69 C 56,73 40,63 35,48 Z" fill="#eab38f" stroke="#c6865c" stroke-width="1.5"/>
         </g>
       </svg>`
     };
@@ -388,8 +372,7 @@
       renderFrame(currentTime);
     }
 
-    // ================= 3. خوارزمية تحليل المشهد إلى عناصر مستقلة (Object-by-Object Stroke Path) =================
-    // تقسم هذه الخوارزمية الصورة إلى مكونات متصلة (Connected Components) بحيث ترسم اليد كل حيوان أو شخصية بالكامل ثم تنتقل للتالي
+    // ================= 3. تحليل المشهد إلى عناصر مستقلة (Object-by-Object Stroke Path) =================
     function analyzeImageIntoObjects(img, targetW, targetH) {
       const offCanvas = document.createElement('canvas');
       offCanvas.width = targetW;
@@ -398,10 +381,9 @@
       offCtx.fillStyle = '#ffffff';
       offCtx.fillRect(0, 0, targetW, targetH);
 
-      // احتواء الصورة داخل الأبعاد مع هوامش نظيفة
       const pad = 30;
       const availW = targetW - pad * 2;
-      const availH = targetH - pad * 2 - 90; // مساحة للكابشن بالأسفل
+      const availH = targetH - pad * 2 - 90;
       const scale = Math.min(availW / img.width, availH / img.height);
       const drawW = img.width * scale;
       const drawH = img.height * scale;
@@ -410,7 +392,6 @@
 
       offCtx.drawImage(img, offsetX, offsetY, drawW, drawH);
 
-      // تحليل الصورة على شبكة خلايا (Grid) لاكتشاف العناصر المنفصلة (الحيوانات/الشخصيات/الأشياء)
       const cellSize = 14;
       const cols = Math.floor(targetW / cellSize);
       const rows = Math.floor(targetH / cellSize);
@@ -436,7 +417,6 @@
         }
       }
 
-      // تجميع الخلايا المتصلة في كائنات مستقلة (Connected Components BFS)
       const visited = Array.from({ length: rows }, () => Array(cols).fill(false));
       const objects = [];
 
@@ -456,7 +436,6 @@
                 c: cc
               });
 
-              // فحص الجيران (بما في ذلك القطرين لربط أجزاء نفس الحيوان أو الشخصية)
               for (let dr = -2; dr <= 2; dr++) {
                 for (let dc = -2; dc <= 2; dc++) {
                   const nr = cr + dr;
@@ -470,7 +449,7 @@
             }
 
             if (component.length > 0) {
-              // ترتيب نقاط العنصر الواحد بحركة متعرجة (تبدأ من اليمين لليسار ومن الأعلى للأسفل كحركة الرسام)
+              // ترتيب نقاط العنصر من اليمين ليسار (اتجاه الخط العربي)
               component.sort((a, b) => {
                 const bandA = Math.floor(a.r / 2);
                 const bandB = Math.floor(b.r / 2);
@@ -483,17 +462,15 @@
         }
       }
 
-      // ترتيب العناصر (الكائنات) من اليمين لليسار بحيث يرسم العنصر الأيمن بالكامل ثم الأوسط ثم الأيسر
+      // ترتيب العناصر ككل من اليمين لليسار
       objects.sort((a, b) => {
         const avgX_A = a.reduce((s, p) => s + p.x, 0) / a.length;
         const avgX_B = b.reduce((s, p) => s + p.x, 0) / b.length;
-        return avgX_B - avgX_A; // من اليمين لليسار للعربية
+        return avgX_B - avgX_A;
       });
 
-      // دمج مسار الرسم لجميع العناصر بالترتيب
       const fullStrokePath = objects.flat();
 
-      // إنشاء نسخة مرسومة بالخطوط فقط (Sketch) للمرحلة الأولى من الرسم
       const sketchCanvas = document.createElement('canvas');
       sketchCanvas.width = targetW;
       sketchCanvas.height = targetH;
@@ -526,8 +503,6 @@
       const lines = text.split('\n');
       const parsed = [];
       let currentScene = null;
-
-      // التعرف على صيغة: المشهد 01 | 00:00 – 00:09 | 9 ث
       const headerRegex = /المشهد\s*(\d+)\s*\|\s*(\d{2}):(\d{2})\s*[–-]\s*(\d{2}):(\d{2})/;
 
       lines.forEach(line => {
@@ -565,7 +540,6 @@
       const files = Array.from(event.target.files);
       if (!files.length) return;
       
-      // ترتيب الملفات أبجدياً/رقمياً
       files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
       uploadedImages = [];
@@ -575,14 +549,14 @@
       document.getElementById('thumbnailsContainer').classList.remove('hidden');
       document.getElementById('imagesStatus').textContent = `تم رفع ${files.length} صور`;
 
+      const canvas = document.getElementById('boardCanvas');
+
       files.forEach((file, index) => {
         const reader = new FileReader();
         reader.onload = (e) => {
           const img = new Image();
           img.onload = () => {
             uploadedImages[index] = img;
-            // معالجة الصورة فوراً
-            const canvas = document.getElementById('boardCanvas');
             processedScenes[index] = analyzeImageIntoObjects(img, canvas.width, canvas.height);
             if (index === 0) renderFrame(currentTime);
           };
@@ -609,335 +583,268 @@
     function handleAudioUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
-      const audio = document.getElementById('audioPlayer');
-      audio.src = URL.createObjectURL(file);
-      document.getElementById('audioStatus').textContent = file.name.slice(0, 18) + '...';
-      audio.onloadedmetadata = () => {
-        if (audio.duration && audio.duration > totalDuration) {
-          totalDuration = Math.ceil(audio.duration);
-          document.getElementById('timelineSlider').max = totalDuration;
-          document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        }
-      };
+      const audioPlayer = document.getElementById('audioPlayer');
+      audioPlayer.src = URL.createObjectURL(file);
+      document.getElementById('audioStatus').textContent = file.name;
     }
-
-    // ================= 5. صوت خربشة القلم المولّد برمجياً (Web Audio API) =================
-    let audioCtx = null;
-    let lastScratchTime = 0;
-
-    function playScratchSound() {
-      if (!document.getElementById('enablePenSound').checked || !isPlaying) return;
-      const now = Date.now();
-      if (now - lastScratchTime < 110) return;
-      lastScratchTime = now;
-
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-
-        const bufferSize = audioCtx.sampleRate * 0.06;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
-        }
-
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 1800 + Math.random() * 900;
-
-        const gain = audioCtx.createGain();
-        gain.gain.value = 0.04;
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-        noise.start();
-      } catch (e) {}
-    }
-
-    // ================= 6. محرك الرندر والرسم الحي (Canvas Renderer) =================
-    const canvas = document.getElementById('boardCanvas');
-    const ctx = canvas.getContext('2d');
 
     function updateCanvasDimensions() {
       const ratio = document.getElementById('aspectRatio').value;
+      const canvas = document.getElementById('boardCanvas');
       if (ratio === '9:16') {
-        canvas.width = 540;
-        canvas.height = 960;
+        canvas.width = 405;
+        canvas.height = 720;
       } else {
-        canvas.width = 960;
-        canvas.height = 540;
+        canvas.width = 800;
+        canvas.height = 450;
       }
-      // إعادة تحليل الصور للأبعاد الجديدة
       uploadedImages.forEach((img, idx) => {
-        if (img) processedScenes[idx] = analyzeImageIntoObjects(img, canvas.width, canvas.height);
+        processedScenes[idx] = analyzeImageIntoObjects(img, canvas.width, canvas.height);
       });
       renderFrame(currentTime);
     }
 
-    // إنشاء قناع الرسم التدريجي (Mask Canvas)
-    const revealCanvas = document.createElement('canvas');
-    const revealCtx = revealCanvas.getContext('2d');
+    // تهيئة المقاسات عند التحميل
+    updateCanvasDimensions();
+    parseScript();
 
-    function renderFrame(time) {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // تحديد المشهد الحالي
-      let sceneIdx = scenes.findIndex(s => time >= s.start && time < s.end);
-      if (sceneIdx === -1) sceneIdx = scenes.length - 1;
-      const scene = scenes[sceneIdx] || { number: 1, start: 0, end: 10, duration: 10, text: '' };
-
-      document.getElementById('currentSceneInfo').textContent = `المشهد ${String(scene.number).padStart(2, '0')} (${formatTime(scene.start)} - ${formatTime(scene.end)})`;
-
-      const sceneElapsed = Math.max(0, time - scene.start);
-      // الرسام ينهي رسم المشهد في أول 75% من وقت المشهد، ويبقى المشهد مكتملاً في آخر 25% ليريح عين المشاهد
-      const drawDuration = scene.duration * 0.78;
-      const progress = Math.min(1, sceneElapsed / drawDuration);
-
-      const proc = processedScenes[sceneIdx];
-
-      if (proc && proc.strokePath.length > 0) {
-        revealCanvas.width = canvas.width;
-        revealCanvas.height = canvas.height;
-        revealCtx.clearRect(0, 0, canvas.width, canvas.height);
-
-        const totalPoints = proc.strokePath.length;
-        const pointsToDraw = Math.floor(progress * totalPoints);
-        const radius = proc.cellSize * 1.35;
-
-        // رسم النقاط المكتملة للعنصر تلو الآخر
-        revealCtx.fillStyle = '#000000';
-        revealCtx.beginPath();
-        for (let i = 0; i < pointsToDraw; i++) {
-          const pt = proc.strokePath[i];
-          revealCtx.moveTo(pt.x + radius, pt.y);
-          revealCtx.arc(pt.x, pt.y, radius, 0, Math.PI * 2);
-        }
-        revealCtx.fill();
-
-        // دمج الصورة الملونة داخل المسار المرسوم
-        revealCtx.globalCompositeOperation = 'source-in';
-        revealCtx.drawImage(proc.colorCanvas, 0, 0);
-        revealCtx.globalCompositeOperation = 'source-over';
-
-        ctx.drawImage(revealCanvas, 0, 0);
-
-        // رسم اليد وهي تتحرك على النقطة الحالية بالضبط
-        if (progress < 1 && pointsToDraw < totalPoints && selectedHand !== 'none') {
-          const currentPt = proc.strokePath[pointsToDraw];
-          // إضافة اهتزاز طبيعي بسيط لحركة يد الرسام
-          const jitterX = Math.sin(time * 45) * 4;
-          const jitterY = Math.cos(time * 52) * 4;
-          drawArtistHand(currentPt.x + jitterX, currentPt.y + jitterY);
-          playScratchSound();
-        }
-      } else {
-        // شاشة توضيحية في حال لم يتم رفع الصور بعد
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(30, 30, canvas.width - 60, canvas.height - 160);
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([8, 8]);
-        ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 160);
-        ctx.setLineDash([]);
-
-        ctx.fillStyle = '#64748b';
-        ctx.font = 'bold 20px Cairo';
-        ctx.textAlign = 'center';
-        ctx.fillText(`المشهد ${String(scene.number).padStart(2, '0')}`, canvas.width / 2, canvas.height / 2 - 40);
-        ctx.font = '15px Cairo';
-        ctx.fillText('ارفعي صور المشاهد من القائمة اليمنى لبدء الرسم الذكي', canvas.width / 2, canvas.height / 2);
-      }
-
-      // رسم الكابشن (النص المشكّل) في الأسفل
-      if (document.getElementById('showCaptions').checked && scene.text) {
-        drawCaptionBox(scene.text);
-      }
-    }
-
-    function drawArtistHand(x, y) {
-      const handImg = handImages[selectedHand];
-      if (!handImg || !handImg.complete) return;
-      const scale = parseFloat(document.getElementById('handScale').value);
-      const size = 230 * scale;
-      // طرف القلم في الـ SVG يقع عند الإحداثي (0, 0) في الزاوية العلوية اليسرى للصورة
-      ctx.drawImage(handImg, x, y, size, size);
-    }
-
-    function drawCaptionBox(text) {
-      const padding = 24;
-      const boxWidth = canvas.width - padding * 2;
-      const fontSize = canvas.width < 600 ? 20 : 24;
-      ctx.font = `bold ${fontSize}px Cairo`;
-      ctx.textAlign = 'center';
-      ctx.direction = 'rtl';
-
-      // تقسيم النص لأسطر مناسبة لعرض الشاشة
-      const words = text.split(' ');
-      const lines = [];
-      let currentLine = '';
-
-      words.forEach(word => {
-        const testLine = currentLine ? currentLine + ' ' + word : word;
-        if (ctx.measureText(testLine).width > boxWidth - 30) {
-          lines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine = testLine;
-        }
-      });
-      if (currentLine) lines.push(currentLine);
-
-      const lineHeight = fontSize * 1.55;
-      const boxHeight = lines.length * lineHeight + 24;
-      const boxY = canvas.height - boxHeight - 25;
-
-      // خلفية شبه شفافة أنيقة للكابشن
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-      ctx.beginPath();
-      ctx.roundRect(padding, boxY, boxWidth, boxHeight, 14);
-      ctx.fill();
-
-      // كتابة النص المشكّل باللون الأبيض
-      ctx.fillStyle = '#ffffff';
-      lines.forEach((line, idx) => {
-        ctx.fillText(line, canvas.width / 2, boxY + 26 + idx * lineHeight);
-      });
-    }
-
-    // ================= 7. التشغيل والتصدير =================
-    function togglePlay() {
-      const audio = document.getElementById('audioPlayer');
-      if (isPlaying) {
-        isPlaying = false;
-        audio.pause();
-        cancelAnimationFrame(animFrameId);
-        document.getElementById('playIcon').textContent = '▶';
-        document.getElementById('playText').textContent = 'معاينة الرسم';
-      } else {
-        if (currentTime >= totalDuration) currentTime = 0;
-        isPlaying = true;
-        if (audio.src) {
-          audio.currentTime = currentTime;
-          audio.play().catch(() => {});
-        }
-        lastTimestamp = performance.now();
-        document.getElementById('playIcon').textContent = '⏸';
-        document.getElementById('playText').textContent = 'إيقاف مؤقت';
-        animFrameId = requestAnimationFrame(playbackLoop);
-      }
-    }
-
-    function playbackLoop(timestamp) {
-      if (!isPlaying) return;
-      const delta = (timestamp - lastTimestamp) / 1000;
-      lastTimestamp = timestamp;
-
-      const audio = document.getElementById('audioPlayer');
-      if (audio.src && !audio.paused) {
-        currentTime = audio.currentTime;
-      } else {
-        currentTime += delta;
-      }
-
-      if (currentTime >= totalDuration) {
-        currentTime = totalDuration;
-        renderFrame(currentTime);
-        togglePlay();
-        return;
-      }
-
-      document.getElementById('timelineSlider').value = currentTime;
-      document.getElementById('timeCurrent').textContent = formatTime(currentTime);
-      renderFrame(currentTime);
-      animFrameId = requestAnimationFrame(playbackLoop);
-    }
-
-    function seekTo(val) {
-      currentTime = parseFloat(val);
-      const audio = document.getElementById('audioPlayer');
-      if (audio.src) audio.currentTime = currentTime;
-      document.getElementById('timeCurrent').textContent = formatTime(currentTime);
-      renderFrame(currentTime);
-    }
-
+    // ================= 5. رسم ومعاينة الإطارات (Rendering Engine) =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
       return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     }
 
-    async function exportVideo() {
-      if (isPlaying) togglePlay();
+    function seekTo(val) {
+      currentTime = parseFloat(val);
+      document.getElementById('timeCurrent').textContent = formatTime(currentTime);
+      document.getElementById('timelineSlider').value = currentTime;
+      renderFrame(currentTime);
+      const audio = document.getElementById('audioPlayer');
+      if (audio.src && !audio.paused) {
+        audio.currentTime = currentTime;
+      }
+    }
+
+    function renderFrame(time) {
+      const canvas = document.getElementById('boardCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      // تحديد المشهد الحالي بناءً على الوقت
+      let activeSceneIndex = 0;
+      let sceneProgress = 0;
+      let activeSceneObj = scenes[0];
+
+      for (let i = 0; i < scenes.length; i++) {
+        if (time >= scenes[i].start && time <= scenes[i].end) {
+          activeSceneIndex = i;
+          activeSceneObj = scenes[i];
+          sceneProgress = (time - scenes[i].start) / scenes[i].duration;
+          break;
+        } else if (time > scenes[i].end) {
+          activeSceneIndex = i;
+          activeSceneObj = scenes[i];
+          sceneProgress = 1.0;
+        }
+      }
+
+      document.getElementById('currentSceneInfo').textContent = `المشهد ${(activeSceneIndex + 1).toString().padStart(2, '0')} • ${formatTime(time)}`;
+
+      // رسم محتوى المشهد إذا وُجدت صورة مرفوعة، وإلا عرض لوحة افتراضية تعليمية
+      const sceneData = processedScenes[activeSceneIndex];
+      if (sceneData && sceneData.strokePath && sceneData.strokePath.length > 0) {
+        const path = sceneData.strokePath;
+        const revealCount = Math.floor(path.length * Math.min(1, sceneProgress * 1.15));
+
+        // رسم الخطوط المكتشفة تدريجياً
+        ctx.save();
+        ctx.lineWidth = sceneData.cellSize * 0.9;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#0f172a';
+        ctx.beginPath();
+        for (let i = 0; i < revealCount && i < path.length; i++) {
+          const pt = path[i];
+          if (i === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        }
+        ctx.stroke();
+        ctx.restore();
+
+        // إظهار الألوان الحقيقية تدريجياً بعد اكتمال الخطوط
+        if (sceneProgress > 0.75) {
+          const colorAlpha = Math.min(1, (sceneProgress - 0.75) / 0.25);
+          ctx.save();
+          ctx.globalAlpha = colorAlpha;
+          ctx.drawImage(sceneData.colorCanvas, 0, 0);
+          ctx.restore();
+        }
+
+        // رسم اليد في آخر نقطة تم رسمها
+        if (selectedHand !== 'none' && revealCount > 0 && revealCount <= path.length && sceneProgress < 0.98) {
+          const currentPt = path[revealCount - 1];
+          const handImg = handImages[selectedHand];
+          const scale = parseFloat(document.getElementById('handScale').value);
+          const handW = 160 * scale;
+          const handH = 160 * scale;
+
+          ctx.save();
+          // موازنة رأس القلم بدقة على إحداثيات النقطة الحالية
+          ctx.translate(currentPt.x, currentPt.y);
+          ctx.drawImage(handImg, -15, -15, handW, handH);
+          ctx.restore();
+        }
+
+      } else {
+        // لوحة افتراضية في حال عدم رفع صور (شرح تعليمي أو خط عربي تجريبي)
+        ctx.save();
+        ctx.font = 'bold 36px Amiri, serif';
+        ctx.fillStyle = '#1e293b';
+        ctx.textAlign = 'center';
+        ctx.fillText('استوديو الوايت بورد الاحترافي', w / 2, h / 2 - 40);
+        ctx.font = '20px Cairo, sans-serif';
+        ctx.fillStyle = '#64748b';
+        ctx.fillText(`المشهد رقم ${activeSceneIndex + 1} - يرجى رفع صور المشاهد للرسم التلقائي`, w / 2, h / 2 + 10);
+        ctx.restore();
+      }
+
+      // رسم الكابشن (النص المشكّل) أسفل الشاشة
+      if (document.getElementById('showCaptions').checked && activeSceneObj && activeSceneObj.text) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+        ctx.roundRect = ctx.roundRect || function(x, y, w, h, r) {
+          this.beginPath(); this.roundRect(x,y,w,h,r); this.closePath();
+        };
+        const boxW = w - 60;
+        const boxH = 65;
+        const boxX = 30;
+        const boxY = h - 85;
+
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.fillRect(boxX, boxY, boxW, boxH);
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(boxX, boxY, boxW, boxH);
+
+        ctx.font = 'bold 15px Cairo, sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // اقتطاع النص المناسب للعرض
+        let displayTxt = activeSceneObj.text;
+        if (displayTxt.length > 68) {
+          displayTxt = displayTxt.substring(0, 68) + '...';
+        }
+        ctx.fillText(displayTxt, w / 2, boxY + boxH / 2);
+        ctx.restore();
+      }
+    }
+
+    // ================= 6. التحكم بالتشغيل والتسجيل (Playback & Export) =================
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      const playIcon = document.getElementById('playIcon');
+      const playText = document.getElementById('playText');
+      const audio = document.getElementById('audioPlayer');
+
+      if (isPlaying) {
+        playIcon.textContent = '⏸';
+        playText.textContent = 'إيقاف مؤقت';
+        if (audio.src) {
+          audio.currentTime = currentTime;
+          audio.play().catch(e => console.log('Audio play error:', e));
+        }
+        lastTimestamp = performance.now();
+        animFrameId = requestAnimationFrame(stepAnimation);
+      } else {
+        playIcon.textContent = '▶';
+        playText.textContent = 'معاينة الرسم';
+        if (audio.src) audio.pause();
+        cancelAnimationFrame(animFrameId);
+      }
+    }
+
+    function stepAnimation(timestamp) {
+      if (!isPlaying) return;
+      const delta = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+
+      currentTime += delta;
+      if (currentTime >= totalDuration) {
+        currentTime = 0;
+        isPlaying = false;
+        document.getElementById('playIcon').textContent = '▶';
+        document.getElementById('playText').textContent = 'معاينة الرسم';
+        const audio = document.getElementById('audioPlayer');
+        if (audio.src) audio.pause();
+        return;
+      }
+
+      document.getElementById('timeCurrent').textContent = formatTime(currentTime);
+      document.getElementById('timelineSlider').value = currentTime;
+      renderFrame(currentTime);
+
+      animFrameId = requestAnimationFrame(stepAnimation);
+    }
+
+    function exportVideo() {
       const overlay = document.getElementById('exportOverlay');
       const progressBar = document.getElementById('exportProgressBar');
       const percentText = document.getElementById('exportPercent');
       overlay.classList.remove('hidden');
 
-      const stream = canvas.captureStream(30);
-      const audio = document.getElementById('audioPlayer');
-      
-      // محاولة دمج الصوت المرفوع داخل ملف الفيديو المصدّر
-      if (audio.src) {
-        try {
-          const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-          const source = ctxAudio.createMediaElementSource(audio);
-          const dest = ctxAudio.createMediaStreamDestination();
-          source.connect(dest);
-          source.connect(ctxAudio.destination);
-          dest.stream.getAudioTracks().forEach(track => stream.addTrack(track));
-        } catch (e) {}
+      let exportTime = 0;
+      const fps = 30;
+      const totalFrames = totalDuration * fps;
+      let frameCount = 0;
+
+      const canvas = document.getElementById('boardCanvas');
+      const stream = canvas.captureStream(fps);
+      let recorder;
+      try {
+        recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+      } catch (e) {
+        recorder = new MediaRecorder(stream);
       }
 
       const chunks = [];
-      const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
-      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-      
+      recorder.ondataavailable = e => chunks.push(e.data);
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: 'video/webm' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `whiteboard-story-${Date.now()}.webm`;
+        a.download = 'SuperBoard_Professional_Animation.webm';
         a.click();
         overlay.classList.add('hidden');
+        alert('تم تصدير وحفظ الفيديو بنجاح!');
       };
 
-      currentTime = 0;
-      if (audio.src) {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      }
       recorder.start();
+      isPlaying = false;
+      cancelAnimationFrame(animFrameId);
 
-      const startTime = performance.now();
-      function recordStep(now) {
-        const elapsed = (now - startTime) / 1000;
-        currentTime = elapsed;
-        const pct = Math.min(100, Math.round((currentTime / totalDuration) * 100));
-        progressBar.style.width = pct + '%';
-        percentText.textContent = pct + '%';
+      const exportInterval = setInterval(() => {
+        exportTime += 1 / fps;
+        frameCount++;
+        const percent = Math.min(100, Math.floor((frameCount / totalFrames) * 100));
+        progressBar.style.width = percent + '%';
+        percentText.textContent = percent + '%';
 
-        renderFrame(currentTime);
+        renderFrame(exportTime);
 
-        if (currentTime < totalDuration) {
-          requestAnimationFrame(recordStep);
-        } else {
-          if (audio.src) audio.pause();
+        if (exportTime >= totalDuration) {
+          clearInterval(exportInterval);
           recorder.stop();
         }
-      }
-      requestAnimationFrame(recordStep);
+      }, 1000 / fps);
     }
-
-    // التهيئة الأولية عند فتح الصفحة
-    parseScript();
-    updateCanvasDimensions();
   </script>
 </body>
 </html>
