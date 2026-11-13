@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>استوديو الوايت بورد الاحترافي - SuperBoard Pro v4</title>
+  <title>استوديو الوايت بورد الاحترافي - SuperBoard Pro v5</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
@@ -42,8 +42,8 @@
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full mr-1">الإصدار النهائي V4</span></h1>
-        <p class="text-xs text-slate-500">تحكم تام بالزمن • أيدي كرتونية كيوت • سُمك سن دقيق</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full mr-1">الإصدار القياسي المطور V5</span></h1>
+        <p class="text-xs text-slate-500">مزامنة تلقائية مع الصوت • يد واقعية احترافية • رسم وتلوين نموذجي</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -62,13 +62,13 @@
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">1</span>
-          ملفات القصة (الصوت والمشاهد)
+          ملفات القصة (التعليق الصوتي ومصور المشاهد)
         </h2>
         <div class="grid grid-cols-2 gap-3">
           <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
             <span class="text-2xl mb-1">🎙️</span>
             <span class="text-xs font-bold text-slate-700">التعليق الصوتي</span>
-            <span id="audioStatus" class="text-[11px] text-slate-400 mt-1">MP3 / WAV</span>
+            <span id="audioStatus" class="text-[11px] text-slate-400 mt-1">يحدد الزمن تلقائياً</span>
             <input type="file" id="audioInput" accept="audio/*" class="hidden" onchange="handleAudioUpload(event)">
           </label>
           <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
@@ -81,52 +81,48 @@
 
         <div id="thumbnailsContainer" class="hidden space-y-2">
           <div class="flex justify-between items-center text-xs text-slate-500">
-            <span>المشاهد المحللة:</span>
+            <span>المشاهد المرفوعة:</span>
             <button onclick="clearImages()" class="text-red-500 hover:underline">مسح الكل</button>
           </div>
           <div id="thumbnailsList" class="flex gap-2 overflow-x-auto pb-2"></div>
         </div>
       </div>
 
-      <!-- 2. السكربت (مفتوح وجاهز للقصة الجديدة) -->
+      <!-- 2. السكربت والتزامن التلقائي -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
           <h2 class="font-bold text-slate-800 flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">2</span>
-            السكربت وتوقيت المشاهد
+            السكربت والمزامنة الزمنية التلقائية
           </h2>
           <span id="parsedCountBadge" class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">جاهز للقصة الجديدة</span>
         </div>
-        <textarea id="scriptInput" rows="6" oninput="parseScript()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="الصقي السكربت هنا بالتوقيت...
-مثال:
-المشهد 01 | 00:00 – 00:09 | 9 ث
-النص هنا...
-
-المشهد 02 | 00:09 – 00:18 | 9 ث
-النص هنا..."></textarea>
+        <p class="text-[11px] text-slate-500">أدخل السكربت الخاص بك. سيتم توزيع الأوقات تلقائياً بناءً على عدد المشاهد ومدة الصوت:</p>
+        <textarea id="scriptInput" rows="6" oninput="parseScript()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="اكتب أو الصق السكربت هنا...
+كل سطر أو فقرة تمثل مشهداً يطابق صورة مرفوعة بالترتيب"></textarea>
       </div>
 
-      <!-- 3. إعدادات اليد وسُمك القلم -->
+      <!-- 3. إعدادات اليد والخط -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          شكل اليد الكيوت وسُمك القلم الدقيق
+          إعدادات اليد الاحترافية وسُمك الخط
         </h2>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد (Cute Hands):</label>
+          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد (نموذج الفيديو):</label>
           <div class="grid grid-cols-4 gap-2" id="handSelector">
-            <button type="button" onclick="selectHand('cute_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2 text-center transition">
+            <button type="button" onclick="selectHand('pro_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2 text-center transition">
               <div class="text-xl mb-1">✍️</div>
-              <div class="text-[11px] font-bold">قلم كيوت</div>
+              <div class="text-[11px] font-bold">يد بقلم حبر</div>
             </button>
-            <button type="button" onclick="selectHand('cute_pencil', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
+            <button type="button" onclick="selectHand('pro_pencil', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
               <div class="text-xl mb-1">✏️</div>
-              <div class="text-[11px] font-bold">رصاص كيوت</div>
+              <div class="text-[11px] font-bold">قلم رصاص</div>
             </button>
-            <button type="button" onclick="selectHand('cute_brush', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
+            <button type="button" onclick="selectHand('pro_brush', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
               <div class="text-xl mb-1">🖌️</div>
-              <div class="text-[11px] font-bold">فرشاة كيوت</div>
+              <div class="text-[11px] font-bold">فرشاة تلوين</div>
             </button>
             <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
               <div class="text-xl mb-1">🚫</div>
@@ -144,12 +140,11 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">سُمك سن القلم:</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">سُمك سن الخط:</label>
             <select id="strokeWeight" onchange="reprocessAllScenes()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-              <option value="ultra_fine">رفيع جداً ودقيق (يحافظ على التفاصيل)</option>
-              <option value="fine" selected>رفيع وواضح</option>
-              <option value="medium">متوسط</option>
-              <option value="thick">ثقيل</option>
+              <option value="fine" selected>رفيع وواقي للتفاصيل</option>
+              <option value="medium">متوسط واحترافي</option>
+              <option value="thick">ثقيل وبارز</option>
             </select>
           </div>
         </div>
@@ -157,18 +152,18 @@
         <div class="grid grid-cols-2 gap-3 pt-2 border-t">
           <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
             <input type="checkbox" id="showCaptions" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-            إظهار الكابشن
+            إظهار الكابشن أسفل الشاشة
           </label>
           <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
             <input type="checkbox" id="colorReveal" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-            تلوين بعد الرسم
+            تلوين بعد اكتمال الخطوط
           </label>
         </div>
       </div>
 
     </div>
 
-    <!-- العمود الأيسر: المعاينة -->
+    <!-- العمود الأيسر: المعاينة والتصدير -->
     <div class="lg:col-span-7 flex flex-col space-y-4">
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col">
         
@@ -194,7 +189,7 @@
           
           <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/85 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20">
             <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <h3 class="font-bold text-lg mb-1">جاري تسجيل وتصدير الفيديو بالكامل حتى النهاية...</h3>
+            <h3 class="font-bold text-lg mb-1">جاري تسجيل وتصدير الفيديو متزامناً مع الصوت حتى النهاية...</h3>
             <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden mt-3">
               <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-200"></div>
             </div>
@@ -218,7 +213,7 @@
   <audio id="audioPlayer" class="hidden"></audio>
 
   <script>
-    // ================= 1. الحماية =================
+    // ================= 1. نظام الحماية =================
     const STORAGE_PASS_KEY = 'superboard_private_pass';
     if (!localStorage.getItem(STORAGE_PASS_KEY)) localStorage.setItem(STORAGE_PASS_KEY, '1234');
     function checkPassword() {
@@ -239,79 +234,67 @@
     }
     if (sessionStorage.getItem('unlocked') === 'true') document.getElementById('lockScreen').classList.add('hidden');
 
-    // ================= 2. تصميم أيدي كرتونية "كيوت" واحترافية عالية الجودة =================
+    // ================= 2. تصميم اليد الواقعية الاحترافية (مطابقة لنموذج الفيديو) =================
     const handImages = {};
     const handSVGs = {
-      cute_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+      pro_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
         <defs>
-          <linearGradient id="skinCute" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffedd5"/>
-            <stop offset="60%" stop-color="#fed7aa"/>
-            <stop offset="100%" stop-color="#fdba74"/>
+          <linearGradient id="skinP" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fbd3b6"/>
+            <stop offset="100%" stop-color="#c68358"/>
           </linearGradient>
-          <linearGradient id="penGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#38bdf8"/>
-            <stop offset="100%" stop-color="#0284c7"/>
-          </linearGradient>
-          <filter id="shadowCute" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25"/>
+          <filter id="shP" x="-15%" y="-15%" width="140%" height="140%">
+            <feDropShadow dx="6" dy="12" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.3"/>
           </filter>
         </defs>
-        <g filter="url(#shadowCute)">
-          <!-- سن القلم الدقيق تماماً عند الإحداثي (0,0) -->
-          <polygon points="0,0 12,4 4,12" fill="#0f172a"/>
-          <polygon points="4,12 12,4 26,18 18,26" fill="#e2e8f0"/>
-          <polygon points="18,26 26,18 130,122 122,130" fill="url(#penGrad)"/>
-          <circle cx="40" cy="48" r="5" fill="#f59e0b"/>
-
-          <!-- الأصابع الكيوت الناعمة تحضن القلم -->
-          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="url(#skinCute)" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- الإبهام الكرتوني اللطيف -->
-          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="url(#skinCute)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+        <g filter="url(#shP)">
+          <!-- رأس القلم الحبر عند الإحداثي (0,0) بدقة -->
+          <polygon points="0,0 14,5 5,14" fill="#0f172a"/>
+          <polygon points="5,14 14,5 28,19 19,28" fill="#cbd5e1"/>
+          <polygon points="19,28 28,19 130,121 121,130" fill="#1e293b"/>
+          <polygon points="35,44 44,35 49,40 40,49" fill="#f59e0b"/>
           
-          <!-- كم الملابس الكرتوني الملون المبهج -->
-          <path d="M 125,115 Q 165,155 210,135 L 285,215 Q 260,255 200,240 Z" fill="#f43f5e" stroke="#881337" stroke-width="2.5"/>
-          <!-- تفاصيل الوداعة والخدود -->
-          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
+          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="url(#skinP)"/>
+          <path d="M 26,24 C 46,16 78,24 94,42 C 80,50 48,40 26,24 Z" fill="url(#skinP)" stroke="#c68358" stroke-width="1.2"/>
+          <path d="M 32,44 C 48,38 72,48 82,66 C 66,74 44,64 32,44 Z" fill="url(#skinP)" stroke="#c68358" stroke-width="1.2"/>
+          
+          <polygon points="148,172 202,118 218,134 164,188" fill="#ffffff"/>
+          <polygon points="164,188 218,134 320,236 266,290" fill="#0f172a"/>
         </g>
       </svg>`,
-      cute_pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+      pro_pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
         <defs>
-          <linearGradient id="skinC2" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffedd5"/>
-            <stop offset="100%" stop-color="#fed7aa"/>
+          <linearGradient id="skinPl" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fbd3b6"/>
+            <stop offset="100%" stop-color="#c68358"/>
           </linearGradient>
-          <filter id="shadowC2" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25"/>
+          <filter id="shPl" x="-15%" y="-15%" width="140%" height="140%">
+            <feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/>
           </filter>
         </defs>
-        <g filter="url(#shadowC2)">
-          <polygon points="0,0 16,6 6,16" fill="#fde68a"/>
+        <g filter="url(#shPl)">
+          <polygon points="0,0 16,7 7,16" fill="#fde68a"/>
           <polygon points="0,0 6,2.5 2.5,6" fill="#1e293b"/>
-          <polygon points="6,16 16,6 135,125 125,135" fill="#f59e0b"/>
-          <polygon points="125,135 135,125 145,135 135,145" fill="#ec4899"/>
-          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="url(#skinC2)" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="url(#skinC2)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
-          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
+          <polygon points="7,16 16,7 130,121 121,130" fill="#f59e0b"/>
+          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="url(#skinPl)"/>
+          <path d="M 26,24 C 46,16 78,24 94,42 C 80,50 48,40 26,24 Z" fill="url(#skinPl)" stroke="#c68358" stroke-width="1.2"/>
         </g>
       </svg>`,
-      cute_brush: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+      pro_brush: `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
         <defs>
-          <linearGradient id="skinC3" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffedd5"/>
-            <stop offset="100%" stop-color="#fed7aa"/>
+          <linearGradient id="skinBr" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fbd3b6"/>
+            <stop offset="100%" stop-color="#c68358"/>
           </linearGradient>
-          <filter id="shadowC3" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25"/>
+          <filter id="shBr" x="-15%" y="-15%" width="140%" height="140%">
+            <feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/>
           </filter>
         </defs>
-        <g filter="url(#shadowC3)">
-          <path d="M 0,0 Q 14,2 20,20 Q 8,18 0,0 Z" fill="#8b5cf6"/>
-          <polygon points="16,20 20,16 32,28 28,32" fill="#cbd5e1"/>
-          <polygon points="28,32 32,28 135,131 131,135" fill="#a16207"/>
-          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="url(#skinC3)" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="url(#skinC3)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
-          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
+        <g filter="url(#shBr)">
+          <path d="M 0,0 C 14,2 22,12 24,24 C 12,22 2,14 0,0 Z" fill="#dc2626"/>
+          <polygon points="18,24 24,18 36,30 30,36" fill="#cbd5e1"/>
+          <polygon points="30,36 36,30 135,129 129,135" fill="#78350f"/>
+          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="url(#skinBr)"/>
         </g>
       </svg>`
     };
@@ -322,7 +305,7 @@
       handImages[k] = img;
     });
 
-    let selectedHand = 'cute_pen';
+    let selectedHand = 'pro_pen';
     function selectHand(type, btn) {
       selectedHand = type;
       document.querySelectorAll('.hand-btn').forEach(b => {
@@ -334,7 +317,7 @@
       renderFrame(currentTime);
     }
 
-    // ================= 3. تحليل الصور مع التحكم الفعلي في سُمك السن =================
+    // ================= 3. تحليل الصور بدقة تامة =================
     function analyzeImageSmartly(img, targetW, targetH) {
       const colorCanvas = document.createElement('canvas');
       colorCanvas.width = targetW;
@@ -373,16 +356,14 @@
         gray[i] = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
       }
 
-      // قراءة سُمك القلم المختار بدقة وتطبيق عتبة الحواف
       const weightVal = document.getElementById('strokeWeight') ? document.getElementById('strokeWeight').value : 'fine';
-      let edgeThreshold = 35;
-      let cellSize = 8;
-      let brushFactor = 0.8;
+      let edgeThreshold = 40;
+      let cellSize = 7;
+      let brushFactor = 0.6;
 
-      if (weightVal === 'ultra_fine') { edgeThreshold = 60; cellSize = 5; brushFactor = 0.45; } // رفيع جداً ودقيق
-      else if (weightVal === 'fine') { edgeThreshold = 45; cellSize = 7; brushFactor = 0.65; } // رفيع وواضح
-      else if (weightVal === 'medium') { edgeThreshold = 30; cellSize = 10; brushFactor = 1.0; } // متوسط
-      else if (weightVal === 'thick') { edgeThreshold = 18; cellSize = 14; brushFactor = 1.4; } // ثقيل
+      if (weightVal === 'fine') { edgeThreshold = 50; cellSize = 6; brushFactor = 0.5; }
+      else if (weightVal === 'medium') { edgeThreshold = 35; cellSize = 9; brushFactor = 0.85; }
+      else if (weightVal === 'thick') { edgeThreshold = 20; cellSize = 13; brushFactor = 1.2; }
 
       const cols = Math.floor(targetW / cellSize);
       const rows = Math.floor(targetH / cellSize);
@@ -400,7 +381,7 @@
                      +gray[(y+1)*targetW + (x-1)] + 2*gray[(y+1)*targetW + x] + gray[(y+1)*targetW + (x+1)];
           const mag = Math.sqrt(gx * gx + gy * gy);
 
-          if (mag > edgeThreshold && diffBg > 18) {
+          if (mag > edgeThreshold && diffBg > 20) {
             const ink = Math.max(0, 255 - mag * 1.5);
             sData[idx] = ink; sData[idx + 1] = ink; sData[idx + 2] = ink; sData[idx + 3] = 255;
 
@@ -482,11 +463,11 @@
       renderFrame(currentTime);
     }
 
-    // ================= 4. إدارة السكربت والزمن بدقة =================
+    // ================= 4. نظام المزامنة والزمن التلقائي بالكامل =================
     let scenes = [];
     let uploadedImages = [];
     let processedScenes = {};
-    let totalDuration = 30; // مدة افتراضية كافية
+    let totalDuration = 30; // افتراضي
     let currentTime = 0;
     let isPlaying = false;
     let animFrameId = null;
@@ -494,39 +475,51 @@
 
     function parseScript() {
       const text = document.getElementById('scriptInput').value.trim();
-      const lines = text.split('\n');
+      const lines = text.split('\n').filter(l => l.trim().length > 0);
       const parsed = [];
-      let currentScene = null;
-      const headerRegex = /المشهد\s*(\d+)\s*\|\s*(\d{2}):(\d{2})\s*[–-]\s*(\d{2}):(\d{2})/;
+      
+      const numScenes = Math.max(1, uploadedImages.length || lines.length || 1);
+      const timePerScene = totalDuration / numScenes;
 
-      lines.forEach(line => {
-        const trimmed = line.trim();
-        if (!trimmed) return;
-        const match = trimmed.match(headerRegex);
-        if (match) {
-          if (currentScene) parsed.push(currentScene);
-          const startSec = parseInt(match[2]) * 60 + parseInt(match[3]);
-          const endSec = parseInt(match[4]) * 60 + parseInt(match[5]);
-          currentScene = { number: parseInt(match[1]), start: startSec, end: endSec, duration: Math.max(1, endSec - startSec), text: '' };
-        } else if (currentScene) {
-          currentScene.text += (currentScene.text ? ' ' : '') + trimmed;
+      if (lines.length > 0 && lines[0].includes('|')) {
+        // إذا كتب المستخدم أوقاتاً مخصصة
+        let currentScene = null;
+        const headerRegex = /المشهد\s*(\d+)\s*\|\s*(\d{2}):(\d{2})\s*[–-]\s*(\d{2}):(\d{2})/;
+        lines.forEach(line => {
+          const match = line.match(headerRegex);
+          if (match) {
+            if (currentScene) parsed.push(currentScene);
+            const startSec = parseInt(match[2]) * 60 + parseInt(match[3]);
+            const endSec = parseInt(match[4]) * 60 + parseInt(match[5]);
+            currentScene = { number: parseInt(match[1]), start: startSec, end: endSec, duration: Math.max(1, endSec - startSec), text: '' };
+          } else if (currentScene) {
+            currentScene.text += (currentScene.text ? ' ' : '') + line;
+          }
+        });
+        if (currentScene) parsed.push(currentScene);
+      }
+
+      if (parsed.length === 0) {
+        // توزيع زمني تلقائي متساوٍ ومتزامن تماماً مع إجمالي مدة الصوت
+        for (let i = 0; i < numScenes; i++) {
+          const start = i * timePerScene;
+          const end = (i === numScenes - 1) ? totalDuration : (i + 1) * timePerScene;
+          parsed.push({
+            number: i + 1,
+            start: start,
+            end: end,
+            duration: Math.max(1, end - start),
+            text: lines[i] || `المشهد رقم ${i + 1}`
+          });
         }
-      });
-      if (currentScene) parsed.push(currentScene);
+      }
 
-      if (parsed.length > 0) {
-        scenes = parsed;
+      scenes = parsed;
+      if (scenes.length > 0) {
         totalDuration = scenes[scenes.length - 1].end;
         document.getElementById('timelineSlider').max = totalDuration;
         document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        document.getElementById('parsedCountBadge').textContent = `${scenes.length} مشاهد (حتى ${formatTime(totalDuration)})`;
-      } else {
-        // إذا كان السكربت فارغاً، نضع مشهداً افتراضياً بمدة 30 ثانية أو حسب الصوت
-        scenes = [{ number: 1, start: 0, end: 30, duration: 30, text: text || 'يرجى لصق السكربت والملفات هنا' }];
-        totalDuration = 30;
-        document.getElementById('timelineSlider').max = totalDuration;
-        document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        document.getElementById('parsedCountBadge').textContent = 'فارغ / قابل للضبط';
+        document.getElementById('parsedCountBadge').textContent = `${scenes.length} مشاهد متزامنة (${formatTime(totalDuration)})`;
       }
       renderFrame(currentTime);
     }
@@ -541,7 +534,7 @@
       const list = document.getElementById('thumbnailsList');
       list.innerHTML = '';
       document.getElementById('thumbnailsContainer').classList.remove('hidden');
-      document.getElementById('imagesStatus').textContent = `تم تحليل ${files.length} صور`;
+      document.getElementById('imagesStatus').textContent = `تم تحميل ${files.length} صور`;
 
       const canvas = document.getElementById('boardCanvas');
 
@@ -552,6 +545,7 @@
           img.onload = () => {
             uploadedImages[index] = img;
             processedScenes[index] = analyzeImageSmartly(img, canvas.width, canvas.height);
+            parseScript(); // إعادة حساب التزامن تلقائياً بعد رفع الصور
             if (index === 0) renderFrame(currentTime);
           };
           img.src = e.target.result;
@@ -571,6 +565,7 @@
       document.getElementById('thumbnailsList').innerHTML = '';
       document.getElementById('thumbnailsContainer').classList.add('hidden');
       document.getElementById('imagesStatus').textContent = 'اختر الصور بالترتيب';
+      parseScript();
       renderFrame(currentTime);
     }
 
@@ -582,9 +577,10 @@
       document.getElementById('audioStatus').textContent = file.name;
       
       audio.onloadedmetadata = () => {
-        totalDuration = Math.ceil(audio.duration);
+        totalDuration = audio.duration; // قراءة الزمن بالثواني بدقة تامة
         document.getElementById('timelineSlider').max = totalDuration;
         document.getElementById('timeTotal').textContent = formatTime(totalDuration);
+        parseScript(); // إعادة توزيع الأوقات لكي يتطابق الكلام والصوت تماماً حتى نهاية الزمن
       };
     }
 
@@ -596,7 +592,7 @@
       reprocessAllScenes();
     }
 
-    // ================= 5. محرك الرسم والمعاينة الشامل =================
+    // ================= 5. محرك الرسم والتنفيذ النموذجي =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
 
@@ -635,14 +631,13 @@
 
       if (sceneData && sceneData.strokePath && sceneData.strokePath.length > 0) {
         const path = sceneData.strokePath;
-        // رسم الخطوط يأخذ 75% من وقت المشهد، والتلوين 25% الأخيرة
-        const drawPhaseProgress = Math.min(1, sceneProgress / 0.75);
+        const drawPhaseProgress = Math.min(1, sceneProgress / 0.78);
         const revealCount = Math.floor(path.length * drawPhaseProgress);
 
         const mCtx = maskCanvas.getContext('2d');
         mCtx.clearRect(0, 0, w, h);
         mCtx.fillStyle = '#000000';
-        const brushRadius = (sceneData.cellSize || 8) * (sceneData.brushFactor || 0.65);
+        const brushRadius = (sceneData.cellSize || 7) * (sceneData.brushFactor || 0.6);
 
         for (let i = 0; i < revealCount && i < path.length; i++) {
           const pt = path[i];
@@ -660,8 +655,8 @@
 
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
-        if (document.getElementById('colorReveal').checked && sceneProgress > 0.75) {
-          const colorAlpha = Math.min(1, (sceneProgress - 0.75) / 0.25);
+        if (document.getElementById('colorReveal').checked && sceneProgress > 0.78) {
+          const colorAlpha = Math.min(1, (sceneProgress - 0.78) / 0.22);
           ctx.save();
           ctx.globalAlpha = colorAlpha;
           ctx.drawImage(sceneData.colorCanvas, 0, 0);
@@ -671,8 +666,8 @@
         if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && drawPhaseProgress < 1) {
           const currentPt = path[revealCount - 1];
           const handImg = handImages[selectedHand];
-          const handW = 180;
-          const handH = 180;
+          const handW = 190;
+          const handH = 190;
 
           const wobbleX = Math.sin(revealCount * 0.8) * 1.0;
           const wobbleY = Math.cos(revealCount * 0.8) * 1.0;
@@ -688,10 +683,10 @@
         ctx.font = 'bold 24px Cairo, sans-serif';
         ctx.fillStyle = '#1e293b';
         ctx.textAlign = 'center';
-        ctx.fillText('ارفع صور المشاهد للبدء في الرسم الكيوت الدقيق', w / 2, h / 2 - 20);
+        ctx.fillText('ارفع صور المشاهد والتعليق الصوتي للبدء', w / 2, h / 2 - 20);
         ctx.font = '15px Cairo, sans-serif';
         ctx.fillStyle = '#64748b';
-        ctx.fillText('الزمن والسكربت جاهزان لاستقبال قصتك الجديدة', w / 2, h / 2 + 15);
+        ctx.fillText('سيتم مطابقة الزمن والكلام تلقائياً حتى نهاية الصوت', w / 2, h / 2 + 15);
         ctx.restore();
       }
 
@@ -712,20 +707,20 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.font = 'bold 14px Cairo, sans-serif';
+        ctx.font = 'bold 15px Cairo, sans-serif';
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
         let displayTxt = activeSceneObj.text;
-        const maxChars = w < 500 ? 52 : 85;
+        const maxChars = w < 500 ? 48 : 80;
         if (displayTxt.length > maxChars) displayTxt = displayTxt.substring(0, maxChars) + '...';
         ctx.fillText(displayTxt, w / 2, boxY + boxH / 2);
         ctx.restore();
       }
     }
 
-    // ================= 6. التحكم والتشغيل حتى النهاية =================
+    // ================= 6. التحكم والتشغيل المتزامن =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -810,7 +805,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'SuperBoard_Final_Pro.webm';
+        a.download = 'SuperBoard_Synchronized_Pro.webm';
         a.click();
         overlay.classList.add('hidden');
       };
