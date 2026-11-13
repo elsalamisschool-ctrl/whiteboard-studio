@@ -23,13 +23,13 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- شاشة قفل الخصوصية المحمية -->
+  <!-- شاشة قفل الخصوصية -->
   <div id="lockScreen" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border border-slate-200">
       <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
       </div>
-      <h2 class="text-2xl font-bold text-slate-800 mb-2">منصة خاصة محمية</h2>
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">منصة سوبر بورد الخاصة</h2>
       <p class="text-slate-500 text-sm mb-6">أدخل كلمة المرور للمتابعة (الافتراضية: 1234).</p>
       <input type="password" id="passwordInput" placeholder="كلمة المرور..." class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-lg tracking-widest mb-4 focus:outline-none focus:ring-2 focus:ring-amber-500" onkeypress="if(event.key==='Enter') checkPassword()">
       <p id="passError" class="text-red-500 text-xs mb-3 hidden">كلمة المرور غير صحيحة.</p>
@@ -37,33 +37,37 @@
     </div>
   </div>
 
-  <!-- الهيدر -->
+  <!-- الهيدر العلوي المطابق للنموذج -->
   <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">SuperBoard Pro <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full mr-1">الإصدار الخاص المحمي</span></h1>
-        <p class="text-xs text-slate-500">رسم مباشر للعناصر بدون برواز • تلوين فوري متزامن • كابشن نظيف</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">سوبر بورد <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full mr-1">SuperBoard Pro</span></h1>
+        <p class="text-xs text-slate-500">أداة فيديوهات الوايت بورد أأنيميشن الاحترافية</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <button onclick="changePasswordModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-semibold">تغيير كلمة المرور</button>
+      <div class="text-xs bg-amber-50 text-amber-800 px-3 py-1.5 rounded-lg font-bold border border-amber-200 hidden sm:block">
+        🎁 فاضل لك 26 من 30 فيديو مجاني الشهر ده
+      </div>
+      <button onclick="changePasswordModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-semibold">تغيير كلمة السر</button>
       <button onclick="lockApp()" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-lg font-semibold">قفل</button>
     </div>
   </header>
 
-  <!-- المحتوى الرئيسي -->
+  <!-- المحتوى الرئيسي للمنصة -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <!-- العمود الأيمن: الإعدادات والملفات -->
+    <!-- العمود الأيمن: الإعدادات والملفات (مطابق للمنهجية) -->
     <div class="lg:col-span-5 space-y-5">
 
       <!-- 1. رفع الملفات -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">1</span>
-          ملفات القصة (الصوت والصور)
+          ارفع الصوت والصور
         </h2>
+        <p class="text-[11px] text-slate-500">كل الملفات بتتعالج داخل متصفحك، ومش بيتحت حاجة لأي سيرفر.</p>
 
         <div class="grid grid-cols-2 gap-3">
           <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
@@ -90,7 +94,7 @@
         </div>
       </div>
 
-      <!-- 2. السكربت والكابشن -->
+      <!-- 2. السكربت والكابشن (مع الفلترة التلقائية والذكية) -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
           <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
@@ -99,30 +103,57 @@
           </h2>
           <span id="syncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">جاهز</span>
         </div>
-        <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="الصق السكربت هنا..."></textarea>
+        <p class="text-[11px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200">
+          💡 من غيره مفيش كابشن على الفيديو، وبيخلي التزامن دقيق كلمة بكلمة.
+        </p>
+        <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة..."></textarea>
       </div>
 
-      <!-- 3. إعدادات المظهر والرسم -->
+      <!-- 3. إعدادات الفيديو والأيدي الاحترافية (مطابق لنموذجك) -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          إعدادات اليد والخلفية ودقة الرسم
+          إعدادات الفيديو والرسم (الأيدي الاحترافية)
         </h2>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">شكل اليد:</label>
+          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد الاحترافية:</label>
           <div class="grid grid-cols-3 gap-2" id="handSelector">
-            <button type="button" onclick="selectHand('suit_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2 text-center transition">
-              <div class="text-lg">👔</div>
-              <div class="text-[11px] font-bold">بدلة وقلم حبر</div>
+            <button type="button" onclick="selectHand('suit_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">👔</span>
+              <span class="text-[10px] font-bold mt-1">بدلة وقلم حبر</span>
             </button>
-            <button type="button" onclick="selectHand('cute_hand', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
-              <div class="text-lg">✍️</div>
-              <div class="text-[11px] font-bold">يد كرتونية</div>
+            <button type="button" onclick="selectHand('girl_ink', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">💜</span>
+              <span class="text-[10px] font-bold mt-1">إيد بنت، حبر</span>
             </button>
-            <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
-              <div class="text-lg">🚫</div>
-              <div class="text-[11px] font-bold">بدون يد</div>
+            <button type="button" onclick="selectHand('girl_cartoon', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">💚</span>
+              <span class="text-[10px] font-bold mt-1">إيد بنت، كرتون</span>
+            </button>
+            <button type="button" onclick="selectHand('red_pen', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">🔴</span>
+              <span class="text-[10px] font-bold mt-1">رسم بالحبر</span>
+            </button>
+            <button type="button" onclick="selectHand('brush', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">🖌️</span>
+              <span class="text-[10px] font-bold mt-1">فرشاة رسم</span>
+            </button>
+            <button type="button" onclick="selectHand('pencil', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">✏️</span>
+              <span class="text-[10px] font-bold mt-1">قلم رصاص</span>
+            </button>
+            <button type="button" onclick="selectHand('cartoon', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">✍️</span>
+              <span class="text-[10px] font-bold mt-1">كرتون</span>
+            </button>
+            <button type="button" onclick="selectHand('marker', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">🖊️</span>
+              <span class="text-[10px] font-bold mt-1">ماركر</span>
+            </button>
+            <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">🚫</span>
+              <span class="text-[10px] font-bold mt-1">بدون يد</span>
             </button>
           </div>
         </div>
@@ -146,7 +177,7 @@
           </div>
         </div>
 
-        <div class="pt-2 border-t">
+        <div class="pt-2 border-t flex items-center justify-between">
           <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
             <input type="checkbox" id="showCaptions" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
             إظهار الكابشن المتزامن النظيف
@@ -156,14 +187,14 @@
 
     </div>
 
-    <!-- العمود الأيسر: شاشة العرض والمعاينة والتصدير -->
+    <!-- العمود الأيسر: شاشة المعاينة الحية والتصدير -->
     <div class="lg:col-span-7 flex flex-col space-y-4">
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col">
         
         <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b">
           <div>
             <h2 class="font-bold text-slate-800 text-sm">شاشة العرض والمعاينة الحية</h2>
-            <p class="text-xs text-slate-500" id="sceneStatusLabel">في انتظار الملفات...</p>
+            <p class="text-xs text-slate-500" id="sceneStatusLabel">في انتظار الملفات والسكربت...</p>
           </div>
           <div class="flex items-center gap-2">
             <select id="aspectRatio" onchange="updateCanvasDimensions()" class="text-xs p-2 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
@@ -176,7 +207,7 @@
             </button>
             <button onclick="exportVideo()" id="exportBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow transition">
               <span>⬇</span>
-              <span>تصدير بالصوت</span>
+              <span>انشئ الفيديو (MP4)</span>
             </button>
           </div>
         </div>
@@ -186,8 +217,8 @@
           
           <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20 rounded-xl">
             <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <h3 class="font-bold text-base mb-1">جاري تصدير الفيديو بالصوت الكامل...</h3>
-            <p class="text-xs text-slate-300 mb-3">يتم دمج الرسم المباشر والتلوين الفوري والكابشن بدقة 30 إطار/ثانية</p>
+            <h3 class="font-bold text-base mb-1">جاري إنشاء وتصدير الفيديو الاحترافي بصيغة MP4 بالصوت الكامل...</h3>
+            <p class="text-xs text-slate-300 mb-3">يتم دمج الرسم المباشر والتلوين الفوري والكابشن المتزامن بدقة عالية</p>
             <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden">
               <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-150"></div>
             </div>
@@ -212,106 +243,57 @@
   <audio id="audioPlayer" crossorigin="anonymous" class="hidden"></audio>
 
   <script>
-    // ================= 1. إدارة كلمة المرور والخصوصية الآمنة =================
+    // ================= 1. نظام كلمة المرور والخصوصية =================
     const STORAGE_PASS_KEY = 'superboard_private_pass';
     
     function getStoredPass() {
       try {
         let p = localStorage.getItem(STORAGE_PASS_KEY);
-        if (!p) {
-          p = '1234';
-          localStorage.setItem(STORAGE_PASS_KEY, p);
-        }
+        if (!p) { p = '1234'; localStorage.setItem(STORAGE_PASS_KEY, p); }
         return p;
-      } catch (e) {
-        return '1234';
-      }
+      } catch (e) { return '1234'; }
     }
 
     function checkPassword() {
       const inputVal = document.getElementById('passwordInput').value.trim();
-      const correctPass = getStoredPass();
-      
-      if (inputVal === correctPass) {
-        const lockScreen = document.getElementById('lockScreen');
-        if (lockScreen) lockScreen.classList.add('hidden');
-        try {
-          sessionStorage.setItem('unlocked', 'true');
-        } catch (e) {}
+      if (inputVal === getStoredPass()) {
+        document.getElementById('lockScreen').classList.add('hidden');
+        try { sessionStorage.setItem('unlocked', 'true'); } catch (e) {}
       } else {
-        const err = document.getElementById('passError');
-        if (err) err.classList.remove('hidden');
+        document.getElementById('passError').classList.remove('hidden');
       }
     }
 
     function lockApp() {
-      try {
-        sessionStorage.removeItem('unlocked');
-      } catch (e) {}
-      const lockScreen = document.getElementById('lockScreen');
-      if (lockScreen) lockScreen.classList.remove('hidden');
-      const passInput = document.getElementById('passwordInput');
-      if (passInput) passInput.value = '';
+      try { sessionStorage.removeItem('unlocked'); } catch (e) {}
+      document.getElementById('lockScreen').classList.remove('hidden');
+      document.getElementById('passwordInput').value = '';
     }
 
     function changePasswordModal() {
       const p = prompt('أدخل كلمة المرور الجديدة (3 أحرف أو أرقام على الأقل):');
       if (p && p.trim().length >= 3) {
-        try {
-          localStorage.setItem(STORAGE_PASS_KEY, p.trim());
-          alert('تم تحديث كلمة المرور بنجاح!');
-        } catch (e) {
-          alert('تعذر حفظ كلمة المرور محلياً، سيتم استخدامها في الجلسة الحالية.');
-        }
-      } else if (p !== null) {
-        alert('كلمة المرور قصيرة جداً.');
+        try { localStorage.setItem(STORAGE_PASS_KEY, p.trim()); alert('تم تحديث كلمة المرور بنجاح!'); } catch (e) {}
       }
     }
 
     try {
       if (sessionStorage.getItem('unlocked') === 'true') {
-        const lockScreen = document.getElementById('lockScreen');
-        if (lockScreen) lockScreen.classList.add('hidden');
+        document.getElementById('lockScreen').classList.add('hidden');
       }
     } catch (e) {}
 
-    // ================= 2. تصميم الأيدي الاحترافية =================
+    // ================= 2. تصميم مكتبة الأيدي الاحترافية =================
     const handImages = {};
     const handSVGs = {
-      suit_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340">
-        <defs>
-          <linearGradient id="skinTone" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f8d2b8"/>
-            <stop offset="100%" stop-color="#d4966c"/>
-          </linearGradient>
-          <filter id="handShadow" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="6" dy="14" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.28"/>
-          </filter>
-        </defs>
-        <g filter="url(#handShadow)">
-          <polygon points="0,0 13,4 4,13" fill="#d97706"/>
-          <polygon points="0,0 5,1.5 1.5,5" fill="#1e293b"/>
-          <polygon points="4,13 13,4 22,13 13,22" fill="#f59e0b"/>
-          <polygon points="13,22 22,13 135,126 126,135" fill="#1e293b"/>
-          <polygon points="42,51 51,42 56,47 47,56" fill="#fbbf24"/>
-          <path d="M 46,36 C 62,15 102,14 130,42 L 215,127 L 158,184 L 78,104 C 54,82 32,58 46,36 Z" fill="url(#skinTone)"/>
-          <path d="M 24,22 C 46,14 82,22 98,42 C 82,52 48,40 24,22 Z" fill="url(#skinTone)" stroke="#c28258" stroke-width="1.2"/>
-          <path d="M 32,46 C 50,38 76,50 86,70 C 68,78 44,66 32,46 Z" fill="url(#skinTone)" stroke="#c28258" stroke-width="1.2"/>
-          <polygon points="154,180 212,122 228,138 170,196" fill="#ffffff"/>
-          <polygon points="170,196 228,138 340,250 282,308" fill="#1e3a8a"/>
-        </g>
-      </svg>`,
-      cute_hand: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
-        <defs><filter id="cuteSh" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.22"/></filter></defs>
-        <g filter="url(#cuteSh)">
-          <polygon points="0,0 12,4 4,12" fill="#0f172a"/>
-          <polygon points="4,12 12,4 26,18 18,26" fill="#38bdf8"/>
-          <polygon points="18,26 26,18 125,117 117,125" fill="#0284c7"/>
-          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M 125,115 Q 165,155 210,135 L 285,215 Q 260,255 200,240 Z" fill="#f43f5e" stroke="#881337" stroke-width="2.5"/>
-        </g>
-      </svg>`
+      suit_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><linearGradient id="st" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f8d2b8"/><stop offset="100%" stop-color="#d4966c"/></linearGradient><filter id="sh"><feDropShadow dx="6" dy="14" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.28"/></filter></defs><g filter="url(#sh)"><path d="M 46,36 C 62,15 102,14 130,42 L 215,127 L 158,184 L 78,104 C 54,82 32,58 46,36 Z" fill="url(#st)"/><polygon points="154,180 212,122 228,138 170,196" fill="#ffffff"/><polygon points="170,196 228,138 340,250 282,308" fill="#1e3a8a"/></g></svg>`,
+      girl_ink: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh2"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh2)"><path d="M 50,40 Q 75,20 110,55 L 220,165 L 165,220 L 55,110 Z" fill="#ffd1b3" stroke="#b45309" stroke-width="2"/><polygon points="160,215 215,160 325,270 270,325" fill="#d8b4fe"/><path d="M 15,20 L 35,5 L 45,25 Z" fill="#9333ea"/></g></svg>`,
+      girl_cartoon: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh3"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh3)"><path d="M 45,45 Q 70,25 105,60 L 215,170 L 160,225 L 50,115 Z" fill="#fed7aa" stroke="#c2410c" stroke-width="2.5"/><polygon points="155,220 210,165 320,275 265,330" fill="#5eead4"/><polygon points="5,15 25,5 15,35" fill="#f43f5e"/></g></svg>`,
+      red_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh4"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh4)"><path d="M 45,40 Q 70,20 105,55 L 210,160 L 155,215 L 50,110 Z" fill="#fcd34d" stroke="#b45309" stroke-width="2"/><polygon points="150,210 205,155 315,265 260,320" fill="#dc2626"/><polygon points="10,10 30,5 20,30" fill="#b91c1c"/></g></svg>`,
+      brush: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh5"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh5)"><path d="M 50,45 Q 75,25 110,60 L 215,165 L 160,220 L 55,115 Z" fill="#ffedd5" stroke="#9a3412" stroke-width="2"/><polygon points="155,215 210,160 320,270 265,325" fill="#3b82f6"/><polygon points="15,15 35,5 25,35" fill="#1e293b"/></g></svg>`,
+      pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh6"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh6)"><path d="M 45,40 Q 70,20 105,55 L 210,160 L 155,215 L 50,110 Z" fill="#fde047" stroke="#a16207" stroke-width="2"/><polygon points="150,210 205,155 315,265 260,320" fill="#d97706"/><polygon points="10,10 30,5 20,30" fill="#78350f"/></g></svg>`,
+      cartoon: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh7"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh7)"><path d="M 45,35 Q 65,20 95,45 L 210,160 L 155,215 L 45,105 Z" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5"/><polygon points="150,210 205,155 315,265 260,320" fill="#ea580c"/></g></svg>`,
+      marker: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh8"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh8)"><path d="M 45,40 Q 70,20 105,55 L 210,160 L 155,215 L 50,110 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/><polygon points="150,210 205,155 315,265 260,320" fill="#0f172a"/></g></svg>`
     };
 
     Object.keys(handSVGs).forEach(k => {
@@ -332,13 +314,13 @@
       renderFrame(currentTime);
     }
 
-    // ================= 3. فلترة التشكيل =================
+    // ================= 3. فلترة التشكيل والترويسات =================
     function stripArabicDiacritics(text) {
       if (!text) return '';
       return text.replace(/[\u064B-\u0652\u0670\u0640]/g, '');
     }
 
-    // ================= 4. محرك المعالجة والرسم المباشر بدون برواز نهائياً =================
+    // ================= 4. محرك المعالجة والرسم المباشر بدون برواز وتلوين فوري =================
     let uploadedImages = [];
     let processedScenes = {};
     let timelineScenes = [];
@@ -371,7 +353,6 @@
       const offsetX = (targetW - drawW) / 2;
       const offsetY = padTop + (availH - drawH) / 2;
 
-      // استخراج لون خلفية الصورة أولاً لمطابقة ما خارجها ومنع ظهور أي برواز مستطيل
       const sampleCanvas = document.createElement('canvas');
       sampleCanvas.width = img.width;
       sampleCanvas.height = img.height;
@@ -384,7 +365,6 @@
       tempCanvas.width = targetW;
       tempCanvas.height = targetH;
       const tCtx = tempCanvas.getContext('2d');
-      // تعبئة الخلفية بنفس لون زاوية الصورة تماماً حتى لا يتكون خط فاصل حول الصورة
       tCtx.fillStyle = `rgb(${imgBgR}, ${imgBgG}, ${imgBgB})`;
       tCtx.fillRect(0, 0, targetW, targetH);
       tCtx.drawImage(img, offsetX, offsetY, drawW, drawH);
@@ -426,7 +406,6 @@
       const rows = Math.floor(targetH / cellSize);
       const edgeGrid = Array.from({ length: rows }, () => Array(cols).fill(false));
 
-      // حدود الأمان لعزل حواف إطار الصورة الخارجي ومنع رسم برواز حول المشهد نهائياً
       const safeMinX = Math.floor(offsetX + 8);
       const safeMaxX = Math.floor(offsetX + drawW - 8);
       const safeMinY = Math.floor(offsetY + 8);
@@ -436,7 +415,6 @@
         for (let x = 1; x < targetW - 1; x++) {
           const idx = (y * targetW + x) * 4;
 
-          // تجاهل أي حواف تقع على الإطار الخارجي للصورة
           if (x < safeMinX || x > safeMaxX || y < safeMinY || y > safeMaxY) {
             sData[idx]     = bgR;
             sData[idx + 1] = bgG;
@@ -540,13 +518,13 @@
       renderFrame(currentTime);
     }
 
-    // ================= 5. السكربت والتزامن =================
+    // ================= 5. السكربت والتزامن المحسن (حل مشكلة بعد المشهد 7) =================
     function rebuildTimeline() {
       const rawText = document.getElementById('scriptInput').value.trim();
       const rawLines = rawText.split('\n');
       
       const cleanScriptLines = [];
-      const headerRegex = /المشهد\s*\d+\s*\|/i;
+      const headerRegex = /(المشهد|Scene)\s*\d+/i;
 
       rawLines.forEach(line => {
         const trimmed = line.trim();
@@ -600,7 +578,7 @@
 
       document.getElementById('timelineSlider').max = totalDuration;
       document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • ${captionChunks.length} كابشن نظيف`;
+      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • ${captionChunks.length} كابشن متزامن`;
       renderFrame(currentTime);
     }
 
@@ -808,7 +786,7 @@
       }
     }
 
-    // ================= 7. التشغيل والتصدير =================
+    // ================= 7. التشغيل والتصدير بصيغة MP4 القياسية =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -913,9 +891,14 @@
         }
       }
 
+      let mimeType = 'video/mp4';
+      if (!MediaRecorder.isTypeSupported('video/mp4')) {
+        mimeType = 'video/webm;codecs=vp9,opus';
+      }
+
       let recorder;
       try {
-        recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm;codecs=vp9,opus' });
+        recorder = new MediaRecorder(combinedStream, { mimeType: mimeType });
       } catch (e) {
         recorder = new MediaRecorder(combinedStream);
       }
@@ -923,11 +906,12 @@
       const chunks = [];
       recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
       recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/webm' });
+        const fileExtension = mimeType.includes('mp4') ? 'mp4' : 'webm';
+        const blob = new Blob(chunks, { type: mimeType });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'SuperBoard_Borderless_Final.webm';
+        a.download = `SuperBoard_Pro_Animation.${fileExtension}`;
         a.click();
         overlay.classList.add('hidden');
         if (audio.src) { audio.pause(); audio.currentTime = 0; }
