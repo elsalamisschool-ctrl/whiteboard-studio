@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <!-- الهيدر العلوي الاحترافي (خالي من أي اشتراكات) -->
+  <!-- الهيدر العلوي الاحترافي -->
   <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
@@ -55,7 +55,7 @@
   <!-- المحتوى الرئيسي للمنصة -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <!-- العمود الأيمن: الإعدادات والملفات والأيدي الثمانية -->
+    <!-- العمود الأيمن: الإعدادات والملفات والأيدي المخصصة -->
     <div class="lg:col-span-5 space-y-5">
 
       <!-- 1. رفع الملفات -->
@@ -91,7 +91,7 @@
         </div>
       </div>
 
-      <!-- 2. السكربت والكابشن (مع الفلترة التلقائية والذكية) -->
+      <!-- 2. السكربت والكابشن -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
           <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
@@ -103,53 +103,33 @@
         <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة والكابشن بدقة..."></textarea>
       </div>
 
-      <!-- 3. إعدادات الرسم والأيدي الاحترافية (مكتبة الأيدي الثمانية) -->
+      <!-- 3. تخصيص ورفع صور الأيدي الأصلية -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          مكتبة الأيدي الاحترافية للمشاهد
+          أيدي الرسم المخصصة (ارفع صورك PNG الأصلية)
         </h2>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد:</label>
-          <div class="grid grid-cols-3 gap-2" id="handSelector">
-            <button type="button" onclick="selectHand('suit_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">👔</span>
-              <span class="text-[10px] font-bold mt-1">بدلة وقلم حبر</span>
-            </button>
-            <button type="button" onclick="selectHand('girl_ink', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">💜</span>
-              <span class="text-[10px] font-bold mt-1">إيد بنت، حبر</span>
-            </button>
-            <button type="button" onclick="selectHand('girl_cartoon', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">💚</span>
-              <span class="text-[10px] font-bold mt-1">إيد بنت، كرتون</span>
-            </button>
-            <button type="button" onclick="selectHand('red_pen', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">🔴</span>
-              <span class="text-[10px] font-bold mt-1">رسم بالحبر</span>
-            </button>
-            <button type="button" onclick="selectHand('brush', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">🖌️</span>
-              <span class="text-[10px] font-bold mt-1">فرشاة رسم</span>
-            </button>
-            <button type="button" onclick="selectHand('pencil', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">✏️</span>
-              <span class="text-[10px] font-bold mt-1">قلم رصاص</span>
-            </button>
-            <button type="button" onclick="selectHand('cartoon', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">✍️</span>
-              <span class="text-[10px] font-bold mt-1">كرتون</span>
-            </button>
-            <button type="button" onclick="selectHand('marker', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">🖊️</span>
-              <span class="text-[10px] font-bold mt-1">ماركر</span>
+          <label class="block text-xs font-bold text-slate-700 mb-2">اختر أو ارفع صورة يد مخصصة:</label>
+          <div class="grid grid-cols-3 gap-2 mb-3" id="handSelector">
+            <button type="button" onclick="selectHand('custom_hand', this)" id="customHandBtn" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2.5 text-center transition flex flex-col items-center">
+              <span class="text-lg">✨</span>
+              <span class="text-[10px] font-bold mt-1">اليد المرفوعة</span>
             </button>
             <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
               <span class="text-lg">🚫</span>
               <span class="text-[10px] font-bold mt-1">بدون يد</span>
             </button>
           </div>
+
+          <!-- زر رفع صورة اليد الأصلية -->
+          <label class="border-2 border-dashed border-amber-400 bg-amber-50/50 hover:bg-amber-50 rounded-xl p-3 text-center cursor-pointer transition flex items-center justify-center gap-2">
+            <span class="text-lg">📤</span>
+            <span class="text-xs font-bold text-amber-900">اضغط هنا لرفع صورة اليد الأصلية (PNG)</span>
+            <input type="file" id="customHandInput" accept="image/png, image/jpeg" class="hidden" onchange="handleCustomHandUpload(event)">
+          </label>
+          <p class="text-[10px] text-slate-500 mt-1.5 text-center">يمكنك رفع أي من صور الأيدي التي أرسلتها (بدلة، بنت بالحبر، كرتون، إلخ) لتظهر بدقة 100%.</p>
         </div>
 
         <div class="grid grid-cols-2 gap-3 pt-2 border-t">
@@ -277,34 +257,36 @@
       }
     } catch (e) {}
 
-    // ================= 2. تصميم مكتبة الأيدي الثمانية الاحترافية =================
-    const handImages = {};
-    const handSVGs = {
-      suit_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><linearGradient id="st" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f8d2b8"/><stop offset="100%" stop-color="#d4966c"/></linearGradient><filter id="sh"><feDropShadow dx="6" dy="14" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.28"/></filter></defs><g filter="url(#sh)"><path d="M 46,36 C 62,15 102,14 130,42 L 215,127 L 158,184 L 78,104 C 54,82 32,58 46,36 Z" fill="url(#st)"/><polygon points="154,180 212,122 228,138 170,196" fill="#ffffff"/><polygon points="170,196 228,138 340,250 282,308" fill="#1e3a8a"/></g></svg>`,
-      girl_ink: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh2"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh2)"><path d="M 50,40 Q 75,20 110,55 L 220,165 L 165,220 L 55,110 Z" fill="#ffd1b3" stroke="#b45309" stroke-width="2"/><polygon points="160,215 215,160 325,270 270,325" fill="#d8b4fe"/><path d="M 15,20 L 35,5 L 45,25 Z" fill="#9333ea"/></g></svg>`,
-      girl_cartoon: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh3"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh3)"><path d="M 45,45 Q 70,25 105,60 L 215,170 L 160,225 L 50,115 Z" fill="#fed7aa" stroke="#c2410c" stroke-width="2.5"/><polygon points="155,220 210,165 320,275 265,330" fill="#5eead4"/><polygon points="5,15 25,5 15,35" fill="#f43f5e"/></g></svg>`,
-      red_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh4"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh4)"><path d="M 45,40 Q 70,20 105,55 L 210,160 L 155,215 L 50,110 Z" fill="#fcd34d" stroke="#b45309" stroke-width="2"/><polygon points="150,210 205,155 315,265 260,320" fill="#dc2626"/><polygon points="10,10 30,5 20,30" fill="#b91c1c"/></g></svg>`,
-      brush: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh5"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh5)"><path d="M 50,45 Q 75,25 110,60 L 215,165 L 160,220 L 55,115 Z" fill="#ffedd5" stroke="#9a3412" stroke-width="2"/><polygon points="155,215 210,160 320,270 265,325" fill="#3b82f6"/><polygon points="15,15 35,5 25,35" fill="#1e293b"/></g></svg>`,
-      pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh6"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh6)"><path d="M 45,40 Q 70,20 105,55 L 210,160 L 155,215 L 50,110 Z" fill="#fde047" stroke="#a16207" stroke-width="2"/><polygon points="150,210 205,155 315,265 260,320" fill="#d97706"/><polygon points="10,10 30,5 20,30" fill="#78350f"/></g></svg>`,
-      cartoon: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh7"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh7)"><path d="M 45,35 Q 65,20 95,45 L 210,160 L 155,215 L 45,105 Z" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5"/><polygon points="150,210 205,155 315,265 260,320" fill="#ea580c"/></g></svg>`,
-      marker: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><filter id="sh8"><feDropShadow dx="4" dy="10" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.25"/></filter></defs><g filter="url(#sh8)"><path d="M 45,40 Q 70,20 105,55 L 210,160 L 155,215 L 50,110 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/><polygon points="150,210 205,155 315,265 260,320" fill="#0f172a"/></g></svg>`
-    };
+    // ================= 2. إدارة الأيدي المخصصة والصور الأصلية =================
+    let customHandImg = null;
+    let selectedHand = 'custom_hand';
 
-    Object.keys(handSVGs).forEach(k => {
-      const img = new Image();
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(handSVGs[k]);
-      handImages[k] = img;
-    });
+    function handleCustomHandUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          customHandImg = img;
+          selectHand('custom_hand', document.getElementById('customHandBtn'));
+          alert('تم رفع وتفعيل صورة اليد الأصلية بنجاح!');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
 
-    let selectedHand = 'suit_pen';
     function selectHand(type, btn) {
       selectedHand = type;
       document.querySelectorAll('.hand-btn').forEach(b => {
         b.classList.remove('border-2', 'border-amber-500', 'bg-amber-50');
         b.classList.add('border', 'border-slate-200');
       });
-      btn.classList.remove('border', 'border-slate-200');
-      btn.classList.add('border-2', 'border-amber-500', 'bg-amber-50');
+      if (btn) {
+        btn.classList.remove('border', 'border-slate-200');
+        btn.classList.add('border-2', 'border-amber-500', 'bg-amber-50');
+      }
       renderFrame(currentTime);
     }
 
@@ -512,7 +494,7 @@
       renderFrame(currentTime);
     }
 
-    // ================= 5. السكربت والتزامن الدقيق (حل انحراف بعد المشهد 7/8) =================
+    // ================= 5. السكربت والتزامن الدقيق =================
     function rebuildTimeline() {
       const rawText = document.getElementById('scriptInput').value.trim();
       const rawLines = rawText.split('\n');
@@ -642,7 +624,7 @@
       reprocessAll();
     }
 
-    // ================= 6. محرك الرندر مع التلوين الفوري أثناء الرسم =================
+    // ================= 6. محرك الرندر مع عرض اليد الأصلية المرفوعة =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
     const revealedColorCanvas = document.createElement('canvas');
@@ -721,16 +703,15 @@
         ctx.drawImage(revealedColorCanvas, 0, 0);
         ctx.restore();
 
-        if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
+        if (selectedHand === 'custom_hand' && customHandImg && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
           const currentPt = path[revealCount - 1];
-          const handImg = handImages[selectedHand];
           const handSize = w < 600 ? 220 : 260;
           const microX = Math.sin(revealCount * 0.7) * 1.2;
           const microY = Math.cos(revealCount * 0.7) * 1.2;
 
           ctx.save();
           ctx.translate(currentPt.x + microX, currentPt.y + microY);
-          ctx.drawImage(handImg, 0, 0, handSize, handSize);
+          ctx.drawImage(customHandImg, 0, 0, handSize, handSize);
           ctx.restore();
         }
       } else {
