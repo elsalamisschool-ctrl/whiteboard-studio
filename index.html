@@ -28,12 +28,12 @@
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">SuperBoard Pro <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full mr-1">الإصدار القياسي المطابق للنموذج</span></h1>
-        <p class="text-xs text-slate-500">رسم حدود العناصر (يمين لـ شمال) • دمج الخلفية الدافئة • كابشن متزامن بالثانية • تصدير بالصوت</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">SuperBoard Pro <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full mr-1">الإصدار القياسي المطور والمثالي</span></h1>
+        <p class="text-xs text-slate-500">فلترة التشكيل تلقائياً • تجاهل ترويسة المشاهد • كابشن نظيف ومثالي مثل النموذج</p>
       </div>
     </div>
-    <div class="flex items-center gap-2 text-xs font-bold text-slate-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
-      <span>🎯</span> محرك كشف الحواف الذكي (Contour Engine)
+    <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+      <span>✨</span> مزامنة معيارية دقيقة 100%
     </div>
   </header>
 
@@ -75,19 +75,17 @@
         </div>
       </div>
 
-      <!-- 2. السكربت والكابشن المتزامن -->
+      <!-- 2. السكربت والكابشن (مع الفلترة التلقائية للتشكيل والترويسة) -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
           <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">2</span>
-            السكربت النصي (للكابشن المتزامن)
+            السكربت (يقبل التشكيل ويُنظفه للكابشن تلقائياً)
           </h2>
           <span id="syncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">جاهز</span>
         </div>
-        <p class="text-[11px] text-slate-500">اكتب كل مشهد في سطر مستقل (أو اكتب النص كاملاً)، وسيقسمه النظام لعبارات قصيرة متزامنة مع الصوت تماماً مثل الفيديو النموذجي:</p>
-        <textarea id="scriptInput" rows="5" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="مثال:
-في حارة زي حارتنا كان فيه محل كشري صغير وكل الناس كانوا بيحبوه
-المحل اتزحم أوي وكل واحد من العمال قرر إنه يعمل كل حاجة بنفسه..."></textarea>
+        <p class="text-[11px] text-slate-500">الصق السكربت الخاص بك بكامل ترويساته وتشكيله. سيقوم النظام بتجاهل ترويسات المشاهد، وإزالة التشكيل للكابشن، وضبط التزامن بدقة:</p>
+        <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="الصق السكربت هنا..."></textarea>
       </div>
 
       <!-- 3. إعدادات المظهر والرسم -->
@@ -97,7 +95,6 @@
           إعدادات اليد والخلفية ودقة الرسم
         </h2>
 
-        <!-- اختيار اليد -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-2">شكل اليد:</label>
           <div class="grid grid-cols-3 gap-2" id="handSelector">
@@ -116,7 +113,6 @@
           </div>
         </div>
 
-        <!-- لون خلفية اللوحة وسُمك الخط -->
         <div class="grid grid-cols-2 gap-3 pt-2 border-t">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">لون خلفية اللوحة:</label>
@@ -206,7 +202,7 @@
   <audio id="audioPlayer" crossorigin="anonymous" class="hidden"></audio>
 
   <script>
-    // ================= 1. تصميم الأيدي الاحترافية المطابقة للنموذج =================
+    // ================= 1. الأيدي الاحترافية =================
     const handImages = {};
     const handSVGs = {
       suit_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340">
@@ -220,32 +216,20 @@
           </filter>
         </defs>
         <g filter="url(#handShadow)">
-          <!-- سن القلم الذهبي الكلاسيكي عند النقطة (0,0) بدقة متناهية -->
           <polygon points="0,0 13,4 4,13" fill="#d97706"/>
           <polygon points="0,0 5,1.5 1.5,5" fill="#1e293b"/>
           <polygon points="4,13 13,4 22,13 13,22" fill="#f59e0b"/>
-          <!-- جسم القلم الأسود الفاخر -->
           <polygon points="13,22 22,13 135,126 126,135" fill="#1e293b"/>
           <polygon points="42,51 51,42 56,47 47,56" fill="#fbbf24"/>
-          
-          <!-- اليد والأصابع الواقعية -->
           <path d="M 46,36 C 62,15 102,14 130,42 L 215,127 L 158,184 L 78,104 C 54,82 32,58 46,36 Z" fill="url(#skinTone)"/>
-          <!-- السبابة -->
           <path d="M 24,22 C 46,14 82,22 98,42 C 82,52 48,40 24,22 Z" fill="url(#skinTone)" stroke="#c28258" stroke-width="1.2"/>
-          <!-- الإبهام -->
           <path d="M 32,46 C 50,38 76,50 86,70 C 68,78 44,66 32,46 Z" fill="url(#skinTone)" stroke="#c28258" stroke-width="1.2"/>
-          
-          <!-- قميص أبيض وكم بدلة كحلي أنيق مطابق للفيديو النموذجي -->
           <polygon points="154,180 212,122 228,138 170,196" fill="#ffffff"/>
           <polygon points="170,196 228,138 340,250 282,308" fill="#1e3a8a"/>
         </g>
       </svg>`,
       cute_hand: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
-        <defs>
-          <filter id="cuteSh" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.22"/>
-          </filter>
-        </defs>
+        <defs><filter id="cuteSh" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.22"/></filter></defs>
         <g filter="url(#cuteSh)">
           <polygon points="0,0 12,4 4,12" fill="#0f172a"/>
           <polygon points="4,12 12,4 26,18 18,26" fill="#38bdf8"/>
@@ -275,7 +259,14 @@
       renderFrame(currentTime);
     }
 
-    // ================= 2. محرك كشف الحواف ودمج الخلفية (Contour & Seamless Blend) =================
+    // ================= 2. دالة تنظيف التشكيل (Arabic Diacritics Stripper) =================
+    function stripArabicDiacritics(text) {
+      if (!text) return '';
+      // إزالة الفتحة، الضمة، الكسرة، التنوين، الشدة، السكون، والمدود
+      return text.replace(/[\u064B-\u0652\u0670\u0640]/g, '');
+    }
+
+    // ================= 3. محرك كشف الحواف والدمج =================
     let uploadedImages = [];
     let processedScenes = {};
     let timelineScenes = [];
@@ -290,7 +281,6 @@
       const bgColorHex = document.getElementById('boardBgColor').value || '#F5EAD6';
       const precision = document.getElementById('strokePrecision').value || 'fine';
 
-      // 1. لوحة الألوان النهائية مدمجة مع لون الخلفية الدافئ بدون أي حدود بيضاء
       const colorCanvas = document.createElement('canvas');
       colorCanvas.width = targetW;
       colorCanvas.height = targetH;
@@ -298,7 +288,6 @@
       cCtx.fillStyle = bgColorHex;
       cCtx.fillRect(0, 0, targetW, targetH);
 
-      // حساب أبعاد الصورة لتتوسط الشاشة بأناقة وتترك مساحة للكابشن بالأسفل
       const padX = 24;
       const padTop = 30;
       const padBottom = 110;
@@ -310,7 +299,6 @@
       const offsetX = (targetW - drawW) / 2;
       const offsetY = padTop + (availH - drawH) / 2;
 
-      // رسم الصورة المؤقتة لاستخراج البكسلات وإزالة خلفيتها البيضاء/الفاتحة لتندمج مع اللوحة
       const tempCanvas = document.createElement('canvas');
       tempCanvas.width = targetW;
       tempCanvas.height = targetH;
@@ -322,16 +310,13 @@
       const rawData = tCtx.getImageData(0, 0, targetW, targetH);
       const data = rawData.data;
 
-      // لون زاوية الصورة لاكتشاف خلفية الصورة الأصلية
       const cornerIdx = (Math.floor(offsetY + 4) * targetW + Math.floor(offsetX + 4)) * 4;
       const imgBgR = data[cornerIdx], imgBgG = data[cornerIdx + 1], imgBgB = data[cornerIdx + 2];
 
-      // تحويل لون الخلفية المختار إلى RGB
       const bgR = parseInt(bgColorHex.slice(1, 3), 16);
       const bgG = parseInt(bgColorHex.slice(3, 5), 16);
       const bgB = parseInt(bgColorHex.slice(5, 7), 16);
 
-      // لوحة الرسم الخطي (Line-Art) على نفس الخلفية الدافئة
       const sketchCanvas = document.createElement('canvas');
       sketchCanvas.width = targetW;
       sketchCanvas.height = targetH;
@@ -339,13 +324,11 @@
       const sketchImgData = sCtx.createImageData(targetW, targetH);
       const sData = sketchImgData.data;
 
-      // مصفوفة التدرج الرمادي لكشف الحواف (Sobel Edge Detection)
       const gray = new Float32Array(targetW * targetH);
       for (let i = 0; i < targetW * targetH; i++) {
         const idx = i * 4;
         gray[i] = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
 
-        // دمج خلفية الصورة الأصلية مع خلفية اللوحة الدافئة
         const diffFromImgBg = Math.abs(data[idx] - imgBgR) + Math.abs(data[idx+1] - imgBgG) + Math.abs(data[idx+2] - imgBgB);
         if (diffFromImgBg < 35) {
           data[idx] = bgR;
@@ -355,11 +338,10 @@
       }
       cCtx.putImageData(rawData, 0, 0);
 
-      // تحديد حساسية كشف الحواف وسُمك القلم
-      let edgeThreshold = 42;
-      let cellSize = 6;
-      if (precision === 'fine') { edgeThreshold = 48; cellSize = 5; }
-      else if (precision === 'bold') { edgeThreshold = 28; cellSize = 8; }
+      let edgeThreshold = 48;
+      let cellSize = 5;
+      if (precision === 'medium') { edgeThreshold = 40; cellSize = 7; }
+      else if (precision === 'bold') { edgeThreshold = 28; cellSize = 9; }
 
       const cols = Math.floor(targetW / cellSize);
       const rows = Math.floor(targetH / cellSize);
@@ -377,7 +359,6 @@
           const mag = Math.sqrt(gx * gx + gy * gy);
 
           if (mag > edgeThreshold) {
-            // رسم خط حبر داكن ناعم
             const inkFactor = Math.min(1, mag / 180);
             sData[idx]     = Math.round(bgR * (1 - inkFactor) + 25 * inkFactor);
             sData[idx + 1] = Math.round(bgG * (1 - inkFactor) + 20 * inkFactor);
@@ -397,7 +378,6 @@
       }
       sCtx.putImageData(sketchImgData, 0, 0);
 
-      // تجميع الحواف إلى عناصر متصلة (Connected Components) لرسم كل شخصية/عنصر على حدة
       const visited = Array.from({ length: rows }, () => Array(cols).fill(false));
       const elements = [];
 
@@ -424,7 +404,6 @@
             }
 
             if (comp.length >= 3) {
-              // ترتيب نقاط العنصر الواحد بمسار متتبع متصل (Nearest Neighbor) لحركة يد طبيعية
               const ordered = [comp[0]];
               const used = new Array(comp.length).fill(false);
               used[0] = true;
@@ -450,20 +429,13 @@
         }
       }
 
-      // ترتيب رسم العناصر من اليمين إلى اليسار (RTL) كما في الفيديو النموذجي
       elements.sort((a, b) => {
         const avgX_A = a.reduce((s, p) => s + p.x, 0) / a.length;
         const avgX_B = b.reduce((s, p) => s + p.x, 0) / b.length;
         return avgX_B - avgX_A;
       });
 
-      return {
-        colorCanvas,
-        sketchCanvas,
-        strokePath: elements.flat(),
-        cellSize,
-        bgColorHex
-      };
+      return { colorCanvas, sketchCanvas, strokePath: elements.flat(), cellSize, bgColorHex };
     }
 
     function reprocessAll() {
@@ -474,13 +446,27 @@
       renderFrame(currentTime);
     }
 
-    // ================= 3. إدارة التزامن والكابشن المقسم لعبارات قصيرة =================
+    // ================= 4. محلل السكربت الذكي (تجاهل الترويسة وفلترة التشكيل) =================
     function rebuildTimeline() {
       const rawText = document.getElementById('scriptInput').value.trim();
-      const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      const rawLines = rawText.split('\n');
       
-      // 1. بناء جدول المشاهد بناءً على عدد الصور المرفوعة
-      const numScenes = Math.max(1, uploadedImages.length || lines.length || 1);
+      const cleanScriptLines = [];
+      const headerRegex = /المشهد\s*\d+\s*\|/i;
+
+      // تصفية السكربت لتجاهل أسطر ترويسة المشاهد (مثل: المشهد 01 | 00:00 ...)
+      rawLines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+        if (headerRegex.test(trimmed)) {
+          return; // تجاهل سطر الترويحة تماماً
+        }
+        // تنظيف التشكيل من السطر ليصبح نظيفاً ومثالياً للكابشن
+        const cleanLine = stripArabicDiacritics(trimmed);
+        cleanScriptLines.push(cleanLine);
+      });
+
+      const numScenes = Math.max(1, uploadedImages.length || cleanScriptLines.length || 1);
       const sceneDur = totalDuration / numScenes;
       timelineScenes = [];
 
@@ -493,16 +479,16 @@
         });
       }
 
-      // 2. تقسيم السكربت بالكامل إلى عبارات قصيرة (3 إلى 5 كلمات) مثل الفيديو النموذجي تماماً
+      // تقسيم النصوص النظيفة إلى عبارات قصيرة متزامنة
       captionChunks = [];
-      if (rawText.length > 0) {
-        const words = rawText.replace(/\n+/g, ' ').split(/\s+/).filter(w => w.length > 0);
+      const fullCleanText = cleanScriptLines.join(' ');
+      if (fullCleanText.length > 0) {
+        const words = fullCleanText.split(/\s+/).filter(w => w.length > 0);
         const phrases = [];
         let currentPhrase = [];
 
         words.forEach(word => {
           currentPhrase.push(word);
-          // تقسيم العبارة عند علامات الترقيم أو كل 4 كلمات
           if (currentPhrase.length >= 4 || /[،.؟!؛]/.test(word)) {
             phrases.push(currentPhrase.join(' '));
             currentPhrase = [];
@@ -510,7 +496,6 @@
         });
         if (currentPhrase.length > 0) phrases.push(currentPhrase.join(' '));
 
-        // توزيع العبارات زمنياً بالتناسب مع عدد حروف كل عبارة لضمان تزامن 100% مع الكلام
         const totalChars = phrases.reduce((sum, p) => sum + p.length, 0) || 1;
         let accumulatedTime = 0;
 
@@ -527,7 +512,7 @@
 
       document.getElementById('timelineSlider').max = totalDuration;
       document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • ${captionChunks.length} عبارة متزامنة`;
+      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • ${captionChunks.length} كابشن نظيف`;
       renderFrame(currentTime);
     }
 
@@ -597,7 +582,7 @@
       reprocessAll();
     }
 
-    // ================= 4. محرك الرندر مطابق للفيديو النموذجي =================
+    // ================= 5. محرك العندر والكابشن المطابق للنموذج =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
 
@@ -613,11 +598,9 @@
         revealedSketchCanvas.width = w; revealedSketchCanvas.height = h;
       }
 
-      // تعبئة الخلفية الدافئة الموحدة
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, w, h);
 
-      // تحديد المشهد النشط
       let activeIdx = 0;
       let sceneProgress = 0;
       for (let i = 0; i < timelineScenes.length; i++) {
@@ -641,14 +624,13 @@
 
       if (sceneData && sceneData.strokePath && sceneData.strokePath.length > 0) {
         const path = sceneData.strokePath;
-        // 75% من وقت المشهد لرسم الخطوط، و 25% للتلوين الجذاب
         const drawPhase = Math.min(1, sceneProgress / 0.75);
         const revealCount = Math.floor(path.length * drawPhase);
 
         const mCtx = maskCanvas.getContext('2d');
         mCtx.clearRect(0, 0, w, h);
         mCtx.fillStyle = '#000000';
-        const brushRadius = (sceneData.cellSize || 6) * 1.3;
+        const brushRadius = (sceneData.cellSize || 5) * 1.3;
 
         for (let i = 0; i < revealCount && i < path.length; i++) {
           const pt = path[i];
@@ -666,7 +648,6 @@
 
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
-        // تلوين العناصر بسلاسة بعد اكتمال الخطوط
         if (document.getElementById('enableColoring').checked && sceneProgress > 0.72) {
           const colorAlpha = Math.min(1, (sceneProgress - 0.72) / 0.25);
           ctx.save();
@@ -675,13 +656,10 @@
           ctx.restore();
         }
 
-        // رسم اليد وهي تتبع النقطة الحالية بدقة
         if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && drawPhase < 1) {
           const currentPt = path[revealCount - 1];
           const handImg = handImages[selectedHand];
           const handSize = w < 600 ? 220 : 260;
-
-          // اهتزاز طبيعي خفيف يحاكي حركة اليد البشرية أثناء الرسم
           const microX = Math.sin(revealCount * 0.7) * 1.2;
           const microY = Math.cos(revealCount * 0.7) * 1.2;
 
@@ -698,11 +676,11 @@
         ctx.fillText('ارفع صور المشاهد والسكربت للبدء', w / 2, h / 2 - 10);
         ctx.font = '15px Cairo, sans-serif';
         ctx.fillStyle = '#78716c';
-        ctx.fillText('سيتم رسم كل عنصر وتلوينه بنفس أسلوب الفيديو النموذجي', w / 2, h / 2 + 22);
+        ctx.fillText('سيتم رسم وتلوين العناصر وعرض الكابشن النظيف', w / 2, h / 2 + 22);
         ctx.restore();
       }
 
-      // رسم الكابشن المطابق تماماً للفيديو النموذجي (كبسولة داكنة نصف شفافة، خط أبيض واضح، بدون أي قص)
+      // الكابشن النظيف المطابق للفيديو النموذجي
       if (document.getElementById('showCaptions').checked && captionChunks.length > 0) {
         let activePhrase = '';
         for (let i = 0; i < captionChunks.length; i++) {
@@ -723,14 +701,12 @@
           const boxX = (w - boxW) / 2;
           const boxY = h - boxH - 36;
 
-          // خلفية الكبسولة الداكنة المتناسقة مع الخلفية البيج
           ctx.fillStyle = 'rgba(46, 42, 39, 0.86)';
           ctx.beginPath();
           if (ctx.roundRect) ctx.roundRect(boxX, boxY, boxW, boxH, 14);
           else ctx.rect(boxX, boxY, boxW, boxH);
           ctx.fill();
 
-          // النص الأبيض الواضح
           ctx.fillStyle = '#ffffff';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -740,7 +716,7 @@
       }
     }
 
-    // ================= 5. التشغيل والتصدير مع الصوت =================
+    // ================= 6. التشغيل والتصدير =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -825,7 +801,6 @@
       const fps = 30;
       const canvasStream = canvas.captureStream(fps);
 
-      // دمج الصوت الفعلي مع الفيديو أثناء التصدير
       let combinedStream = canvasStream;
       if (audio.src) {
         try {
@@ -860,7 +835,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'SuperBoard_Final_Video.webm';
+        a.download = 'SuperBoard_Clean_Captions.webm';
         a.click();
         overlay.classList.add('hidden');
         if (audio.src) { audio.pause(); audio.currentTime = 0; }
@@ -891,7 +866,6 @@
       requestAnimationFrame(exportLoop);
     }
 
-    // التهيئة الأولية
     updateCanvasDimensions();
     rebuildTimeline();
   </script>
