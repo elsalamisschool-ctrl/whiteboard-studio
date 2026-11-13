@@ -23,7 +23,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- شاشة قفل الخصوصية -->
+  <!-- شاشة قفل الخصوصية الآمنة -->
   <div id="lockScreen" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border border-slate-200">
       <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -37,19 +37,16 @@
     </div>
   </div>
 
-  <!-- الهيدر العلوي المطابق للنموذج -->
+  <!-- الهيدر العلوي الاحترافي (خالي من أي اشتراكات) -->
   <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
         <h1 class="font-bold text-lg text-slate-800 leading-tight">سوبر بورد <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full mr-1">SuperBoard Pro</span></h1>
-        <p class="text-xs text-slate-500">أداة فيديوهات الوايت بورد أأنيميشن الاحترافية</p>
+        <p class="text-xs text-slate-500">استوديو فيديوهات الوايت بورد أنيميشن الاحترافي</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <div class="text-xs bg-amber-50 text-amber-800 px-3 py-1.5 rounded-lg font-bold border border-amber-200 hidden sm:block">
-        🎁 فاضل لك 26 من 30 فيديو مجاني الشهر ده
-      </div>
       <button onclick="changePasswordModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-semibold">تغيير كلمة السر</button>
       <button onclick="lockApp()" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-lg font-semibold">قفل</button>
     </div>
@@ -58,7 +55,7 @@
   <!-- المحتوى الرئيسي للمنصة -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <!-- العمود الأيمن: الإعدادات والملفات (مطابق للمنهجية) -->
+    <!-- العمود الأيمن: الإعدادات والملفات والأيدي الثمانية -->
     <div class="lg:col-span-5 space-y-5">
 
       <!-- 1. رفع الملفات -->
@@ -67,7 +64,7 @@
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">1</span>
           ارفع الصوت والصور
         </h2>
-        <p class="text-[11px] text-slate-500">كل الملفات بتتعالج داخل متصفحك، ومش بيتحت حاجة لأي سيرفر.</p>
+        <p class="text-[11px] text-slate-500">كل الملفات بتتعالج داخل متصفحك بشكل آمن وخاص.</p>
 
         <div class="grid grid-cols-2 gap-3">
           <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
@@ -103,21 +100,18 @@
           </h2>
           <span id="syncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">جاهز</span>
         </div>
-        <p class="text-[11px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200">
-          💡 من غيره مفيش كابشن على الفيديو، وبيخلي التزامن دقيق كلمة بكلمة.
-        </p>
-        <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة..."></textarea>
+        <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة والكابشن بدقة..."></textarea>
       </div>
 
-      <!-- 3. إعدادات الفيديو والأيدي الاحترافية (مطابق لنموذجك) -->
+      <!-- 3. إعدادات الرسم والأيدي الاحترافية (مكتبة الأيدي الثمانية) -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          إعدادات الفيديو والرسم (الأيدي الاحترافية)
+          مكتبة الأيدي الاحترافية للمشاهد
         </h2>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد الاحترافية:</label>
+          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد:</label>
           <div class="grid grid-cols-3 gap-2" id="handSelector">
             <button type="button" onclick="selectHand('suit_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2.5 text-center transition flex flex-col items-center">
               <span class="text-lg">👔</span>
@@ -177,7 +171,7 @@
           </div>
         </div>
 
-        <div class="pt-2 border-t flex items-center justify-between">
+        <div class="pt-2 border-t">
           <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
             <input type="checkbox" id="showCaptions" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
             إظهار الكابشن المتزامن النظيف
@@ -187,7 +181,7 @@
 
     </div>
 
-    <!-- العمود الأيسر: شاشة المعاينة الحية والتصدير -->
+    <!-- العمود الأيسر: شاشة المعاينة الحية وتصدير الفيديو -->
     <div class="lg:col-span-7 flex flex-col space-y-4">
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col">
         
@@ -283,7 +277,7 @@
       }
     } catch (e) {}
 
-    // ================= 2. تصميم مكتبة الأيدي الاحترافية =================
+    // ================= 2. تصميم مكتبة الأيدي الثمانية الاحترافية =================
     const handImages = {};
     const handSVGs = {
       suit_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340"><defs><linearGradient id="st" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f8d2b8"/><stop offset="100%" stop-color="#d4966c"/></linearGradient><filter id="sh"><feDropShadow dx="6" dy="14" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.28"/></filter></defs><g filter="url(#sh)"><path d="M 46,36 C 62,15 102,14 130,42 L 215,127 L 158,184 L 78,104 C 54,82 32,58 46,36 Z" fill="url(#st)"/><polygon points="154,180 212,122 228,138 170,196" fill="#ffffff"/><polygon points="170,196 228,138 340,250 282,308" fill="#1e3a8a"/></g></svg>`,
@@ -518,7 +512,7 @@
       renderFrame(currentTime);
     }
 
-    // ================= 5. السكربت والتزامن المحسن (حل مشكلة بعد المشهد 7) =================
+    // ================= 5. السكربت والتزامن الدقيق (حل انحراف بعد المشهد 7/8) =================
     function rebuildTimeline() {
       const rawText = document.getElementById('scriptInput').value.trim();
       const rawLines = rawText.split('\n');
@@ -578,7 +572,7 @@
 
       document.getElementById('timelineSlider').max = totalDuration;
       document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • ${captionChunks.length} كابشن متزامن`;
+      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • ${captionChunks.length} كابشن متزامن دقيق`;
       renderFrame(currentTime);
     }
 
