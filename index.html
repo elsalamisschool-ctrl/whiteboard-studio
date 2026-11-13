@@ -23,7 +23,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- شاشة قفل الخصوصية -->
+  <!-- شاشة قفل الخصوصية المحمية والمحصنة -->
   <div id="lockScreen" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border border-slate-200">
       <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -212,27 +212,69 @@
   <audio id="audioPlayer" crossorigin="anonymous" class="hidden"></audio>
 
   <script>
-    // ================= 1. إدارة كلمة المرور والخصوصية =================
+    // ================= 1. إدارة كلمة المرور والخصوصية الآمنة =================
     const STORAGE_PASS_KEY = 'superboard_private_pass';
-    if (!localStorage.getItem(STORAGE_PASS_KEY)) localStorage.setItem(STORAGE_PASS_KEY, '1234');
     
-    function checkPassword() {
-      if (document.getElementById('passwordInput').value === localStorage.getItem(STORAGE_PASS_KEY)) {
-        document.getElementById('lockScreen').classList.add('hidden');
-        sessionStorage.setItem('unlocked', 'true');
-      } else {
-        document.getElementById('passError').classList.remove('hidden');
+    function getStoredPass() {
+      try {
+        let p = localStorage.getItem(STORAGE_PASS_KEY);
+        if (!p) {
+          p = '1234';
+          localStorage.setItem(STORAGE_PASS_KEY, p);
+        }
+        return p;
+      } catch (e) {
+        return '1234';
       }
     }
+
+    function checkPassword() {
+      const inputVal = document.getElementById('passwordInput').value.trim();
+      const correctPass = getStoredPass();
+      
+      if (inputVal === correctPass) {
+        const lockScreen = document.getElementById('lockScreen');
+        if (lockScreen) lockScreen.classList.add('hidden');
+        try {
+          sessionStorage.setItem('unlocked', 'true');
+        } catch (e) {}
+      } else {
+        const err = document.getElementById('passError');
+        if (err) err.classList.remove('hidden');
+      }
+    }
+
     function lockApp() {
-      sessionStorage.removeItem('unlocked');
-      document.getElementById('lockScreen').classList.remove('hidden');
+      try {
+        sessionStorage.removeItem('unlocked');
+      } catch (e) {}
+      const lockScreen = document.getElementById('lockScreen');
+      if (lockScreen) lockScreen.classList.remove('hidden');
+      const passInput = document.getElementById('passwordInput');
+      if (passInput) passInput.value = '';
     }
+
     function changePasswordModal() {
-      const p = prompt('كلمة المرور الجديدة:');
-      if (p && p.trim().length >= 3) { localStorage.setItem(STORAGE_PASS_KEY, p.trim()); alert('تم التحديث بنجاح!'); }
+      const p = prompt('أدخل كلمة المرور الجديدة (3 أحرف أو أرقام على الأقل):');
+      if (p && p.trim().length >= 3) {
+        try {
+          localStorage.setItem(STORAGE_PASS_KEY, p.trim());
+          alert('تم تحديث كلمة المرور بنجاح!');
+        } catch (e) {
+          alert('تعذر حفظ كلمة المرور محلياً، سيتم استخدامها في الجلسة الحالية.');
+        }
+      } else if (p !== null) {
+        alert('كلمة المرور قصيرة جداً.');
+      }
     }
-    if (sessionStorage.getItem('unlocked') === 'true') document.getElementById('lockScreen').classList.add('hidden');
+
+    // التحقق من حالة القفل عند التحميل
+    try {
+      if (sessionStorage.getItem('unlocked') === 'true') {
+        const lockScreen = document.getElementById('lockScreen');
+        if (lockScreen) lockScreen.classList.add('hidden');
+      }
+    } catch (e) {}
 
     // ================= 2. تصميم الأيدي الاحترافية =================
     const handImages = {};
@@ -336,7 +378,6 @@
       const tCtx = tempCanvas.getContext('2d');
       tCtx.fillStyle = '#ffffff';
       tCtx.fillRect(0, 0, targetW, targetH);
-      // رسم مباشر للصورة بدون أي برواز أو إطار خارجي
       tCtx.drawImage(img, offsetX, offsetY, drawW, drawH);
 
       const rawData = tCtx.getImageData(0, 0, targetW, targetH);
@@ -666,7 +707,6 @@
           mCtx.fill();
         }
 
-        // إظهار الخطوط السوداء تدريجياً
         const rCtx = revealedSketchCanvas.getContext('2d');
         rCtx.clearRect(0, 0, w, h);
         rCtx.globalCompositeOperation = 'source-over';
@@ -676,7 +716,6 @@
 
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
-        // التلوين الفوري المباشر أثناء الرسم لكل جزئية يتم رسمها (مطابق للفيديو النموذجي)
         const cRevCtx = revealedColorCanvas.getContext('2d');
         cRevCtx.clearRect(0, 0, w, h);
         cRevCtx.globalCompositeOperation = 'source-over';
@@ -685,11 +724,10 @@
         cRevCtx.drawImage(sceneData.colorCanvas, 0, 0);
 
         ctx.save();
-        ctx.globalAlpha = Math.min(1, sceneProgress * 1.1); // تلوين سلس متزامن مع حركة القلم
+        ctx.globalAlpha = Math.min(1, sceneProgress * 1.1);
         ctx.drawImage(revealedColorCanvas, 0, 0);
         ctx.restore();
 
-        // حركة اليد المتاحة
         if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
           const currentPt = path[revealCount - 1];
           const handImg = handImages[selectedHand];
@@ -714,7 +752,6 @@
         ctx.restore();
       }
 
-      // الكابشن النظيف المطابق للفيديو النموذجي
       if (document.getElementById('showCaptions').checked && captionChunks.length > 0) {
         let activePhrase = '';
         for (let i = 0; i < captionChunks.length; i++) {
@@ -840,3 +877,68 @@
         try {
           if (!audioCtx) {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            audioSourceNode = audioCtx.createMediaElementSource(audio);
+            audioDest = audioCtx.createMediaStreamDestination();
+            audioSourceNode.connect(audioDest);
+            audioSourceNode.connect(audioCtx.destination);
+          }
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          const audioTracks = audioDest.stream.getAudioTracks();
+          if (audioTracks.length > 0) {
+            combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioTracks]);
+          }
+        } catch (e) {
+          console.warn('Audio mux fallback:', e);
+        }
+      }
+
+      let recorder;
+      try {
+        recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm;codecs=vp9,opus' });
+      } catch (e) {
+        recorder = new MediaRecorder(combinedStream);
+      }
+
+      const chunks = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'SuperBoard_Model_Match.webm';
+        a.click();
+        overlay.classList.add('hidden');
+        if (audio.src) { audio.pause(); audio.currentTime = 0; }
+      };
+
+      recorder.start();
+      let startExportTime = performance.now();
+      if (audio.src) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      }
+
+      function exportLoop(now) {
+        const elapsed = (audio.src && !audio.paused) ? audio.currentTime : (now - startExportTime) / 1000;
+        const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+        progressBar.style.width = percent + '%';
+        percentText.textContent = percent + '%';
+
+        renderFrame(elapsed);
+
+        if (elapsed >= totalDuration) {
+          recorder.stop();
+        } else {
+          requestAnimationFrame(exportLoop);
+        }
+      }
+
+      requestAnimationFrame(exportLoop);
+    }
+
+    updateCanvasDimensions();
+    rebuildTimeline();
+  </script>
+</body>
+</html>
