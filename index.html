@@ -55,7 +55,7 @@
   <!-- المحتوى الرئيسي للمنصة -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <!-- العمود الأيمن: الإعدادات والملفات والأيدي المخصصة -->
+    <!-- العمود الأيمن: الملفات، السكربت، ومستودع الأيدي الدائم -->
     <div class="lg:col-span-5 space-y-5">
 
       <!-- 1. رفع الملفات -->
@@ -103,36 +103,23 @@
         <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة والكابشن بدقة..."></textarea>
       </div>
 
-      <!-- 3. تخصيص ورفع صور الأيدي الأصلية -->
+      <!-- 3. مستودع الأيدي الثمانية الدائم والثابت بالمنصة -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-        <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
-          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          أيدي الرسم المخصصة (ارفع صورك PNG الأصلية)
-        </h2>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">اختر أو ارفع صورة يد مخصصة:</label>
-          <div class="grid grid-cols-3 gap-2 mb-3" id="handSelector">
-            <button type="button" onclick="selectHand('custom_hand', this)" id="customHandBtn" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">✨</span>
-              <span class="text-[10px] font-bold mt-1">اليد المرفوعة</span>
-            </button>
-            <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex flex-col items-center">
-              <span class="text-lg">🚫</span>
-              <span class="text-[10px] font-bold mt-1">بدون يد</span>
-            </button>
-          </div>
-
-          <!-- زر رفع صورة اليد الأصلية -->
-          <label class="border-2 border-dashed border-amber-400 bg-amber-50/50 hover:bg-amber-50 rounded-xl p-3 text-center cursor-pointer transition flex items-center justify-center gap-2">
-            <span class="text-lg">📤</span>
-            <span class="text-xs font-bold text-amber-900">اضغط هنا لرفع صورة اليد الأصلية (PNG)</span>
-            <input type="file" id="customHandInput" accept="image/png, image/jpeg" class="hidden" onchange="handleCustomHandUpload(event)">
-          </label>
-          <p class="text-[10px] text-slate-500 mt-1.5 text-center">يمكنك رفع أي من صور الأيدي التي أرسلتها (بدلة، بنت بالحبر، كرتون، إلخ) لتظهر بدقة 100%.</p>
+        <div class="flex items-center justify-between border-b pb-2">
+          <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
+            مستودع الأيدي الثمانية الدائم
+          </h2>
+          <span class="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded font-bold">محفوظة بالمتصفح أبدياً</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 pt-2 border-t">
+        <p class="text-[11px] text-slate-500">اختر اليد المطلوبة. إذا أردت تخصيص أي يد بصورتك الأصلية، اضغط على أيقونة الرفع تحتها لمرة واحدة فقط ليتم حفظها أبدياً.</p>
+
+        <div class="grid grid-cols-3 gap-2" id="handGridSelector">
+          <!-- يتم توليد الأزرار الثمانية برمجياً مع زر الحفظ الدائم -->
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">لون خلفية اللوحة:</label>
             <select id="boardBgColor" onchange="reprocessAll()" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
@@ -257,38 +244,96 @@
       }
     } catch (e) {}
 
-    // ================= 2. إدارة الأيدي المخصصة والصور الأصلية =================
-    let customHandImg = null;
-    let selectedHand = 'custom_hand';
+    // ================= 2. مستودع الأيدي الثمانية الدائم (LocalStorage) =================
+    const handsConfig = [
+      { id: 'suit_pen', name: 'بدلة وقلم حبر', icon: '👔' },
+      { id: 'girl_ink', name: 'إيد بنت، حبر', icon: '💜' },
+      { id: 'girl_cartoon', name: 'إيد بنت، كرتون', icon: '💚' },
+      { id: 'red_pen', name: 'رسم بالحبر', icon: '🔴' },
+      { id: 'brush', name: 'فرشاة رسم', icon: '🖌️' },
+      { id: 'pencil', name: 'قلم رصاص', icon: '✏️' },
+      { id: 'cartoon', name: 'كرتون', icon: '✍️' },
+      { id: 'marker', name: 'ماركر', icon: '🖊️' },
+      { id: 'none', name: 'بدون يد', icon: '🚫' }
+    ];
 
-    function handleCustomHandUpload(event) {
+    const loadedHandImages = {};
+    let activeHandId = 'suit_pen';
+
+    function initHandsUI() {
+      const grid = document.getElementById('handGridSelector');
+      grid.innerHTML = '';
+
+      handsConfig.forEach(h => {
+        const isSelected = (activeHandId === h.id);
+        const savedData = (h.id !== 'none') ? localStorage.getItem(`superboard_hand_${h.id}`) : null;
+
+        const btn = document.createElement('div');
+        btn.className = `hand-card border-2 rounded-xl p-2 text-center transition flex flex-col items-center justify-between cursor-pointer relative ${isSelected ? 'border-amber-500 bg-amber-50/80 shadow-md' : 'border-slate-200 bg-slate-50 hover:border-amber-300'}`;
+        btn.onclick = (e) => {
+          if (e.target.tagName !== 'INPUT') selectHand(h.id);
+        };
+
+        let previewHTML = `<span class="text-xl mb-1">${h.icon}</span>`;
+        if (savedData) {
+          previewHTML = `<img src="${savedData}" class="w-8 h-8 object-contain rounded mb-1 shadow-sm">`;
+          loadedHandImages[h.id] = new Image();
+          loadedHandImages[h.id].src = savedData;
+        }
+
+        btn.innerHTML = `
+          <div class="flex flex-col items-center w-full">
+            ${previewHTML}
+            <span class="text-[10px] font-bold text-slate-700 truncate w-full">${h.name}</span>
+          </div>
+          ${h.id !== 'none' ? `
+            <label class="mt-1.5 text-[9px] bg-white hover:bg-amber-100 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded shadow-sm cursor-pointer w-full text-center truncate">
+              ${savedData ? 'تحديث الصورة' : 'رفع الصورة'}
+              <input type="file" accept="image/png, image/jpeg" class="hidden" onchange="uploadHandImage('${h.id}', event)">
+            </label>` : ''}
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function selectHand(id) {
+      activeHandId = id;
+      initHandsUI();
+      renderFrame(currentTime);
+    }
+
+    function uploadHandImage(id, event) {
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          customHandImg = img;
-          selectHand('custom_hand', document.getElementById('customHandBtn'));
-          alert('تم رفع وتفعيل صورة اليد الأصلية بنجاح!');
-        };
-        img.src = e.target.result;
+        const base64Str = e.target.result;
+        try {
+          localStorage.setItem(`superboard_hand_${id}`, base64Str);
+          loadedHandImages[id] = new Image();
+          loadedHandImages[id].src = base64Str;
+          activeHandId = id;
+          initHandsUI();
+          renderFrame(currentTime);
+          alert(`تم حفظ وتثبيت صورة (${handsConfig.find(x => x.id === id).name}) بنجاح في المنصة أبدياً!`);
+        } catch (err) {
+          alert('حجم الصورة كبير جداً للذاكرة المحلية، ياختر صورة أصغر حجماً.');
+        }
       };
       reader.readAsDataURL(file);
     }
 
-    function selectHand(type, btn) {
-      selectedHand = type;
-      document.querySelectorAll('.hand-btn').forEach(b => {
-        b.classList.remove('border-2', 'border-amber-500', 'bg-amber-50');
-        b.classList.add('border', 'border-slate-200');
-      });
-      if (btn) {
-        btn.classList.remove('border', 'border-slate-200');
-        btn.classList.add('border-2', 'border-amber-500', 'bg-amber-50');
+    // استرجاع الأيدي المخزنة عند التحميل
+    handsConfig.forEach(h => {
+      if (h.id !== 'none') {
+        const saved = localStorage.getItem(`superboard_hand_${h.id}`);
+        if (saved) {
+          const img = new Image();
+          img.src = saved;
+          loadedHandImages[h.id] = img;
+        }
       }
-      renderFrame(currentTime);
-    }
+    });
 
     // ================= 3. فلترة التشكيل والترويسات =================
     function stripArabicDiacritics(text) {
@@ -624,7 +669,7 @@
       reprocessAll();
     }
 
-    // ================= 6. محرك الرندر مع عرض اليد الأصلية المرفوعة =================
+    // ================= 6. محرك الرندر ورسم اليد المحفوظة =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
     const revealedColorCanvas = document.createElement('canvas');
@@ -703,15 +748,17 @@
         ctx.drawImage(revealedColorCanvas, 0, 0);
         ctx.restore();
 
-        if (selectedHand === 'custom_hand' && customHandImg && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
+        // رسم اليد المحددة إذا كانت محفوظة
+        if (activeHandId !== 'none' && loadedHandImages[activeHandId] && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
           const currentPt = path[revealCount - 1];
+          const handImg = loadedHandImages[activeHandId];
           const handSize = w < 600 ? 220 : 260;
           const microX = Math.sin(revealCount * 0.7) * 1.2;
           const microY = Math.cos(revealCount * 0.7) * 1.2;
 
           ctx.save();
           ctx.translate(currentPt.x + microX, currentPt.y + microY);
-          ctx.drawImage(customHandImg, 0, 0, handSize, handSize);
+          ctx.drawImage(handImg, 0, 0, handSize, handSize);
           ctx.restore();
         }
       } else {
@@ -917,6 +964,7 @@
       requestAnimationFrame(exportLoop);
     }
 
+    initHandsUI();
     updateCanvasDimensions();
     rebuildTimeline();
   </script>
