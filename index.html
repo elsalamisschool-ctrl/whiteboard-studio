@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>استوديو الوايت بورد الذكي | صناعة فيديوهات الأنيميشن والمزامنة</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cairo, Tajawal, Amiri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            tajawal: ['Tajawal', 'sans-serif'],
+            amiri: ['Amiri', 'serif'],
+          },
+          colors: {
+            cream: '#FAF7F2',
+            card: '#FFFFFF',
+            ink: '#1E293B',
+            brand: '#F97316',
+            brandHover: '#EA580C',
+            mint: '#10B981',
+          },
+          boxShadow: {
+            'neo': '4px 4px 0px 0px #1E293B',
+            'neo-sm': '2px 2px 0px 0px #1E293B',
+            'neo-orange': '4px 4px 0px 0px #EA580C',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #FAF7F2;
+      color: #1E293B;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1ECE1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+      border: 2px solid #F1ECE1;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+
+    /* Custom Range Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: #E2E8F0;
+      height: 0.45rem;
+      border-radius: 9999px;
+      border: 1px solid #94A3B8;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -5px;
+      background-color: #F97316;
+      height: 1.15rem;
+      width: 1.15rem;
+      border-radius: 9999px;
+      border: 2px solid #1E293B;
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .neo-card {
+      background: #FFFFFF;
+      border: 2px solid #1E293B;
+      border-radius: 1rem;
+      box-shadow: 4px 4px 0px 0px #1E293B;
+    }
+
+    .neo-card-flat {
+      background: #FFFFFF;
+      border: 2px solid #1E293B;
+      border-radius: 1rem;
+    }
+
+    .hand-card.active {
+      border-color: #F97316;
+      background-color: #FFF7ED;
+      box-shadow: 3px 3px 0px 0px #F97316;
+    }
+
+    @keyframes pulse-soft {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .recording-dot {
+      animation: pulse-soft 1s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Vercel Deployment Guide Modal -->
+  <div id="vercel-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="neo-card max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto relative">
+      <button onclick="toggleVercelModal(false)" class="absolute top-4 left-4 w-9 h-9 rounded-full border-2 border-slate-800 bg-slate-100 hover:bg-red-100 font-bold flex items-center justify-center">✕</button>
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center font-black text-xl">▲</span>
+        <div>
+          <h3 class="text-xl font-extrabold">طريقة رفع الأداة على موقع Vercel مجاناً</h3>
+          <p class="text-xs text-slate-500">خطوات بسيطة لتشغيل الأداة على رابط خاص بك مدى الحياة بدون أي تكلفة</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-sm leading-relaxed">
+        <div class="p-4 rounded-xl bg-orange-50 border border-orange-200">
+          <p class="font-bold text-orange-800 mb-1">💡 ميزة هذه الأداة:</p>
+          <p class="text-orange-700">تم برمجة هذه الأداة بالكامل لتعمل داخل متصفحك (Client-Side)، مما يعني أنك لا تحتاجين إلى قواعد بيانات أو سيرفرات مدفوعة، وتعمل على Vercel بسرعة فائقة وبدون حدود لعدد الفيديوهات.</p>
+        </div>
+
+        <ol class="space-y-3 list-decimal list-inside font-semibold text-slate-700">
+          <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span class="font-bold text-slate-900">تحميل ملف الأداة:</span> اضغطي على زر <span class="text-orange-600 underline cursor-pointer" onclick="downloadSelfHTML()">تحميل ملف index.html</span> لحفظ هذه الصفحة على جهازك داخل مجلد جديد (سمّيه مثلاً <code class="bg-slate-200 px-1.5 py-0.5 rounded">whiteboard-studio</code>).
+          </li>
+          <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span class="font-bold text-slate-900">الرفع المباشر على Vercel (أو GitHub):</span>
+            <ul class="list-disc list-inside mr-5 mt-1 font-normal text-slate-600 space-y-1">
+              <li>ادخلي على موقع <strong>vercel.com</strong> وسجّلي الدخول بحسابك (Google أو GitHub).</li>
+              <li>ارفعي المجلد على مستودع مجاني في <strong>github.com</strong> (بضغطة زر Upload files)، ثم اربطيه في Vercel عبر <strong>Add New Project</strong> واضغطي <strong>Deploy</strong>.</li>
+              <li>أو يمكنك استخدام أداة <code class="bg-slate-200 px-1.5 py-0.5 rounded">npx vercel</code> من موجه الأوامر داخل المجلد مباشرة.</li>
+            </ul>
+          </li>
+          <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span class="font-bold text-slate-900">الاستخدام الفوري:</span> ستحصلين على رابط مثل <code class="bg-slate-200 px-1.5 py-0.5 rounded">superboard-ar.vercel.app</code> يعمل على الكمبيوتر والموبايل في أي وقت.
+          </li>
+        </ol>
+
+        <div class="pt-3 flex justify-end gap-3">
+          <button onclick="downloadSelfHTML()" class="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold border-2 border-slate-900 shadow-neo-sm flex items-center gap-2">
+            <span>⬇️</span> تحميل كود الأداة (index.html)
+          </button>
+          <button onclick="toggleVercelModal(false)" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold border-2 border-slate-900">
+            إغلاق
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Header -->
+  <header class="w-full max-w-7xl mx-auto px-4 pt-5 pb-3">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-300 text-xs font-bold shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+        <span>محرك الوايت بورد الأذكى والأسرع في المتصفح • بدون قيود</span>
+      </div>
+
+      <button onclick="toggleVercelModal(true)" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">
+        <span>▲</span>
+        <span>طريقة الرفع على Vercel مجاناً</span>
+      </button>
+    </div>
+
+    <div class="text-center mb-5">
+      <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
+        اصنع فيديوهات <span class="text-orange-500">وايت بورد أنيميشن</span> احترافية
+      </h1>
+      <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
+        <span class="px-3 py-1.5 rounded-full bg-white border border-slate-300 shadow-sm flex items-center gap-1.5">✍️ رسم يدوي واقعي وتلوين</span>
+        <span class="px-3 py-1.5 rounded-full bg-white border border-slate-300 shadow-sm flex items-center gap-1.5">⚡ معالجة فورية داخل متصفحك</span>
+        <span class="px-3 py-1.5 rounded-full bg-white border border-slate-300 shadow-sm flex items-center gap-1.5">🎯 مزامنة تلقائية لتوقيت المشاهد</span>
+        <span class="px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-400 text-emerald-800 shadow-sm flex items-center gap-1.5">🔓 تصدير مفتوح Full HD مجاناً</span>
+      </div>
+    </div>
+
+    <!-- 3-Step Progress Bar -->
+    <div class="neo-card p-2.5 sm:p-3 mb-2">
+      <div class="grid grid-cols-3 gap-2 sm:gap-4 items-center">
+        <!-- Step 1 -->
+        <button onclick="goToStep(1)" id="step-btn-1" class="step-tab flex items-center justify-center sm:justify-start gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl border-2 border-sky-500 bg-sky-50 transition text-right">
+          <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-900 text-white font-extrabold text-sm flex items-center justify-center shrink-0">1</span>
+          <div class="hidden sm:block">
+            <div class="font-extrabold text-sm text-slate-900">الملفات والمزامنة</div>
+            <div class="text-[11px] text-slate-500">صوت، صور، وتوقيت المشاهد</div>
+          </div>
+          <span class="sm:hidden font-bold text-xs">الملفات</span>
+        </button>
+
+        <!-- Step 2 -->
+        <button onclick="goToStep(2)" id="step-btn-2" class="step-tab flex items-center justify-center sm:justify-start gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl border-2 border-transparent hover:bg-slate-50 transition text-right opacity-75">
+          <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 text-slate-700 font-extrabold text-sm flex items-center justify-center shrink-0">2</span>
+          <div class="hidden sm:block">
+            <div class="font-extrabold text-sm text-slate-900">التحرير والمعاينة الحية</div>
+            <div class="text-[11px] text-slate-500">توقيت، كابشن، وحركة اليد</div>
+          </div>
+          <span class="sm:hidden font-bold text-xs">المعاينة</span>
+        </button>
+
+        <!-- Step 3 -->
+        <button onclick="goToStep(3)" id="step-btn-3" class="step-tab flex items-center justify-center sm:justify-start gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl border-2 border-transparent hover:bg-slate-50 transition text-right opacity-75">
+          <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 text-slate-700 font-extrabold text-sm flex items-center justify-center shrink-0">3</span>
+          <div class="hidden sm:block">
+            <div class="font-extrabold text-sm text-slate-900">التصدير والتحميل</div>
+            <div class="text-[11px] text-slate-500">جودة عالية MP4 / WebM</div>
+          </div>
+          <span class="sm:hidden font-bold text-xs">التصدير</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="w-full max-w-7xl mx-auto px-4 pb-12 flex-1">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- RIGHT SIDEBAR: Project Summary & Video Settings (4 cols on lg) -->
+      <aside class="lg:col-span-4 space-y-4 order-2 lg:order-1">
+        
+        <!-- Project Summary Card -->
+        <div class="neo-card p-4">
+          <h2 class="font-extrabold text-base mb-3 flex items-center justify-between">
+            <span>📋 ملخص المشروع</span>
+            <span id="total-duration-badge" class="text-xs bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-300 font-bold">00:00</span>
+          </h2>
+          <div class="space-y-2 text-xs font-bold">
+            <div id="status-audio" class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50">
+              <span class="flex items-center gap-2"><span class="status-dot w-4 h-4 rounded-full border-2 border-slate-400 inline-block"></span> التعليق الصوتي</span>
+              <span class="status-label text-slate-400">مطلوب</span>
+            </div>
+            <div id="status-images" class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50">
+              <span class="flex items-center gap-2"><span class="status-dot w-4 h-4 rounded-full border-2 border-slate-400 inline-block"></span> صور المشاهد</span>
+              <span class="status-label text-slate-400">0 صور</span>
+            </div>
+            <div id="status-script" class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50">
+              <span class="flex items-center gap-2"><span class="status-dot w-4 h-4 rounded-full border-2 border-slate-400 inline-block"></span> جدول المزامنة</span>
+              <span class="status-label text-slate-400">0 مشاهد</span>
+            </div>
+          </div>
+
+          <!-- Aspect Ratio Selector -->
+          <div class="mt-4 pt-3 border-t border-slate-200">
+            <label class="block text-xs font-extrabold text-slate-700 mb-2">📐 مقاس الفيديو (الأبعاد)</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="setAspectRatio('9:16')" id="ratio-9-16" class="ratio-btn p-2 rounded-xl border-2 border-orange-500 bg-orange-50 text-xs font-extrabold flex flex-col items-center gap-1 transition">
+                <span class="w-4 h-6 border-2 border-current rounded-sm"></span>
+                <span>9:16 ريلز وشورتس</span>
+              </button>
+              <button type="button" onclick="setAspectRatio('16:9')" id="ratio-16-9" class="ratio-btn p-2 rounded-xl border-2 border-slate-200 bg-white hover:bg-slate-50 text-xs font-extrabold flex flex-col items-center gap-1 transition">
+                <span class="w-6 h-4 border-2 border-current rounded-sm"></span>
+                <span>16:9 يوتيوب</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Settings Accordion Card -->
+        <div class="neo-card p-4 space-y-4">
+          <div class="flex items-center gap-2 font-extrabold text-base border-b border-slate-200 pb-2.5">
+            <span>⚙️</span>
+            <span>إعدادات الفيديو والرسم</span>
+          </div>
+
+          <!-- Section: Drawing & Hand -->
+          <div class="p-3 rounded-xl border border-orange-200 bg-orange-50/40 space-y-3">
+            <div class="font-extrabold text-sm text-orange-600 flex items-center justify-between">
+              <span>▾ الرسم وشكل اليد</span>
+            </div>
+
+            <!-- Hand Style Grid -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد:</label>
+              <div class="grid grid-cols-3 gap-2" id="hand-selector-grid">
+                <!-- Hand 1: Classic Pen -->
+                <button type="button" onclick="selectHand('pen')" data-hand="pen" class="hand-card active p-2 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition">
+                  <svg class="w-10 h-10" viewBox="0 0 64 64">
+                    <path d="M12 52 L28 36 L34 42 L18 58 Z" fill="#1E293B"/>
+                    <path d="M28 36 L44 20 C48 16 54 22 50 26 L34 42 Z" fill="#FDBA74" stroke="#1E293B" stroke-width="2"/>
+                    <path d="M10 54 L16 48 L20 52 L14 58 Z" fill="#F97316"/>
+                    <circle cx="11" cy="57" r="2" fill="#0F172A"/>
+                  </svg>
+                  <span class="text-[10px] font-extrabold text-center leading-tight">يد وقلم حبر<br><span class="text-orange-600">(افتراضي)</span></span>
+                </button>
+
+                <!-- Hand 2: Cartoon -->
+                <button type="button" onclick="selectHand('cartoon')" data-hand="cartoon" class="hand-card p-2 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition">
+                  <svg class="w-10 h-10" viewBox="0 0 64 64">
+                    <path d="M10 54 L26 38 L32 44 L16 60 Z" fill="#FACC15" stroke="#1E293B" stroke-width="2"/>
+                    <circle cx="38" cy="32" r="11" fill="#FFFFFF" stroke="#1E293B" stroke-width="2.5"/>
+                    <path d="M32 26 L36 32 M38 24 L40 30" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+                    <polygon points="8,56 14,50 18,54" fill="#EF4444"/>
+                  </svg>
+                  <span class="text-[10px] font-extrabold text-center leading-tight">يد كرتون</span>
+                </button>
+
+                <!-- Hand 3: Brush -->
+                <button type="button" onclick="selectHand('brush')" data-hand="brush" class="hand-card p-2 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition">
+                  <svg class="w-10 h-10" viewBox="0 0 64 64">
+                    <path d="M14 50 L36 28 L40 32 L18 54 Z" fill="#92400E" stroke="#1E293B" stroke-width="1.5"/>
+                    <path d="M8 56 C8 50 14 48 18 52 C20 56 14 60 8 56 Z" fill="#3B82F6" stroke="#1E293B" stroke-width="1.5"/>
+                    <path d="M30 34 L46 18 C50 14 56 20 52 24 L36 40 Z" fill="#F59E0B" stroke="#1E293B" stroke-width="2"/>
+                  </svg>
+                  <span class="text-[10px] font-extrabold text-center leading-tight">فرشاة رسم</span>
+                </button>
+
+                <!-- Hand 4: Marker -->
+                <button type="button" onclick="selectHand('marker')" data-hand="marker" class="hand-card p-2 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition">
+                  <svg class="w-10 h-10" viewBox="0 0 64 64">
+                    <rect x="12" y="34" width="28" height="9" rx="3" transform="rotate(-45 12 34)" fill="#10B981" stroke="#1E293B" stroke-width="2"/>
+                    <polygon points="9,55 15,47 19,51" fill="#1E293B"/>
+                    <path d="M28 32 L45 15 L53 23 L36 40 Z" fill="#FED7AA" stroke="#1E293B" stroke-width="2"/>
+                  </svg>
+                  <span class="text-[10px] font-extrabold text-center leading-tight">قلم ماركر</span>
+                </button>
+
+                <!-- Hand 5: Pencil -->
+                <button type="button" onclick="selectHand('pencil')" data-hand="pencil" class="hand-card p-2 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition">
+                  <svg class="w-10 h-10" viewBox="0 0 64 64">
+                    <rect x="14" y="38" width="26" height="7" transform="rotate(-45 14 38)" fill="#FBBF24" stroke="#1E293B" stroke-width="1.8"/>
+                    <polygon points="10,54 15,46 19,50" fill="#FDE68A" stroke="#1E293B" stroke-width="1.5"/>
+                    <path d="M27 33 L44 16 L51 23 L34 40 Z" fill="#FDBA74" stroke="#1E293B" stroke-width="2"/>
+                  </svg>
+                  <span class="text-[10px] font-extrabold text-center leading-tight">قلم رصاص</span>
+                </button>
+
+                <!-- Hand 6: None -->
+                <button type="button" onclick="selectHand('none')" data-hand="none" class="hand-card p-2 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center justify-center gap-1 transition">
+                  <span class="text-2xl">✨</span>
+                  <span class="text-[10px] font-extrabold text-center leading-tight">بدون يد<br>(رسم سحري)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Show Hand Toggle -->
+            <label class="flex items-center justify-between text-xs font-bold cursor-pointer pt-1">
+              <span>إظهار اليد أثناء الرسم</span>
+              <input type="checkbox" id="opt-show-hand" checked onchange="syncSettings()" class="w-4 h-4 accent-orange-500 rounded">
+            </label>
+
+            <!-- Hand Size Slider -->
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>حجم اليد</span>
+                <span id="val-hand-size" class="text-orange-600">100%</span>
+              </div>
+              <input type="range" id="opt-hand-size" min="50" max="160" value="100" oninput="syncSettings()" class="w-full">
+            </div>
+
+            <!-- Drawing Mode -->
+            <div>
+              <label class="block text-xs font-bold mb-1">أسلوب الرسم والتلوين</label>
+              <select id="opt-draw-mode" onchange="syncSettings()" class="w-full p-2 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                <option value="sketch-then-color">رسم خطوط بالقلم ثم تلوين (احترافي)</option>
+                <option value="direct-reveal">كشف الصورة باليد تدريجياً</option>
+                <option value="sketch-only">رسم خطوط أبيض وأسود فقط</option>
+              </select>
+            </div>
+
+            <!-- Draw Speed -->
+            <div>
+              <label class="block text-xs font-bold mb-1">نسبة وقت الرسم من مدة المشهد</label>
+              <select id="opt-draw-ratio" onchange="syncSettings()" class="w-full p-2 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                <option value="0.70">متوازن (70% رسم + 30% ثبات المشهد)</option>
+                <option value="0.50">سريع (50% رسم + 50% ثبات المشهد)</option>
+                <option value="0.85">بطيء ومفصل (85% رسم + 15% ثبات)</option>
+              </select>
+            </div>
+
+            <!-- Draw Direction -->
+            <div>
+              <label class="block text-xs font-bold mb-1">اتجاه الرسم</label>
+              <select id="opt-draw-dir" onchange="syncSettings()" class="w-full p-2 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                <option value="rtl">يمين لشمال (مناسب للعربية)</option>
+                <option value="ltr">شمال ليمين</option>
+                <option value="ttb">من الأعلى للأسفل</option>
+              </select>
+            </div>
+
+            <!-- Transition -->
+            <div>
+              <label class="block text-xs font-bold mb-1">الانتقال بين المشاهد</label>
+              <select id="opt-transition" onchange="syncSettings()" class="w-full p-2 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                <option value="fade">تلاشي ناعم (افتراضي)</option>
+                <option value="zoom">تكبير تدريجي ناعم (Ken Burns)</option>
+                <option value="none">قطع مباشر</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Section: Captions -->
+          <div class="p-3 rounded-xl border border-orange-200 bg-orange-50/40 space-y-3">
+            <div class="font-extrabold text-sm text-orange-600">▾ الكابشن (الترجمة على الفيديو)</div>
+
+            <label class="flex items-center justify-between text-xs font-bold cursor-pointer">
+              <span>إظهار الكابشن على الفيديو</span>
+              <input type="checkbox" id="opt-show-caption" checked onchange="syncSettings()" class="w-4 h-4 accent-orange-500 rounded">
+            </label>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-xs font-bold mb-1">مكان الكابشن</label>
+                <select id="opt-cap-pos" onchange="syncSettings()" class="w-full p-2 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                  <option value="bottom">أسفل (افتراضي)</option>
+                  <option value="center">منتصف</option>
+                  <option value="top">أعلى</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold mb-1">نوع الخط</label>
+                <select id="opt-cap-font" onchange="syncSettings()" class="w-full p-2 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                  <option value="Cairo">Cairo (عصري)</option>
+                  <option value="Tajawal">Tajawal (ناعم)</option>
+                  <option value="Amiri">Amiri (قصصي)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>حجم خط الكابشن</span>
+                <span id="val-cap-size" class="text-orange-600">26px</span>
+              </div>
+              <input type="range" id="opt-cap-size" min="16" max="44" value="26" oninput="syncSettings()" class="w-full">
+            </div>
+
+            <label class="flex items-center justify-between text-xs font-bold cursor-pointer">
+              <span>خلفية مظللة خلف النص</span>
+              <input type="checkbox" id="opt-cap-bg" checked onchange="syncSettings()" class="w-4 h-4 accent-orange-500 rounded">
+            </label>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>شفافية الخلفية</span>
+                <span id="val-cap-opacity" class="text-orange-600">75%</span>
+              </div>
+              <input type="range" id="opt-cap-opacity" min="0" max="100" value="75" oninput="syncSettings()" class="w-full">
+            </div>
+          </div>
+
+          <!-- Section: Audio & Sync -->
+          <div class="p-3 rounded-xl border border-orange-200 bg-orange-50/40 space-y-3">
+            <div class="font-extrabold text-sm text-orange-600">▾ الصوت والتزامن</div>
+
+            <label class="flex items-center justify-between text-xs font-bold cursor-pointer">
+              <span>مؤثرات صوتية (صوت خربشة القلم أثناء الرسم)</span>
+              <input type="checkbox" id="opt-sfx-enable" checked onchange="syncSettings()" class="w-4 h-4 accent-orange-500 rounded">
+            </label>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>مستوى صوت المؤثرات</span>
+                <span id="val-sfx-vol" class="text-orange-600">40%</span>
+              </div>
+              <input type="range" id="opt-sfx-vol" min="0" max="100" value="40" oninput="syncSettings()" class="w-full">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>ضبط توقيت الصورة مع الصوت (ms)</span>
+                <span id="val-sync-offset" class="text-orange-600">0 ms</span>
+              </div>
+              <input type="range" id="opt-sync-offset" min="-2000" max="2000" step="50" value="0" oninput="syncSettings()" class="w-full">
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- LEFT MAIN CONTENT AREA (8 cols on lg) -->
+      <section class="lg:col-span-8 space-y-5 order-1 lg:order-2">
+
+        <!-- STEP 1: Upload Files & Smart Script Sync -->
+        <div id="view-step-1" class="neo-card p-5 sm:p-6 space-y-6">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900">ارفع الصوت والصور وألصق جدول المزامنة</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">كل الملفات تتعالج داخل متصفحك مباشرة، ولا يتم رفع أي بيانات على سيرفرات خارجية.</p>
+          </div>
+
+          <!-- Two Dropzones: Audio & Images -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Audio Dropzone -->
+            <div id="audio-dropzone" onclick="document.getElementById('audio-input').click()" class="border-2 border-dashed border-slate-300 hover:border-orange-500 bg-slate-50/70 hover:bg-orange-50/40 rounded-2xl p-5 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[175px]">
+              <input type="file" id="audio-input" accept="audio/*" class="hidden" onchange="handleAudioUpload(event)">
+              <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl mb-3 shadow-sm">
+                🎙️
+              </div>
+              <div class="font-extrabold text-sm text-slate-800">التعليق الصوتي (Google AI Studio)</div>
+              <div class="text-xs text-slate-500 mt-1">اسحب الملف هنا أو اضغط للاختيار (MP3 أو WAV)</div>
+              <div id="audio-file-info" class="hidden mt-3 w-full">
+                <div class="text-xs font-bold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full inline-block mb-2" id="audio-filename"></div>
+                <audio id="audio-player-preview" controls class="w-full h-8" onclick="event.stopPropagation()"></audio>
+              </div>
+            </div>
+
+            <!-- Images Dropzone -->
+            <div id="images-dropzone" onclick="document.getElementById('images-input').click()" class="border-2 border-dashed border-slate-300 hover:border-orange-500 bg-slate-50/70 hover:bg-orange-50/40 rounded-2xl p-5 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[175px]">
+              <input type="file" id="images-input" accept="image/*" multiple class="hidden" onchange="handleImagesUpload(event)">
+              <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-3 shadow-sm">
+                🖼️
+              </div>
+              <div class="font-extrabold text-sm text-slate-800">الصور / المشاهد (Google Flow)</div>
+              <div class="text-xs text-slate-500 mt-1">اسحب كل صور القصة دفعة واحدة، ويمكنك ترتيبها بالأسفل</div>
+              <div class="mt-3 flex gap-2" onclick="event.stopPropagation()">
+                <button type="button" onclick="loadDemoStory()" class="text-xs font-bold px-3 py-1.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition">
+                  ✨ تجربة سريعة بقصة "كشري الحارة"
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Uploaded Images Reorder Strip -->
+          <div id="images-gallery-wrapper" class="hidden space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-slate-700">🎞️ ترتيب المشاهد المرفوعة (مطابقة لترتيب السكربت):</span>
+              <button type="button" onclick="clearAllImages()" class="text-xs text-red-600 hover:underline font-bold">حذف جميع الصور</button>
+            </div>
+            <div id="images-grid" class="grid grid-cols-3 sm:grid-cols-5 gap-2.5"></div>
+          </div>
+
+          <!-- Smart Script & Sync Box -->
+          <div class="p-4 rounded-2xl border-2 border-orange-400 bg-amber-50/30 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2 font-extrabold text-sm text-slate-900">
+                <span>📝</span>
+                <span>السكربت ومزامنة المشاهد بالتوقيت</span>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-amber-200/80 border border-amber-400 text-[11px] font-extrabold text-amber-950">
+                يدعم اللصق المباشر بصيغة: المشهد 01 | 00:00 – 00:09 | 9 ث
+              </span>
+            </div>
+
+            <textarea id="script-input" rows="7" oninput="parseSyncScript()" placeholder="ألصقي هنا نص المزامنة بالتوقيت، مثال:
+المشهد 01 | 00:00 – 00:09 | 9 ث
+فِي حَارَةْ زَيِّ حَارِتْنَا، كَانْ فِيه مَحَلْ كُشَرِي صُغَيَّر..." class="w-full p-3.5 rounded-xl border-2 border-slate-300 focus:border-orange-500 focus:outline-none bg-white text-sm leading-relaxed font-semibold"></textarea>
+
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <p class="text-[11px] text-slate-500">💡 يتم تقسيم المشاهد واستخراج التوقيت والكابشن بالتشكيل تلقائياً بمجرد اللصق.</p>
+              <button type="button" onclick="parseSyncScript(true)" class="px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition">
+                🔄 تحديث جدول المزامنة
+              </button>
+            </div>
+
+            <!-- Parsed Scenes Preview Table -->
+            <div id="parsed-scenes-container" class="hidden pt-2 border-t border-orange-200 space-y-2">
+              <div class="text-xs font-extrabold text-slate-700 flex items-center justify-between">
+                <span>✅ المشاهد المستخرجة والمربوطة بالصور:</span>
+                <span id="parsed-count-label" class="text-orange-600"></span>
+              </div>
+              <div id="parsed-scenes-list" class="max-h-64 overflow-y-auto space-y-2 pr-1"></div>
+            </div>
+          </div>
+
+          <!-- Big Action CTA -->
+          <div class="pt-2">
+            <button type="button" onclick="startStudioPreview()" class="w-full py-4 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-black text-base sm:text-lg border-2 border-slate-900 shadow-neo transition transform active:translate-y-0.5 flex items-center justify-center gap-2">
+              <span>🎬 انشئ الفيديو وابدأ المعاينة الحية</span>
+              <span>←</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2 & 3: Live Canvas Preview & Video Export -->
+        <div id="view-step-2" class="hidden space-y-5">
+          <div class="neo-card p-4 sm:p-6 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+              <div>
+                <h2 class="text-lg sm:text-xl font-black text-slate-900">🎥 المعاينة الحية واستوديو الإخراج</h2>
+                <p class="text-xs text-slate-500">شاهدي تزامن الرسم باليد مع التعليق الصوتي والكابشن قبل التحميل</p>
+              </div>
+              <button type="button" onclick="goToStep(1)" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-extrabold">
+                → تعديل الملفات والمشاهد
+              </button>
+            </div>
+
+            <!-- Canvas Stage Container -->
+            <div class="bg-slate-900 rounded-2xl p-3 sm:p-5 flex flex-col items-center justify-center relative overflow-hidden">
+              <!-- Recording Indicator Badge -->
+              <div id="recording-badge" class="hidden absolute top-4 right-4 z-20 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-extrabold flex items-center gap-2 shadow-lg">
+                <span class="w-2.5 h-2.5 rounded-full bg-white recording-dot"></span>
+                <span>جاري تسجيل وتصدير الفيديو... لا تغلقي الصفحة</span>
+              </div>
+
+              <!-- Canvas Wrapper -->
+              <div id="canvas-container" class="relative bg-white rounded-xl overflow-hidden shadow-2xl border-2 border-slate-700 flex items-center justify-center" style="max-height: 62vh;">
+                <canvas id="whiteboard-canvas" class="block max-w-full max-h-[62vh] object-contain"></canvas>
+              </div>
+
+              <!-- Playback Timeline & Controls -->
+              <div class="w-full max-w-2xl mt-4 space-y-2.5 text-white">
+                <!-- Scrubber Bar -->
+                <div class="flex items-center gap-3">
+                  <span id="time-current" class="text-xs font-mono font-bold w-12 text-left">00:00</span>
+                  <input type="range" id="timeline-scrubber" min="0" max="1000" value="0" oninput="seekTimeline(this.value)" class="flex-1">
+                  <span id="time-total" class="text-xs font-mono font-bold w-12 text-right">00:00</span>
+                </div>
+
+                <!-- Transport Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
+                  <button type="button" onclick="restartPlayback()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold flex items-center gap-1.5">
+                    <span>⏮️</span> من البداية
+                  </button>
+                  <button type="button" onclick="togglePlayPause()" id="btn-play-pause" class="px-6 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-sm shadow-lg flex items-center gap-2">
+                    <span id="play-icon">▶️</span>
+                    <span id="play-text">تشغيل المعاينة</span>
+                  </button>
+                  <span id="current-scene-pill" class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-amber-400">
+                    المشهد 01
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Export Card -->
+          <div id="export-panel" class="neo-card p-5 sm:p-6 bg-gradient-to-l from-emerald-50/60 to-white">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div class="space-y-1">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold">
+                  <span>🚀 جاهز للتصدير</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-black text-slate-900">تصدير وتحميل الفيديو النهائي</h3>
+                <p class="text-xs text-slate-600">سيتم دمج الصوت مع أنيميشن الرسم والكابشن في ملف فيديو واحد جاهز للنشر.</p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-500 mb-1">الجودة</label>
+                  <select id="export-quality" class="p-2.5 rounded-xl border-2 border-slate-800 bg-white text-xs font-extrabold">
+                    <option value="1080">1080p Full HD (أعلى جودة)</option>
+                    <option value="720" selected>720p HD (سريع ومتوازن)</option>
+                  </select>
+                </div>
+
+                <div class="pt-4 sm:pt-5">
+                  <button type="button" onclick="exportVideo()" id="btn-export-video" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm border-2 border-slate-900 shadow-neo-sm flex items-center gap-2 transition">
+                    <span>⬇️</span>
+                    <span>تصدير وتحميل الفيديو الآن</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Export Progress Bar -->
+            <div id="export-progress-box" class="hidden mt-4 pt-4 border-t border-emerald-200 space-y-2">
+              <div class="flex justify-between text-xs font-extrabold text-emerald-900">
+                <span id="export-status-text">جاري معالجة وتسجيل المشاهد...</span>
+                <span id="export-percent">0%</span>
+              </div>
+              <div class="w-full h-3 bg-emerald-100 rounded-full overflow-hidden border border-emerald-300">
+                <div id="export-progress-bar" class="h-full bg-emerald-600 transition-all duration-200" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Hidden Audio Element for Master Playback -->
+  <audio id="master-audio" crossorigin="anonymous"></audio>
+
+  <script>
+    /**
+     * ============================================================================
+     * SUPERBOARD PRO - WHITEBOARD ANIMATION STUDIO ENGINE
+     * ============================================================================
+     */
+
+    // Application State
+    const state = {
+      step: 1,
+      aspectRatio: '9:16', // '9:16' or '16:9'
+      audioFile: null,
+      audioUrl: null,
+      audioDuration: 0,
+      images: [], // { id, name, url, imgObj, sketchCanvas }
+      scenes: [], // { index, title, startSec, endSec, durationSec, text, imageIndex }
+      settings: {
+        handStyle: 'pen',
+        showHand: true,
+        handSize: 100,
+        drawMode: 'sketch-then-color',
+        drawRatio: 0.70,
+        drawDir: 'rtl',
+        transition: 'fade',
+        showCaption: true,
+        capPos: 'bottom',
+        capFont: 'Cairo',
+        capSize: 26,
+        capBg: true,
+        capOpacity: 75,
+        sfxEnable: true,
+        sfxVol: 40,
+        syncOffsetMs: 0
+      },
+      playback: {
+        isPlaying: false,
+        currentTime: 0,
+        totalDuration: 70,
+        lastFrameTs: 0,
+        rafId: null
+      },
+      isExporting: false
+    };
+
+    // Default Script Provided by User (Pre-loaded for instant convenience!)
+    const USER_DEFAULT_SCRIPT = `المشهد 01 | 00:00 – 00:09 | 9 ث
+فِي حَارَةْ زَيِّ حَارِتْنَا، كَانْ فِيه مَحَلْ كُشَرِي صُغَيَّر اِسْمُه كُشَرِي الحَارَة، وَكُلّ النَّاسْ كَانُوا بِيِحِبُّوه، وَبِيِجُوا مِنْ كُلّ مَكَان.
+
+المشهد 02 | 00:09 – 00:17 | 8 ث
+وَفِي يُومْ، المَحَلّ اِتْزَحَمْ أَوِي، وَكُلّ وَاحِدْ مِنِ العُمَّالْ قَرَّرْ إِنُّه يِعْمِلْ كُلّ حَاجَة بِنَفْسُه، عَشَانْ يِلْحَقْ الطَّلَبَات.
+
+المشهد 03 | 00:17 – 00:25 | 8 ث
+عَمّ سَيِّد كَانْ بِيِطْبُخ وَبِيِحَاسِبْ وَبِيِقَدِّمْ فِي نَفْسِ الوَقْتْ، وَمَعَ الزِّحَامْ، نِسِي الأَرُزّ عَلَى النَّارْ وَبَدَأ يِتْحَرَّق!
+
+المشهد 04 | 00:25 – 00:32 | 7 ث
+وَحَمَادَة وَمُنَى كُلّ وَاحِدْ كَانْ فِي حَالُه، فَالطَّلَبَات اِتْلَخْبِطِتْ، وَالأَطْبَاق اِتْقَلَبِتْ، وَالصَّوْتْ عَلِي مِنْ كُلّ حِتَّة!
+
+المشهد 05 | 00:32 – 00:39 | 7 ث
+وَالزَّبَايِنْ اِسْتَنُّوا كَتِير، وَزَهَقُوا، وَاِتْضَايْقُوا، وَكُلُّهُمْ بِيِقُولُوا: فِينْ الكُشَرِي بَقَى؟ إِحْنَا مِشْ قَادْرِين نِسْتَنَّى أَكْتَر!
+
+المشهد 06 | 00:39 – 00:47 | 8 ث
+وَهِنَا، عَمّ سَيِّد رَفَعْ إِيدُه وَقَالّهُمْ: وَقَّفُوا! كِدَه مِشْ هَيِنْفَع، مِحْتَاجِين نِتْعَاوِنْ، وَكُلّ وَاحِدْ يِعْمِلْ اللِّي بِيِعْرَفُه أَحْسَنْ.
+
+المشهد 07 | 00:47 – 00:55 | 8 ث
+حَمَادَة اِسْتَلَمْ الأَرُزّ وَالمَكَرُونَة، وَمُنَى جَهِّزِتْ الصَّلْصَة وَالبَصَل المُحَمَّر، وَعَمّ سَيِّد وِقِفْ عَلَى الكَاشِير وَالتَّقْدِيم، وَالكُلّ بَدَأ يِشْتِغِلْ بِهُدُوء.
+
+المشهد 08 | 00:55 – 01:02 | 7 ث
+وَفِي دَقَايِقْ، الطَّلَبَات بَقَتْ بِتِطْلَعْ سَرِيعَة وَمُرَتَّبَة، وَالزَّبَايِنْ اِبْتَسَمُوا وَاِبْتَدُوا يِاكْلُوا، وَالرِّيحَة الحِلْوَة مَلَتْ الحَارَة.
+
+المشهد 09 | 01:02 – 01:10 | 8 ث
+وَالدَّرْسْ؟ لَمَّا نِتْعَاوِنْ، الشُّغْل بِيِبْقَى أَسْرَعْ وَأَحْلَى، وَالكُلّ بِيِكْسَبْ. فَخَلِّينَا نِتْعَاوِنْ فِي البَيْتْ، وَفِي الشُّغْل، وَفِي الدِّرَاسَة.`;
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const scriptEl = document.getElementById('script-input');
+      scriptEl.value = USER_DEFAULT_SCRIPT;
+      parseSyncScript();
+      setupDragAndDrop();
+      updateCanvasDimensions();
+    });
+
+    // ============================================================================
+    // 1. SMART SCRIPT PARSER (Handles "المشهد 01 | 00:00 – 00:09 | 9 ث")
+    // ============================================================================
+    function parseTimeToSeconds(timeStr) {
+      const parts = timeStr.trim().split(':').map(Number);
+      if (parts.length === 2) return parts[0] * 60 + parts[1];
+      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      return 0;
+    }
+
+    function formatSeconds(sec) {
+      const s = Math.max(0, Math.floor(sec));
+      const mins = Math.floor(s / 60);
+      const rem = s % 60;
+      return `${String(mins).padStart(2, '0')}:${String(rem).padStart(2, '0')}`;
+    }
+
+    function parseSyncScript(showNotification = false) {
+      const raw = document.getElementById('script-input').value.trim();
+      if (!raw) {
+        state.scenes = [];
+        renderParsedScenes();
+        updateProjectSummary();
+        return;
+      }
+
+      const lines = raw.split(/\r?\n/);
+      const scenes = [];
+      let currentScene = null;
+
+      // Regex matching: المشهد 01 | 00:00 – 00:09 | 9 ث (supports various dashes & spaces)
+      const headerRegex = /^(?:المشهد|مشهد)\s*(\d+)\s*\|\s*(\d{1,2}:\d{2})\s*[–\-—~]\s*(\d{1,2}:\d{2})(?:\s*\|\s*.*)?$/i;
+
+      for (let line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        const match = trimmed.match(headerRegex);
+        if (match) {
+          if (currentScene) scenes.push(currentScene);
+          const startSec = parseTimeToSeconds(match[2]);
+          const endSec = parseTimeToSeconds(match[3]);
+          currentScene = {
+            index: scenes.length,
+            numberLabel: match[1].padStart(2, '0'),
+            startSec,
+            endSec: endSec > startSec ? endSec : startSec + 5,
+            durationSec: Math.max(1, endSec - startSec),
+            text: ''
+          };
+        } else if (currentScene) {
+          currentScene.text += (currentScene.text ? ' ' : '') + trimmed;
+        }
+      }
+      if (currentScene) scenes.push(currentScene);
+
+      // Fallback if user pasted plain paragraphs without timestamps
+      if (scenes.length === 0 && raw.length > 0) {
+        const blocks = raw.split(/\n\s*\n/).filter(b => b.trim());
+        const totalDur = state.audioDuration > 0 ? state.audioDuration : blocks.length * 7;
+        const perScene = totalDur / blocks.length;
+        blocks.forEach((b, idx) => {
+          scenes.push({
+            index: idx,
+            numberLabel: String(idx + 1).padStart(2, '0'),
+            startSec: idx * perScene,
+            endSec: (idx + 1) * perScene,
+            durationSec: perScene,
+            text: b.replace(/\s+/g, ' ').trim()
+          });
+        });
+      }
+
+      state.scenes = scenes;
+      if (scenes.length > 0) {
+        const maxScriptEnd = scenes[scenes.length - 1].endSec;
+        state.playback.totalDuration = Math.max(maxScriptEnd, state.audioDuration || 0);
+      }
+
+      renderParsedScenes();
+      updateProjectSummary();
+
+      if (showNotification) {
+        showToast(`تم تحليل ومزامنة ${scenes.length} مشاهد بنجاح!`, 'success');
+      }
+    }
+
+    function renderParsedScenes() {
+      const container = document.getElementById('parsed-scenes-container');
+      const list = document.getElementById('parsed-scenes-list');
+      const countLabel = document.getElementById('parsed-count-label');
+
+      if (state.scenes.length === 0) {
+        container.classList.add('hidden');
+        return;
+      }
+
+      container.classList.remove('hidden');
+      countLabel.textContent = `${state.scenes.length} مشاهد جاهزة`;
+      list.innerHTML = '';
+
+      state.scenes.forEach((scene, idx) => {
+        const matchedImg = state.images[idx];
+        const imgHtml = matchedImg
+          ? `<img src="${matchedImg.url}" class="w-12 h-12 rounded-lg object-cover border border-slate-300 shrink-0">`
+          : `<div class="w-12 h-12 rounded-lg bg-slate-100 border border-dashed border-slate-300 flex items-center justify-center text-[10px] text-slate-400 text-center shrink-0">بدون<br>صورة</div>`;
+
+        const row = document.createElement('div');
+        row.className = 'p-2.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3 text-xs';
+        row.innerHTML = `
+          ${imgHtml}
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-800 font-extrabold">المشهد ${scene.numberLabel}</span>
+              <span class="font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded">${formatSeconds(scene.startSec)} ← ${formatSeconds(scene.endSec)}</span>
+              <span class="text-emerald-700 font-bold">(${Math.round(scene.durationSec)} ث)</span>
+            </div>
+            <p class="text-slate-700 truncate font-semibold" title="${scene.text}">${scene.text}</p>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    // ============================================================================
+    // 2. FILE UPLOADS, SKETCH PRE-PROCESSING & DEMO GENERATOR
+    // ============================================================================
+    function setupDragAndDrop() {
+      const audioZone = document.getElementById('audio-dropzone');
+      const imgZone = document.getElementById('images-dropzone');
+
+      [audioZone, imgZone].forEach(zone => {
+        zone.addEventListener('dragover', e => {
+          e.preventDefault();
+          zone.classList.add('border-orange-500', 'bg-orange-50');
+        });
+        zone.addEventListener('dragleave', () => {
+          zone.classList.remove('border-orange-500', 'bg-orange-50');
+        });
+      });
+
+      audioZone.addEventListener('drop', e => {
+        e.preventDefault();
+        audioZone.classList.remove('border-orange-500', 'bg-orange-50');
+        if (e.dataTransfer.files.length) {
+          processAudioFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      imgZone.addEventListener('drop', e => {
+        e.preventDefault();
+        imgZone.classList.remove('border-orange-500', 'bg-orange-50');
+        if (e.dataTransfer.files.length) {
+          processImageFiles(Array.from(e.dataTransfer.files));
+        }
+      });
+    }
+
+    function handleAudioUpload(e) {
+      if (e.target.files.length) {
+        processAudioFile(e.target.files[0]);
+      }
+    }
+
+    function processAudioFile(file) {
+      if (!file.type.startsWith('audio/')) {
+        showToast('يرجى اختيار ملف صوتي صحيح (MP3 أو WAV)', 'error');
+        return;
+      }
+      if (state.audioUrl) URL.revokeObjectURL(state.audioUrl);
+      state.audioFile = file;
+      state.audioUrl = URL.createObjectURL(file);
+
+      const previewPlayer = document.getElementById('audio-player-preview');
+      const masterAudio = document.getElementById('master-audio');
+      previewPlayer.src = state.audioUrl;
+      masterAudio.src = state.audioUrl;
+
+      document.getElementById('audio-filename').textContent = `✅ ${file.name}`;
+      document.getElementById('audio-file-info').classList.remove('hidden');
+
+      masterAudio.onloadedmetadata = () => {
+        state.audioDuration = masterAudio.duration;
+        const scriptEnd = state.scenes.length ? state.scenes[state.scenes.length - 1].endSec : 0;
+        state.playback.totalDuration = Math.max(state.audioDuration, scriptEnd);
+        updateProjectSummary();
+        showToast(`تم تحميل الصوت بنجاح (${formatSeconds(state.audioDuration)})`, 'success');
+      };
+    }
+
+    function handleImagesUpload(e) {
+      if (e.target.files.length) {
+        processImageFiles(Array.from(e.target.files));
+      }
+    }
+
+    async function processImageFiles(files) {
+      // Sort files naturally by filename (e.g., scene_1, scene_2, ..., scene_10)
+      const imageFiles = files
+        .filter(f => f.type.startsWith('image/'))
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+
+      if (!imageFiles.length) return;
+
+      for (const file of imageFiles) {
+        const url = URL.createObjectURL(file);
+        const imgObj = await loadImage(url);
+        const sketchCanvas = generateSketchCanvas(imgObj);
+        state.images.push({
+          id: Math.random().toString(36).slice(2),
+          name: file.name,
+          url,
+          imgObj,
+          sketchCanvas
+        });
+      }
+
+      renderImagesGallery();
+      renderParsedScenes();
+      updateProjectSummary();
+      showToast(`تمت إضافة ${imageFiles.length} صور وتحويلها لرسومات جاهزة!`, 'success');
+    }
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    /**
+     * Converts a full-color image into a crisp pencil-sketch outline layer
+     * using fast luminance edge detection (Sobel-like gradient) on an offscreen canvas.
+     */
+    function generateSketchCanvas(img) {
+      const maxDim = 720;
+      const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+      const w = Math.max(64, Math.round(img.width * scale));
+      const h = Math.max(64, Math.round(img.height * scale));
+
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const data = imgData.data;
+      const gray = new Float32Array(w * h);
+
+      for (let i = 0; i < w * h; i++) {
+        const idx = i * 4;
+        gray[i] = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+      }
+
+      const outData = ctx.createImageData(w, h);
+      const out = outData.data;
+
+      for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+          const i = y * w + x;
+          // Sobel operator
+          const gx =
+            -gray[i - w - 1] + gray[i - w + 1] +
+            -2 * gray[i - 1] + 2 * gray[i + 1] +
+            -gray[i + w - 1] + gray[i + w + 1];
+          const gy =
+            -gray[i - w - 1] - 2 * gray[i - w] - gray[i - w + 1] +
+            gray[i + w - 1] + 2 * gray[i + w] + gray[i + w + 1];
+
+          const mag = Math.sqrt(gx * gx + gy * gy);
+          // Enhance pencil line contrast on pure white board
+          let val = 255 - Math.min(255, mag * 1.45);
+          if (val > 215) val = 255; // clean white background
+          else val = Math.max(20, val * 0.75); // crisp dark charcoal lines
+
+          const idx = i * 4;
+          out[idx] = val;
+          out[idx + 1] = val;
+          out[idx + 2] = val + 4;
+          out[idx + 3] = 255;
+        }
+      }
+
+      ctx.putImageData(outData, 0, 0);
+      return canvas;
+    }
+
+    function renderImagesGallery() {
+      const wrapper = document.getElementById('images-gallery-wrapper');
+      const grid = document.getElementById('images-grid');
+
+      if (state.images.length === 0) {
+        wrapper.classList.add('hidden');
+        return;
+      }
+
+      wrapper.classList.remove('hidden');
+      grid.innerHTML = '';
+
+      state.images.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'relative group rounded-xl border-2 border-slate-800 bg-white overflow-hidden shadow-sm';
+        card.innerHTML = `
+          <img src="${item.url}" class="w-full h-24 object-cover">
+          <div class="px-2 py-1 bg-slate-900 text-white text-[10px] font-extrabold flex items-center justify-between">
+            <span>مشهد ${String(idx + 1).padStart(2, '0')}</span>
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="moveImage(${idx}, -1)" class="hover:text-orange-400 px-1" title="تقديم">→</button>
+              <button type="button" onclick="moveImage(${idx}, 1)" class="hover:text-orange-400 px-1" title="تأخير">←</button>
+              <button type="button" onclick="removeImage(${idx})" class="hover:text-red-400 px-1" title="حذف">✕</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function moveImage(index, dir) {
+      const target = index + dir;
+      if (target < 0 || target >= state.images.length) return;
+      const temp = state.images[index];
+      state.images[index] = state.images[target];
+      state.images[target] = temp;
+      renderImagesGallery();
+      renderParsedScenes();
+    }
+
+    function removeImage(index) {
+      state.images.splice(index, 1);
+      renderImagesGallery();
+      renderParsedScenes();
+      updateProjectSummary();
+    }
+
+    function clearAllImages() {
+      state.images = [];
+      renderImagesGallery();
+      renderParsedScenes();
+      updateProjectSummary();
+    }
+
+    /**
+     * Generates 9 colorful illustrated scene cards for "كشري الحارة"
+     * so the user can test the entire animation immediately even before uploading her own files.
+     */
+    async function loadDemoStory() {
+      clearAllImages();
+      const sceneThemes = [
+        { bg: '#FEF3C7', accent: '#F97316', emoji: '🍲🏠', title: 'محل كشري الحارة' },
+        { bg: '#DBEAFE', accent: '#2563EB', emoji: '🏃‍♂️💨', title: 'الزحام الشديد' },
+        { bg: '#FEE2E2', accent: '#DC2626', emoji: '🔥🍚', title: 'الأرز على النار' },
+        { bg: '#FCE7F3', accent: '#DB2777', emoji: '🍽️💥', title: 'لخبطة الطلبات' },
+        { bg: '#F3E8FF', accent: '#7C3AED', emoji: '😤⏳', title: 'انتظار الزبائن' },
+        { bg: '#FFEDD5', accent: '#EA580C', emoji: '✋🗣️', title: 'فكرة التعاون' },
+        { bg: '#CCFBF1', accent: '#0D9488', emoji: '👨‍🍳👩‍🍳', title: 'تقسيم الأدوار' },
+        { bg: '#DCFCE7', accent: '#16A34A', emoji: '😋🍲', title: 'سعادة الزبائن' },
+        { bg: '#FEF9C3', accent: '#CA8A04', emoji: '🤝🌟', title: 'درس التعاون' }
+      ];
+
+      for (let i = 0; i < sceneThemes.length; i++) {
+        const t = sceneThemes[i];
+        const c = document.createElement('canvas');
+        c.width = 720;
+        c.height = 720;
+        const ctx = c.getContext('2d');
+
+        // Background
+        ctx.fillStyle = t.bg;
+        ctx.fillRect(0, 0, 720, 720);
+
+        // Decorative Frame
+        ctx.strokeStyle = t.accent;
+        ctx.lineWidth = 14;
+        ctx.strokeRect(36, 36, 648, 648);
+
+        // Inner Circle
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(360, 320, 175, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.lineWidth = 8;
+        ctx.stroke();
+
+        // Emoji Illustration
+        ctx.font = '130px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(t.emoji, 360, 325);
+
+        // Scene Banner
+        ctx.fillStyle = t.accent;
+        ctx.fillRect(140, 535, 440, 75);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 34px Cairo, sans-serif';
+        ctx.fillText(`مشهد ${i + 1}: ${t.title}`, 360, 573);
+
+        const url = c.toDataURL('image/png');
+        const imgObj = await loadImage(url);
+        const sketchCanvas = generateSketchCanvas(imgObj);
+        state.images.push({
+          id: 'demo-' + i,
+          name: `demo_scene_${i + 1}.png`,
+          url,
+          imgObj,
+          sketchCanvas
+        });
+      }
+
+      document.getElementById('script-input').value = USER_DEFAULT_SCRIPT;
+      parseSyncScript();
+      renderImagesGallery();
+      updateProjectSummary();
+      showToast('تم تحميل 9 مشاهد تجريبية لقصة كشري الحارة! اضغطي "انشئ الفيديو"', 'success');
+    }
+
+    // ============================================================================
+    // 3. SETTINGS & NAVIGATION
+    // ============================================================================
+    function updateProjectSummary() {
+      // Audio Status
+      const audioCard = document.getElementById('status-audio');
+      if (state.audioFile) {
+        audioCard.querySelector('.status-dot').className = 'status-dot w-4 h-4 rounded-full bg-emerald-500 inline-block';
+        audioCard.querySelector('.status-label').textContent = formatSeconds(state.audioDuration);
+        audioCard.querySelector('.status-label').className = 'status-label text-emerald-700';
+      }
+
+      // Images Status
+      const imgCard = document.getElementById('status-images');
+      if (state.images.length > 0) {
+        imgCard.querySelector('.status-dot').className = 'status-dot w-4 h-4 rounded-full bg-emerald-500 inline-block';
+        imgCard.querySelector('.status-label').textContent = `${state.images.length} صور جاهزة`;
+        imgCard.querySelector('.status-label').className = 'status-label text-emerald-700';
+      } else {
+        imgCard.querySelector('.status-dot').className = 'status-dot w-4 h-4 rounded-full border-2 border-slate-400 inline-block';
+        imgCard.querySelector('.status-label').textContent = '0 صور';
+        imgCard.querySelector('.status-label').className = 'status-label text-slate-400';
+      }
+
+      // Script Status
+      const scriptCard = document.getElementById('status-script');
+      if (state.scenes.length > 0) {
+        scriptCard.querySelector('.status-dot').className = 'status-dot w-4 h-4 rounded-full bg-emerald-500 inline-block';
+        scriptCard.querySelector('.status-label').textContent = `${state.scenes.length} مشاهد متزامنة`;
+        scriptCard.querySelector('.status-label').className = 'status-label text-emerald-700';
+      }
+
+      document.getElementById('total-duration-badge').textContent = formatSeconds(state.playback.totalDuration);
+      document.getElementById('time-total').textContent = formatSeconds(state.playback.totalDuration);
+    }
+
+    function setAspectRatio(ratio) {
+      state.aspectRatio = ratio;
+      document.querySelectorAll('.ratio-btn').forEach(btn => {
+        btn.classList.remove('border-orange-500', 'bg-orange-50');
+        btn.classList.add('border-slate-200', 'bg-white');
+      });
+      const activeBtn = document.getElementById(ratio === '9:16' ? 'ratio-9-16' : 'ratio-16-9');
+      activeBtn.classList.remove('border-slate-200', 'bg-white');
+      activeBtn.classList.add('border-orange-500', 'bg-orange-50');
+
+      updateCanvasDimensions();
+      if (state.step >= 2) renderFrame(state.playback.currentTime);
+    }
+
+    function selectHand(style) {
+      state.settings.handStyle = style;
+      document.querySelectorAll('.hand-card').forEach(c => c.classList.remove('active'));
+      const selected = document.querySelector(`.hand-card[data-hand="${style}"]`);
+      if (selected) selected.classList.add('active');
+      if (state.step >= 2) renderFrame(state.playback.currentTime);
+    }
+
+    function syncSettings() {
+      state.settings.showHand = document.getElementById('opt-show-hand').checked;
+      state.settings.handSize = Number(document.getElementById('opt-hand-size').value);
+      state.settings.drawMode = document.getElementById('opt-draw-mode').value;
+      state.settings.drawRatio = Number(document.getElementById('opt-draw-ratio').value);
+      state.settings.drawDir = document.getElementById('opt-draw-dir').value;
+      state.settings.transition = document.getElementById('opt-transition').value;
+
+      state.settings.showCaption = document.getElementById('opt-show-caption').checked;
+      state.settings.capPos = document.getElementById('opt-cap-pos').value;
+      state.settings.capFont = document.getElementById('opt-cap-font').value;
+      state.settings.capSize = Number(document.getElementById('opt-cap-size').value);
+      state.settings.capBg = document.getElementById('opt-cap-bg').checked;
+      state.settings.capOpacity = Number(document.getElementById('opt-cap-opacity').value);
+
+      state.settings.sfxEnable = document.getElementById('opt-sfx-enable').checked;
+      state.settings.sfxVol = Number(document.getElementById('opt-sfx-vol').value);
+      state.settings.syncOffsetMs = Number(document.getElementById('opt-sync-offset').value);
+
+      // Update labels
+      document.getElementById('val-hand-size').textContent = `${state.settings.handSize}%`;
+      document.getElementById('val-cap-size').textContent = `${state.settings.capSize}px`;
+      document.getElementById('val-cap-opacity').textContent = `${state.settings.capOpacity}%`;
+      document.getElementById('val-sfx-vol').textContent = `${state.settings.sfxVol}%`;
+      document.getElementById('val-sync-offset').textContent = `${state.settings.syncOffsetMs} ms`;
+
+      if (state.step >= 2 && !state.playback.isPlaying) {
+        renderFrame(state.playback.currentTime);
+      }
+    }
+
+    function goToStep(stepNum) {
+      if (stepNum >= 2 && state.scenes.length === 0) {
+        showToast('يرجى إدخال نص المزامنة أو المشاهد أولاً', 'error');
+        return;
+      }
+
+      state.step = stepNum;
+      document.getElementById('view-step-1').classList.toggle('hidden', stepNum !== 1);
+      document.getElementById('view-step-2').classList.toggle('hidden', stepNum === 1);
+
+      // Update Step Tabs UI
+      [1, 2, 3].forEach(n => {
+        const btn = document.getElementById(`step-btn-${n}`);
+        const badge = btn.querySelector('span');
+        if (n === stepNum) {
+          btn.classList.add('border-sky-500', 'bg-sky-50');
+          btn.classList.remove('border-transparent', 'opacity-75');
+          badge.classList.add('bg-slate-900', 'text-white');
+          badge.classList.remove('bg-slate-200', 'text-slate-700');
+        } else {
+          btn.classList.remove('border-sky-500', 'bg-sky-50');
+          btn.classList.add('border-transparent', 'opacity-75');
+          badge.classList.remove('bg-slate-900', 'text-white');
+          badge.classList.add('bg-slate-200', 'text-slate-700');
+        }
+      });
+
+      if (stepNum >= 2) {
+        updateCanvasDimensions();
+        renderFrame(state.playback.currentTime);
+      }
+      if (stepNum === 3) {
+        document.getElementById('export-panel').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function startStudioPreview() {
+      parseSyncScript();
+      if (state.scenes.length === 0) {
+        showToast('يرجى لصق السكربت مع التوقيت أولاً!', 'error');
+        return;
+      }
+      if (state.images.length === 0) {
+        showToast('تنبيه: لم ترفعي صوراً بعد، سيتم عرض بطاقات نصية مؤقتة أو اضغطي "تجربة سريعة"', 'info');
+      }
+      goToStep(2);
+      restartPlayback();
+      togglePlayPause();
+    }
+
+    // ============================================================================
+    // 4. WEB AUDIO API SYNTHESIZER (Realistic Pencil Sketching Sound Effect)
+    // ============================================================================
+    let audioCtx = null;
+    let sfxGainNode = null;
+    let sfxFilterNode = null;
+    let sfxStarted = false;
+
+    function initAudioEngine() {
+      if (audioCtx) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      // Create looping pink/white noise buffer for pencil scratch texture
+      const bufferSize = audioCtx.sampleRate * 2;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * 0.5;
+      }
+
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = buffer;
+      whiteNoise.loop = true;
+
+      sfxFilterNode = audioCtx.createBiquadFilter();
+      sfxFilterNode.type = 'bandpass';
+      sfxFilterNode.frequency.value = 2400;
+      sfxFilterNode.Q.value = 3.5;
+
+      sfxGainNode = audioCtx.createGain();
+      sfxGainNode.gain.value = 0;
+
+      whiteNoise.connect(sfxFilterNode);
+      sfxFilterNode.connect(sfxGainNode);
+      sfxGainNode.connect(audioCtx.destination);
+      whiteNoise.start(0);
+      sfxStarted = true;
+    }
+
+    function updatePencilSFX(isDrawingNow, strokeVelocity = 1) {
+      if (!audioCtx || !sfxGainNode) return;
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      if (isDrawingNow && state.playback.isPlaying && state.settings.sfxEnable && state.settings.sfxVol > 0) {
+        const targetGain = (state.settings.sfxVol / 100) * 0.14 * Math.min(1.5, Math.max(0.3, strokeVelocity));
+        sfxGainNode.gain.setTargetAtTime(targetGain, audioCtx.currentTime, 0.04);
+        sfxFilterNode.frequency.setTargetAtTime(1800 + Math.random() * 1400, audioCtx.currentTime, 0.05);
+      } else {
+        sfxGainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.03);
+      }
+    }
+
+    // ============================================================================
+    // 5. HTML5 CANVAS WHITEBOARD RENDERING ENGINE
+    // ============================================================================
+    function updateCanvasDimensions(customHeight = null) {
+      const canvas = document.getElementById('whiteboard-canvas');
+      const baseH = customHeight || 720;
+      if (state.aspectRatio === '9:16') {
+        canvas.width = Math.round(baseH * (9 / 16)); // 405 or 608
+        canvas.height = baseH;
+      } else {
+        canvas.width = Math.round(baseH * (16 / 9)); // 1280 or 1920
+        canvas.height = baseH;
+      }
+    }
+
+    function renderFrame(rawTimeSec) {
+      const canvas = document.getElementById('whiteboard-canvas');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+
+      // Apply user sync offset (ms -> seconds)
+      const t = Math.max(0, rawTimeSec - (state.settings.syncOffsetMs / 1000));
+
+      // 1. Clean Whiteboard Background with subtle paper texture
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle grid dots like a real studio board
+      ctx.fillStyle = '#F1F5F9';
+      for (let gx = 24; gx < W; gx += 36) {
+        for (let gy = 24; gy < H; gy += 36) {
+          ctx.fillRect(gx, gy, 2, 2);
+        }
+      }
+
+      if (state.scenes.length === 0) return;
+
+      // Find active scene
+      let activeSceneIdx = state.scenes.findIndex(s => t >= s.startSec && t < s.endSec);
+      if (activeSceneIdx === -1) {
+        activeSceneIdx = t >= state.scenes[state.scenes.length - 1].endSec ? state.scenes.length - 1 : 0;
+      }
+
+      const scene = state.scenes[activeSceneIdx];
+      document.getElementById('current-scene-pill').textContent = `المشهد ${scene.numberLabel}`;
+
+      const elapsedInScene = Math.max(0, t - scene.startSec);
+      const sceneProgress = Math.min(1, elapsedInScene / Math.max(0.2, scene.durationSec));
+      const drawRatio = state.settings.drawRatio;
+
+      // Determine image box area (leaving room for caption)
+      const padX = W * 0.06;
+      const padTop = H * 0.06;
+      const availW = W - padX * 2;
+      const availH = state.settings.showCaption ? H * 0.68 : H * 0.86;
+
+      const sceneAsset = state.images[activeSceneIdx];
+      let isCurrentlyDrawing = false;
+      let handPos = null;
+
+      if (sceneAsset && sceneAsset.imgObj) {
+        const img = sceneAsset.imgObj;
+        const sketch = sceneAsset.sketchCanvas;
+
+        // Fit image preserving aspect ratio
+        const scale = Math.min(availW / img.width, availH / img.height);
+        let drawW = img.width * scale;
+        let drawH = img.height * scale;
+
+        // Optional subtle Ken Burns zoom during hold phase
+        if (state.settings.transition === 'zoom' && sceneProgress > drawRatio) {
+          const holdP = (sceneProgress - drawRatio) / (1 - drawRatio);
+          const zoomFactor = 1 + holdP * 0.05;
+          drawW *= zoomFactor;
+          drawH *= zoomFactor;
+        }
+
+        const drawX = (W - drawW) / 2;
+        const drawY = padTop + (availH - drawH) / 2;
+
+        // Fade-in transition at start of scene
+        ctx.save();
+        if (state.settings.transition === 'fade' && elapsedInScene < 0.35 && activeSceneIdx > 0) {
+          ctx.globalAlpha = Math.min(1, elapsedInScene / 0.35);
+        }
+
+        const mode = state.settings.drawMode;
+
+        if (mode === 'sketch-then-color') {
+          const sketchPhaseEnd = drawRatio * 0.72;
+          if (sceneProgress < sketchPhaseEnd) {
+            // Phase A: Drawing the pencil outline
+            const p = sceneProgress / sketchPhaseEnd;
+            isCurrentlyDrawing = true;
+            handPos = drawRevealedLayer(ctx, sketch, drawX, drawY, drawW, drawH, p, state.settings.drawDir);
+          } else if (sceneProgress < drawRatio) {
+            // Phase B: Coloring in the full image over the sketch
+            ctx.drawImage(sketch, drawX, drawY, drawW, drawH);
+            const p = (sceneProgress - sketchPhaseEnd) / (drawRatio - sketchPhaseEnd);
+            isCurrentlyDrawing = true;
+            handPos = drawRevealedLayer(ctx, img, drawX, drawY, drawW, drawH, p, state.settings.drawDir);
+          } else {
+            // Phase C: Completed full-color scene hold
+            ctx.drawImage(img, drawX, drawY, drawW, drawH);
+          }
+        } else if (mode === 'direct-reveal') {
+          if (sceneProgress < drawRatio) {
+            const p = sceneProgress / drawRatio;
+            isCurrentlyDrawing = true;
+            handPos = drawRevealedLayer(ctx, img, drawX, drawY, drawW, drawH, p, state.settings.drawDir);
+          } else {
+            ctx.drawImage(img, drawX, drawY, drawW, drawH);
+          }
+        } else {
+          // sketch-only
+          if (sceneProgress < drawRatio) {
+            const p = sceneProgress / drawRatio;
+            isCurrentlyDrawing = true;
+            handPos = drawRevealedLayer(ctx, sketch, drawX, drawY, drawW, drawH, p, state.settings.drawDir);
+          } else {
+            ctx.drawImage(sketch, drawX, drawY, drawW, drawH);
+          }
+        }
+
+        ctx.restore();
+      } else {
+        // Fallback Visual Card if no image uploaded for this scene
+        ctx.save();
+        ctx.fillStyle = '#FFF7ED';
+        ctx.strokeStyle = '#F97316';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.roundRect(padX, padTop + 20, availW, availH - 40, 24);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#EA580C';
+        ctx.font = `800 ${Math.round(W * 0.055)}px Cairo, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(`المشهد ${scene.numberLabel}`, W / 2, padTop + availH * 0.42);
+
+        ctx.fillStyle = '#64748B';
+        ctx.font = `600 ${Math.round(W * 0.032)}px Cairo, sans-serif`;
+        ctx.fillText('(ارفع صورة لهذا المشهد من الخطوة 1)', W / 2, padTop + availH * 0.55);
+        ctx.restore();
+      }
+
+      // Update Pencil Sound Effect
+      updatePencilSFX(isCurrentlyDrawing, 1.0);
+
+      // Draw Animated Hand at Active Drawing Tip
+      if (isCurrentlyDrawing && handPos && state.settings.showHand && state.settings.handStyle !== 'none') {
+        drawAnimatedHand(ctx, handPos.x, handPos.y, W);
+      }
+
+      // Draw Arabic RTL Caption
+      if (state.settings.showCaption && scene.text) {
+        drawArabicCaption(ctx, scene.text, W, H);
+      }
+    }
+
+    /**
+     * Reveals an image progressively with a zig-zag sweeping edge and returns
+     * the exact (x, y) coordinates for the drawing pen tip.
+     */
+    function drawRevealedLayer(ctx, sourceImg, x, y, w, h, progress, direction) {
+      const clampedP = Math.max(0, Math.min(1, progress));
+      // Zig-zag frequency for realistic back-and-forth hand strokes
+      const zigZag = Math.sin(clampedP * Math.PI * 26);
+
+      ctx.save();
+      ctx.beginPath();
+
+      let tipX = x + w / 2;
+      let tipY = y + h / 2;
+
+      if (direction === 'rtl') {
+        // Right to Left reveal
+        const sweepX = x + w * (1 - clampedP);
+        ctx.rect(sweepX, y, w * clampedP + 2, h);
+        tipX = sweepX;
+        tipY = y + h * (0.5 + 0.36 * zigZag);
+      } else if (direction === 'ltr') {
+        // Left to Right reveal
+        const sweepX = x + w * clampedP;
+        ctx.rect(x, y, w * clampedP, h);
+        tipX = sweepX;
+        tipY = y + h * (0.5 + 0.36 * zigZag);
+      } else {
+        // Top to Bottom reveal
+        const sweepY = y + h * clampedP;
+        ctx.rect(x, y, w, h * clampedP);
+        tipX = x + w * (0.5 + 0.36 * zigZag);
+        tipY = sweepY;
+      }
+
+      ctx.clip();
+      ctx.drawImage(sourceImg, x, y, w, h);
+      ctx.restore();
+
+      return { x: tipX, y: tipY };
+    }
+
+    /**
+     * Draws detailed vector hand + pen/brush anchored precisely at (tipX, tipY)
+     */
+    function drawAnimatedHand(ctx, tipX, tipY, canvasW) {
+      const style = state.settings.handStyle;
+      const scale = (canvasW / 500) * (state.settings.handSize / 100);
+
+      ctx.save();
+      ctx.translate(tipX, tipY);
+      ctx.scale(scale, scale);
+
+      // Subtle shadow under hand
+      ctx.shadowColor = 'rgba(0,0,0,0.25)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetX = 6;
+      ctx.shadowOffsetY = 8;
+
+      if (style === 'pen') {
+        // Pen tip at (0,0) extending up-right
+        ctx.rotate(-0.15);
+        // Nib
+        ctx.fillStyle = '#0F172A';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(14, -8);
+        ctx.lineTo(8, -14);
+        ctx.closePath();
+        ctx.fill();
+
+        // Pen Barrel
+        ctx.fillStyle = '#1E293B';
+        ctx.beginPath();
+        ctx.moveTo(11, -11);
+        ctx.lineTo(95, -95);
+        ctx.lineTo(107, -83);
+        ctx.lineTo(23, 1);
+        ctx.closePath();
+        ctx.fill();
+
+        // Orange Accent Ring
+        ctx.fillStyle = '#F97316';
+        ctx.beginPath();
+        ctx.moveTo(22, -22);
+        ctx.lineTo(30, -30);
+        ctx.lineTo(38, -22);
+        ctx.lineTo(30, -14);
+        ctx.closePath();
+        ctx.fill();
+
+        // Realistic Hand Gripping Pen
+        ctx.fillStyle = '#FDBA74';
+        ctx.strokeStyle = '#7C2D12';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.roundRect(35, -68, 78, 52, 22);
+        ctx.fill();
+        ctx.stroke();
+
+        // Fingers
+        ctx.beginPath();
+        ctx.roundRect(28, -42, 42, 16, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        // Suit Sleeve
+        ctx.fillStyle = '#0F172A';
+        ctx.beginPath();
+        ctx.roundRect(95, -95, 110, 75, 12);
+        ctx.fill();
+      } else if (style === 'cartoon') {
+        // Red Marker + White Gloved Cartoon Hand
+        ctx.fillStyle = '#EF4444';
+        ctx.strokeStyle = '#1E293B';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(18, -10);
+        ctx.lineTo(85, -77);
+        ctx.lineTo(73, -89);
+        ctx.lineTo(10, -18);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // White Glove
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(65, -45, 34, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Glove Lines
+        ctx.beginPath();
+        ctx.moveTo(52, -55);
+        ctx.lineTo(62, -40);
+        ctx.moveTo(66, -60);
+        ctx.lineTo(74, -45);
+        ctx.stroke();
+      } else if (style === 'brush') {
+        // Blue Paint Brush Tip
+        ctx.fillStyle = '#2563EB';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(18, -2, 24, -16);
+        ctx.lineTo(16, -24);
+        ctx.quadraticCurveTo(2, -18, 0, 0);
+        ctx.fill();
+
+        // Wooden Handle
+        ctx.fillStyle = '#92400E';
+        ctx.beginPath();
+        ctx.moveTo(20, -20);
+        ctx.lineTo(110, -110);
+        ctx.lineTo(118, -102);
+        ctx.lineTo(28, -12);
+        ctx.closePath();
+        ctx.fill();
+
+        // Hand
+        ctx.fillStyle = '#FDBA74';
+        ctx.beginPath();
+        ctx.roundRect(45, -75, 75, 48, 20);
+        ctx.fill();
+      } else if (style === 'marker' || style === 'pencil') {
+        const bodyColor = style === 'marker' ? '#10B981' : '#FBBF24';
+        ctx.fillStyle = '#1E293B';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(14, -6);
+        ctx.lineTo(6, -14);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = bodyColor;
+        ctx.strokeStyle = '#1E293B';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(10, -10);
+        ctx.lineTo(95, -95);
+        ctx.lineTo(108, -82);
+        ctx.lineTo(23, 3);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#FED7AA';
+        ctx.beginPath();
+        ctx.roundRect(38, -66, 74, 48, 20);
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    /**
+     * Renders clean, wrapped RTL Arabic captions with diacritics (تشكيل)
+     */
+    function drawArabicCaption(ctx, text, W, H) {
+      const fontName = state.settings.capFont;
+      const scaleFactor = W / 450;
+      const fontSize = Math.round(state.settings.capSize * Math.max(0.85, Math.min(1.6, scaleFactor)));
+
+      ctx.save();
+      ctx.direction = 'rtl';
+      ctx.font = `800 ${fontSize}px "${fontName}", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const maxLineWidth = W * 0.86;
+      const words = text.split(' ');
+      const lines = [];
+      let currentLine = '';
+
+      for (const word of words) {
+        const testLine = currentLine ? `${currentLine} ${word}` : word;
+        if (ctx.measureText(testLine).width > maxLineWidth && currentLine) {
+          lines.push(currentLine);
+          currentLine = word;
+        } else {
+          currentLine = testLine;
+        }
+      }
+      if (currentLine) lines.push(currentLine);
+
+      const lineHeight = fontSize * 1.55;
+      const boxHeight = lines.length * lineHeight + fontSize * 0.9;
+      const boxWidth = W * 0.90;
+      const boxX = (W - boxWidth) / 2;
+
+      let boxY = H - boxHeight - H * 0.04; // bottom
+      if (state.settings.capPos === 'top') boxY = H * 0.04;
+      if (state.settings.capPos === 'center') boxY = (H - boxHeight) / 2;
+
+      // Background Pill
+      if (state.settings.capBg && state.settings.capOpacity > 0) {
+        const alpha = state.settings.capOpacity / 100;
+        ctx.fillStyle = `rgba(15, 23, 42, ${alpha})`;
+        ctx.beginPath();
+        ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 18);
+        ctx.fill();
+
+        ctx.strokeStyle = `rgba(249, 115, 22, ${Math.min(1, alpha + 0.2)})`;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+
+      // Draw Lines
+      lines.forEach((line, idx) => {
+        const ly = boxY + fontSize * 0.9 + idx * lineHeight;
+        if (!state.settings.capBg || state.settings.capOpacity < 35) {
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 5;
+          ctx.strokeText(line, W / 2, ly);
+          ctx.fillStyle = '#0F172A';
+        } else {
+          ctx.fillStyle = '#FFFFFF';
+        }
+        ctx.fillText(line, W / 2, ly);
+      });
+
+      ctx.restore();
+    }
+
+    // ============================================================================
+    // 6. PLAYBACK CONTROLLER & TIMELINE SCRUBBER
+    // ============================================================================
+    function togglePlayPause() {
+      initAudioEngine();
+      if (state.playback.isPlaying) {
+        pausePlayback();
+      } else {
+        startPlayback();
+      }
+    }
+
+    function startPlayback() {
+      if (state.playback.currentTime >= state.playback.totalDuration) {
+        state.playback.currentTime = 0;
+      }
+      state.playback.isPlaying = true;
+      state.playback.lastFrameTs = performance.now();
+
+      document.getElementById('play-icon').textContent = '⏸️';
+      document.getElementById('play-text').textContent = 'إيقاف مؤقت';
+
+      const masterAudio = document.getElementById('master-audio');
+      if (state.audioUrl) {
+        masterAudio.currentTime = state.playback.currentTime;
+        masterAudio.play().catch(() => {});
+      }
+
+      state.playback.rafId = requestAnimationFrame(playbackLoop);
+    }
+
+    function pausePlayback() {
+      state.playback.isPlaying = false;
+      updatePencilSFX(false);
+      document.getElementById('play-icon').textContent = '▶️';
+      document.getElementById('play-text').textContent = 'تشغيل المعاينة';
+
+      const masterAudio = document.getElementById('master-audio');
+      if (state.audioUrl) masterAudio.pause();
+
+      if (state.playback.rafId) cancelAnimationFrame(state.playback.rafId);
+    }
+
+    function restartPlayback() {
+      state.playback.currentTime = 0;
+      const masterAudio = document.getElementById('master-audio');
+      if (state.audioUrl) masterAudio.currentTime = 0;
+      updateTimelineUI();
+      renderFrame(0);
+    }
+
+    function seekTimeline(sliderVal) {
+      const ratio = Number(sliderVal) / 1000;
+      state.playback.currentTime = ratio * state.playback.totalDuration;
+      const masterAudio = document.getElementById('master-audio');
+      if (state.audioUrl && state.playback.currentTime <= state.audioDuration) {
+        masterAudio.currentTime = state.playback.currentTime;
+      }
+      updateTimelineUI();
+      renderFrame(state.playback.currentTime);
+    }
+
+    function updateTimelineUI() {
+      const cur = state.playback.currentTime;
+      const tot = Math.max(1, state.playback.totalDuration);
+      document.getElementById('time-current').textContent = formatSeconds(cur);
+      document.getElementById('time-total').textContent = formatSeconds(tot);
+      document.getElementById('timeline-scrubber').value = Math.round((cur / tot) * 1000);
+    }
+
+    function playbackLoop(nowTs) {
+      if (!state.playback.isPlaying) return;
+
+      const masterAudio = document.getElementById('master-audio');
+      if (state.audioUrl && !masterAudio.paused && !masterAudio.ended) {
+        state.playback.currentTime = masterAudio.currentTime;
+      } else {
+        const dt = (nowTs - state.playback.lastFrameTs) / 1000;
+        state.playback.currentTime += dt;
+      }
+      state.playback.lastFrameTs = nowTs;
+
+      if (state.playback.currentTime >= state.playback.totalDuration) {
+        state.playback.currentTime = state.playback.totalDuration;
+        renderFrame(state.playback.currentTime);
+        updateTimelineUI();
+        pausePlayback();
+        if (state.isExporting) finishVideoExport();
+        return;
+      }
+
+      renderFrame(state.playback.currentTime);
+      updateTimelineUI();
+      state.playback.rafId = requestAnimationFrame(playbackLoop);
+    }
+
+    // ============================================================================
+    // 7. REAL-TIME VIDEO & AUDIO EXPORT (MediaRecorder Engine)
+    // ============================================================================
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    function exportVideo() {
+      if (state.isExporting) return;
+      if (state.scenes.length === 0) {
+        showToast('يرجى إضافة المشاهد والسكربت أولاً', 'error');
+        return;
+      }
+
+      initAudioEngine();
+      state.isExporting = true;
+      recordedChunks = [];
+
+      // Set resolution based on quality dropdown
+      const quality = Number(document.getElementById('export-quality').value);
+      updateCanvasDimensions(quality);
+
+      const canvas = document.getElementById('whiteboard-canvas');
+      const canvasStream = canvas.captureStream(30); // 30 FPS smooth video
+
+      // Combine Canvas Video + Master Audio Track if available
+      const combinedStream = new MediaStream();
+      canvasStream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
+
+      const masterAudio = document.getElementById('master-audio');
+      if (state.audioUrl) {
+        try {
+          const audioStream = masterAudio.captureStream ? masterAudio.captureStream() : masterAudio.mozCaptureStream();
+          audioStream.getAudioTracks().forEach(track => combinedStream.addTrack(track));
+        } catch (err) {
+          console.warn('Audio stream capture fallback:', err);
+        }
+      }
+
+      // Select best supported MIME type
+      const mimeTypes = [
+        'video/webm;codecs=vp9,opus',
+        'video/webm;codecs=vp8,opus',
+        'video/webm',
+        'video/mp4'
+      ];
+      const selectedMime = mimeTypes.find(m => MediaRecorder.isTypeSupported(m)) || '';
+
+      try {
+        mediaRecorder = new MediaRecorder(combinedStream, {
+          mimeType: selectedMime,
+          videoBitsPerSecond: quality === 1080 ? 6000000 : 3500000
+        });
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(combinedStream);
+      }
+
+      mediaRecorder.ondataavailable = e => {
+        if (e.data && e.data.size > 0) recordedChunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: selectedMime || 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const ext = selectedMime.includes('mp4') ? 'mp4' : 'webm';
+        a.href = url;
+        a.download = `whiteboard-story-${Date.now()}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Reset UI
+        state.isExporting = false;
+        document.getElementById('recording-badge').classList.add('hidden');
+        document.getElementById('export-progress-box').classList.add('hidden');
+        document.getElementById('btn-export-video').disabled = false;
+        updateCanvasDimensions(720);
+        showToast('🎉 تم تصدير الفيديو وتحميله على جهازك بنجاح!', 'success');
+      };
+
+      // Update UI for Recording
+      document.getElementById('recording-badge').classList.remove('hidden');
+      document.getElementById('export-progress-box').classList.remove('hidden');
+      document.getElementById('btn-export-video').disabled = true;
+
+      // Progress monitor interval
+      const progressTimer = setInterval(() => {
+        if (!state.isExporting) {
+          clearInterval(progressTimer);
+          return;
+        }
+        const pct = Math.min(100, Math.round((state.playback.currentTime / state.playback.totalDuration) * 100));
+        document.getElementById('export-percent').textContent = `${pct}%`;
+        document.getElementById('export-progress-bar').style.width = `${pct}%`;
+      }, 250);
+
+      // Start Recording from 00:00
+      restartPlayback();
+      mediaRecorder.start(200);
+      startPlayback();
+    }
+
+    function finishVideoExport() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+    }
+
+    // ============================================================================
+    // 8. UTILITIES (Toast Notifications & Self-HTML Download for Vercel)
+    // ============================================================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const colors = {
+        success: 'bg-emerald-600 text-white border-slate-900',
+        error: 'bg-red-600 text-white border-slate-900',
+        info: 'bg-slate-900 text-white border-orange-500'
+      };
+      toast.className = `pointer-events-auto px-4 py-3 rounded-xl border-2 shadow-neo-sm text-xs font-extrabold transition-all duration-300 ${colors[type] || colors.info}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function toggleVercelModal(show) {
+      const modal = document.getElementById('vercel-modal');
+      modal.classList.toggle('hidden', !show);
+      modal.classList.toggle('flex', show);
+    }
+
+    function downloadSelfHTML() {
+      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('تم تحميل ملف index.html جاهزاً للرفع على Vercel!', 'success');
+    }
+  </script>
+</body>
+</html>
