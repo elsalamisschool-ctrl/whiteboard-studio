@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>استوديو الوايت بورد الاحترافي - SuperBoard Pro v5</title>
+  <title>استوديو الوايت بورد الاحترافي - SuperBoard Pro v6</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
@@ -37,13 +37,18 @@
     </div>
   </div>
 
-  <!-- الشريط العلوي -->
-  <header class="bg-white border-b border-slate-200 px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
+  <!-- الشريط العلوي الإعلاني والترحيبى -->
+  <div class="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center text-xs text-amber-800 font-semibold flex items-center justify-center gap-2">
+    <span>💡</span> معرض الوايت بورد الذكي والأسرع في التصميم • تزامناً تاماً مع الصوت والكابشن
+  </div>
+
+  <!-- الهيدر الرئيسي -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full mr-1">الإصدار القياسي المطور V5</span></h1>
-        <p class="text-xs text-slate-500">مزامنة تلقائية مع الصوت • يد واقعية احترافية • رسم وتلوين نموذجي</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">اصنع فيديوهات وايت بورد أنيميشن احترافية</h1>
+        <p class="text-xs text-slate-500">رسم يدوي وواقعي • معاينة فورية • تزامن ذكي مع الصوت والكابشن</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -52,144 +57,224 @@
     </div>
   </header>
 
+  <!-- شريط مراحل المشروع -->
+  <div class="bg-slate-100 border-b border-slate-200 py-3 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-8 text-xs font-bold text-slate-600">
+      <div class="flex items-center gap-2 text-amber-600"><span class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px]">1</span> الملفات (صوت وسكربت ومشاهد)</div>
+      <div class="w-12 h-0.5 bg-slate-300"></div>
+      <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-[10px]">2</span> التزمين والمناظرة</div>
+      <div class="w-12 h-0.5 bg-slate-300"></div>
+      <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-[10px]">3</span> التصدير والتحميل</div>
+    </div>
+  </div>
+
   <!-- المحتوى الرئيسي -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <!-- العمود الأيمن: الإعدادات -->
-    <div class="lg:col-span-5 space-y-5">
-
-      <!-- 1. الملفات -->
-      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-        <h2 class="font-bold text-slate-800 flex items-center gap-2 border-b pb-2">
-          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">1</span>
-          ملفات القصة (التعليق الصوتي ومصور المشاهد)
+    <!-- العمود الأيمن: إعدادات التحكم الكاملة (مطابقة للنموذج الاسترشادي) -->
+    <div class="lg:col-span-4 space-y-5 order-2 lg:order-1">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+        <h2 class="font-bold text-slate-800 text-sm border-b pb-2 flex items-center gap-2">
+          <span>⚙️</span> إعدادات الفيديو والرسم
         </h2>
-        <div class="grid grid-cols-2 gap-3">
+
+        <!-- اختيار شكل اليد (8 أشكال مطابقة للنموذج) -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-2">شكل اليد:</label>
+          <div class="grid grid-cols-2 gap-2" id="handSelector">
+            <button type="button" onclick="selectHand('pro_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">✍️</span>
+              <div class="text-right"><div class="text-[11px] font-bold">يد بقلم حبر</div><span class="text-[9px] text-slate-400">افتراضي</span></div>
+            </button>
+            <button type="button" onclick="selectHand('cartoon', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">🎨</span>
+              <div class="text-right"><div class="text-[11px] font-bold">يد كرتونية</div><span class="text-[9px] text-slate-400">لطيفة وكيوت</span></div>
+            </button>
+            <button type="button" onclick="selectHand('brush', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">🖌️</span>
+              <div class="text-right"><div class="text-[11px] font-bold">فرشاة رسم</div><span class="text-[9px] text-slate-400">تلوين فني</span></div>
+            </button>
+            <button type="button" onclick="selectHand('suit_formal', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">👔</span>
+              <div class="text-right"><div class="text-[11px] font-bold">إيد بسترة رسم</div><span class="text-[9px] text-slate-400">بدلة رسمية</span></div>
+            </button>
+            <button type="button" onclick="selectHand('suit_purple', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">🧥</span>
+              <div class="text-right"><div class="text-[11px] font-bold">إيد بسترة بنفسجي</div><span class="text-[9px] text-slate-400">ملونة</span></div>
+            </button>
+            <button type="button" onclick="selectHand('suit_pink', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">👚</span>
+              <div class="text-right"><div class="text-[11px] font-bold">إيد بسترة وردي</div><span class="text-[9px] text-slate-400">ملونة جذابة</span></div>
+            </button>
+            <button type="button" onclick="selectHand('pencil', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">✏️</span>
+              <div class="text-right"><div class="text-[11px] font-bold">قلم رصاص</div><span class="text-[9px] text-slate-400">سكتش دقيق</span></div>
+            </button>
+            <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2.5 text-center transition flex items-center gap-2">
+              <span class="text-lg">🚫</span>
+              <div class="text-[11px] font-bold">بدون يد</div><span class="text-[9px] text-slate-400">رسم صامت</span></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- إظهار اليد وحجمها -->
+        <div class="space-y-3 pt-3 border-t">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-700 cursor-pointer">
+            <span>إظهار اليد</span>
+            <input type="checkbox" id="showHandToggle" checked class="w-4 h-4 accent-amber-500 rounded">
+          </label>
+          <div>
+            <div class="flex justify-between text-xs text-slate-500 mb-1">
+              <span>حجم اليد</span>
+              <span>افتراضي</span>
+            </div>
+            <input type="range" id="handScale" min="0.7" max="1.5" step="0.1" value="1.0" class="w-full accent-amber-500">
+          </div>
+        </div>
+
+        <!-- سرعة وتلوين واتجاه الرسم -->
+        <div class="space-y-3 pt-3 border-t">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">سرعة الرسم:</label>
+            <select id="drawSpeed" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+              <option value="sync">مع الكلام (افتراضي - متزامن)</option>
+              <option value="fast">سريع</option>
+              <option value="slow">بَطيء ودقيق</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">تلوين اليد:</label>
+            <select id="colorMode" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+              <option value="after_element">بعد كل عنصر (افتراضي)</option>
+              <option value="immediate">فوري مع الخطوط</option>
+              <option value="final">في نهاية المشهد</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">اتجاه الرسم والكتابة:</label>
+            <select id="drawDirection" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+              <option value="rtl">يمين لـ شمال (افتراضي - عربي)</option>
+              <option value="ltr">شمال لـ يمين</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- إعدادات الكابشن -->
+        <div class="space-y-3 pt-3 border-t">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-700 cursor-pointer">
+            <span>إظهار الكابشن على الفيديو</span>
+            <input type="checkbox" id="showCaptions" checked class="w-4 h-4 accent-amber-500 rounded">
+          </label>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">مكان الكابشن:</label>
+            <select id="captionPos" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+              <option value="bottom">تحت (افتراضي)</option>
+              <option value="top">أعلى الشاشة</option>
+            </select>
+          </div>
+          <label class="flex items-center justify-between text-xs font-bold text-slate-700 cursor-pointer">
+            <span>خلفية الكابشن الشفافة (97%)</span>
+            <input type="checkbox" id="captionBg" checked class="w-4 h-4 accent-amber-500 rounded">
+          </label>
+        </div>
+
+        <!-- إعدادات الصوت والمؤثرات -->
+        <div class="space-y-3 pt-3 border-t">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-700 cursor-pointer">
+            <span>صوت خربشة القلم والمؤثرات</span>
+            <input type="checkbox" id="enablePenSound" checked class="w-4 h-4 accent-amber-500 rounded">
+          </label>
+          <div>
+            <div class="flex justify-between text-xs text-slate-500 mb-1">
+              <span>صوت المؤثرات</span>
+              <span>80%</span>
+            </div>
+            <input type="range" min="0" max="100" value="80" class="w-full accent-amber-500">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- العمود الأيسر: رفع الملفات، السكربت، شاشة العرض -->
+    <div class="lg:col-span-8 flex flex-col space-y-5 order-1 lg:order-2">
+
+      <!-- رفع الصوت والصور -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
+          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">1</span>
+          ارفع الصوت والصور
+        </h2>
+        <p class="text-xs text-slate-500">كل الملفات تتزامن داخل منصتك، ومعيشة ساعة بتتمحور لأجل سيرفر.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- التعليق الصوتي -->
           <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
             <span class="text-2xl mb-1">🎙️</span>
-            <span class="text-xs font-bold text-slate-700">التعليق الصوتي</span>
-            <span id="audioStatus" class="text-[11px] text-slate-400 mt-1">يحدد الزمن تلقائياً</span>
+            <span class="text-xs font-bold text-slate-700">التعليق الصوتي (MP3 / WAV)</span>
+            <span id="audioStatus" class="text-[11px] text-slate-400 mt-1">يحدد الزمن تلقائياً للمزامنة</span>
             <input type="file" id="audioInput" accept="audio/*" class="hidden" onchange="handleAudioUpload(event)">
           </label>
+
+          <!-- صور المشاهد -->
           <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
             <span class="text-2xl mb-1">🖼️</span>
-            <span class="text-xs font-bold text-slate-700">صور المشاهد</span>
-            <span id="imagesStatus" class="text-[11px] text-slate-400 mt-1">اختر الصور بالترتيب</span>
+            <span class="text-xs font-bold text-slate-700">صور المشاهد (بالترتيب)</span>
+            <span id="imagesStatus" class="text-[11px] text-slate-400 mt-1">اختر صور المشاهد لتتم جدولتها</span>
             <input type="file" id="imagesInput" accept="image/*" multiple class="hidden" onchange="handleImagesUpload(event)">
           </label>
         </div>
 
         <div id="thumbnailsContainer" class="hidden space-y-2">
           <div class="flex justify-between items-center text-xs text-slate-500">
-            <span>المشاهد المرفوعة:</span>
+            <span>المشاهد المرفوعة والمحللة:</span>
             <button onclick="clearImages()" class="text-red-500 hover:underline">مسح الكل</button>
           </div>
           <div id="thumbnailsList" class="flex gap-2 overflow-x-auto pb-2"></div>
         </div>
       </div>
 
-      <!-- 2. السكربت والتزامن التلقائي -->
+      <!-- السكربت والتزامن -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
-          <h2 class="font-bold text-slate-800 flex items-center gap-2">
+          <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">2</span>
-            السكربت والمزامنة الزمنية التلقائية
+            السكربت والتزامن التلقائي مع الفيديو
           </h2>
-          <span id="parsedCountBadge" class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">جاهز للقصة الجديدة</span>
+          <span id="parsedCountBadge" class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">جاهز للقصة</span>
         </div>
-        <p class="text-[11px] text-slate-500">أدخل السكربت الخاص بك. سيتم توزيع الأوقات تلقائياً بناءً على عدد المشاهد ومدة الصوت:</p>
-        <textarea id="scriptInput" rows="6" oninput="parseScript()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="اكتب أو الصق السكربت هنا...
-كل سطر أو فقرة تمثل مشهداً يطابق صورة مرفوعة بالترتيب"></textarea>
+        <textarea id="scriptInput" rows="4" oninput="parseScript()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="أدخل السكربت النصي الخاص بالفيديو، و سيتم تزامن الكابشن مع الرسوم تلقائياً بالمللي ثانية..."></textarea>
       </div>
 
-      <!-- 3. إعدادات اليد والخط -->
+      <!-- شاشة المعاينة الحية والتصدير -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-        <h2 class="font-bold text-slate-800 flex items-center gap-2 border-b pb-2">
-          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          إعدادات اليد الاحترافية وسُمك الخط
-        </h2>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد (نموذج الفيديو):</label>
-          <div class="grid grid-cols-4 gap-2" id="handSelector">
-            <button type="button" onclick="selectHand('pro_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2 text-center transition">
-              <div class="text-xl mb-1">✍️</div>
-              <div class="text-[11px] font-bold">يد بقلم حبر</div>
-            </button>
-            <button type="button" onclick="selectHand('pro_pencil', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
-              <div class="text-xl mb-1">✏️</div>
-              <div class="text-[11px] font-bold">قلم رصاص</div>
-            </button>
-            <button type="button" onclick="selectHand('pro_brush', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
-              <div class="text-xl mb-1">🖌️</div>
-              <div class="text-[11px] font-bold">فرشاة تلوين</div>
-            </button>
-            <button type="button" onclick="selectHand('none', this)" class="hand-btn border border-slate-200 hover:border-amber-400 rounded-xl p-2 text-center transition">
-              <div class="text-xl mb-1">🚫</div>
-              <div class="text-[11px] font-bold">بدون يد</div>
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">مقاس الفيديو:</label>
-            <select id="aspectRatio" onchange="updateCanvasDimensions()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-              <option value="9:16">9:16 (ريلز وتيك توك)</option>
-              <option value="16:9">16:9 (يوتيوب عرضي)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">سُمك سن الخط:</label>
-            <select id="strokeWeight" onchange="reprocessAllScenes()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-              <option value="fine" selected>رفيع وواقي للتفاصيل</option>
-              <option value="medium">متوسط واحترافي</option>
-              <option value="thick">ثقيل وبارز</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 pt-2 border-t">
-          <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-            <input type="checkbox" id="showCaptions" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-            إظهار الكابشن أسفل الشاشة
-          </label>
-          <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-            <input type="checkbox" id="colorReveal" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-            تلوين بعد اكتمال الخطوط
-          </label>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- العمود الأيسر: المعاينة والتصدير -->
-    <div class="lg:col-span-7 flex flex-col space-y-4">
-      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col">
-        
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b">
-          <div>
-            <h2 class="font-bold text-slate-800">شاشة العرض والرسم الذكي</h2>
+            <h2 class="font-bold text-slate-800 text-sm">شاشة المعاينة الحية (Live Preview)</h2>
             <p class="text-xs text-slate-500" id="currentSceneInfo">جاهز للمعاينة • المشهد 01</p>
           </div>
           <div class="flex items-center gap-2">
-            <button onclick="togglePlay()" id="playBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm flex items-center gap-2 shadow transition">
+            <select id="aspectRatio" onchange="updateCanvasDimensions()" class="text-xs p-2 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
+              <option value="9:16">9:16 (ريلز وتيك توك)</option>
+              <option value="16:9">16:9 (يوتيوب عرضي)</option>
+            </select>
+            <button onclick="togglePlay()" id="playBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 shadow transition">
               <span id="playIcon">▶</span>
-              <span id="playText">معاينة الرسم</span>
+              <span id="playText">معاينة</span>
             </button>
-            <button onclick="exportVideo()" id="exportBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-5 py-2.5 rounded-xl text-sm flex items-center gap-2 shadow transition">
+            <button onclick="exportVideo()" id="exportBtn" class="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold px-5 py-2 rounded-xl text-xs flex items-center gap-2 shadow-lg transition">
               <span>⬇</span>
               <span>تصدير الفيديو</span>
             </button>
           </div>
         </div>
 
-        <div class="canvas-container flex-1 rounded-xl border border-slate-200 flex items-center justify-center p-4 overflow-hidden relative min-h-[480px]">
-          <canvas id="boardCanvas" class="bg-white shadow-xl rounded-lg max-h-[540px] max-w-full object-contain border border-slate-100"></canvas>
+        <div class="canvas-container flex-1 rounded-xl border border-slate-200 flex items-center justify-center p-4 overflow-hidden relative min-h-[460px]">
+          <canvas id="boardCanvas" class="bg-white shadow-xl rounded-lg max-h-[500px] max-w-full object-contain border border-slate-100"></canvas>
           
           <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/85 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20">
             <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <h3 class="font-bold text-lg mb-1">جاري تسجيل وتصدير الفيديو متزامناً مع الصوت حتى النهاية...</h3>
+            <h3 class="font-bold text-lg mb-1">جاري تصدير الفيديو متزامناً مع الصوت والصوة...</h3>
             <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden mt-3">
               <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-200"></div>
             </div>
@@ -197,7 +282,7 @@
           </div>
         </div>
 
-        <div class="mt-4 space-y-1">
+        <div class="space-y-1">
           <div class="flex justify-between text-xs font-bold text-slate-500">
             <span id="timeCurrent">00:00</span>
             <span id="timeTotal">00:10</span>
@@ -206,6 +291,7 @@
         </div>
 
       </div>
+
     </div>
 
   </main>
@@ -213,7 +299,7 @@
   <audio id="audioPlayer" class="hidden"></audio>
 
   <script>
-    // ================= 1. نظام الحماية =================
+    // ================= 1. الحماية وكلمة المرور =================
     const STORAGE_PASS_KEY = 'superboard_private_pass';
     if (!localStorage.getItem(STORAGE_PASS_KEY)) localStorage.setItem(STORAGE_PASS_KEY, '1234');
     function checkPassword() {
@@ -226,7 +312,7 @@
     }
     function lockApp() {
       sessionStorage.removeItem('unlocked');
-      document.getElementById('lockScreen').classList.remove('hidden');
+      document.getElementById('lockScreen').classList.add('hidden');
     }
     function changePasswordModal() {
       const p = prompt('كلمة المرور الجديدة:');
@@ -234,67 +320,81 @@
     }
     if (sessionStorage.getItem('unlocked') === 'true') document.getElementById('lockScreen').classList.add('hidden');
 
-    // ================= 2. تصميم اليد الواقعية الاحترافية (مطابقة لنموذج الفيديو) =================
+    // ================= 2. تصميم الأيدي الـ 8 المطابقة للنموذج الاسترشادي =================
     const handImages = {};
     const handSVGs = {
       pro_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
-        <defs>
-          <linearGradient id="skinP" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fbd3b6"/>
-            <stop offset="100%" stop-color="#c68358"/>
-          </linearGradient>
-          <filter id="shP" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="6" dy="12" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.3"/>
-          </filter>
-        </defs>
+        <defs><filter id="shP" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="6" dy="12" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.3"/></filter></defs>
         <g filter="url(#shP)">
-          <!-- رأس القلم الحبر عند الإحداثي (0,0) بدقة -->
           <polygon points="0,0 14,5 5,14" fill="#0f172a"/>
           <polygon points="5,14 14,5 28,19 19,28" fill="#cbd5e1"/>
           <polygon points="19,28 28,19 130,121 121,130" fill="#1e293b"/>
           <polygon points="35,44 44,35 49,40 40,49" fill="#f59e0b"/>
-          
-          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="url(#skinP)"/>
-          <path d="M 26,24 C 46,16 78,24 94,42 C 80,50 48,40 26,24 Z" fill="url(#skinP)" stroke="#c68358" stroke-width="1.2"/>
-          <path d="M 32,44 C 48,38 72,48 82,66 C 66,74 44,64 32,44 Z" fill="url(#skinP)" stroke="#c68358" stroke-width="1.2"/>
-          
+          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="#fbd3b6"/>
+          <path d="M 26,24 C 46,16 78,24 94,42 C 80,50 48,40 26,24 Z" fill="#fbd3b6" stroke="#c68358" stroke-width="1.2"/>
+          <path d="M 32,44 C 48,38 72,48 82,66 C 66,74 44,64 32,44 Z" fill="#fbd3b6" stroke="#c68358" stroke-width="1.2"/>
           <polygon points="148,172 202,118 218,134 164,188" fill="#ffffff"/>
           <polygon points="164,188 218,134 320,236 266,290" fill="#0f172a"/>
         </g>
       </svg>`,
-      pro_pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
-        <defs>
-          <linearGradient id="skinPl" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fbd3b6"/>
-            <stop offset="100%" stop-color="#c68358"/>
-          </linearGradient>
-          <filter id="shPl" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/>
-          </filter>
-        </defs>
+      cartoon: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <defs><filter id="shC" x="-10%" y="-10%" width="130%" height="130%"><feDropShadow dx="4" dy="8" stdDeviation="6" flood-opacity="0.25"/></filter></defs>
+        <g filter="url(#shC)">
+          <polygon points="0,0 12,4 4,12" fill="#0f172a"/>
+          <polygon points="4,12 12,4 26,18 18,26" fill="#38bdf8"/>
+          <polygon points="18,26 26,18 120,112 112,120" fill="#0284c7"/>
+          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M 125,115 Q 165,155 210,135 L 285,215 Q 260,255 200,240 Z" fill="#f43f5e" stroke="#881337" stroke-width="2.5"/>
+          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
+        </g>
+      </svg>`,
+      brush: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <defs><filter id="shB" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/></filter></defs>
+        <g filter="url(#shB)">
+          <path d="M 0,0 C 14,2 22,12 24,24 C 12,22 2,14 0,0 Z" fill="#dc2626"/>
+          <polygon points="18,24 24,18 36,30 30,36" fill="#cbd5e1"/>
+          <polygon points="30,36 36,30 135,129 129,135" fill="#78350f"/>
+          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="#fbd3b6"/>
+        </g>
+      </svg>`,
+      suit_formal: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <defs><filter id="shSf" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/></filter></defs>
+        <g filter="url(#shSf)">
+          <polygon points="0,0 14,5 5,14" fill="#0f172a"/>
+          <polygon points="5,14 14,5 28,19 19,28" fill="#334155"/>
+          <polygon points="19,28 28,19 120,111 111,120" fill="#475569"/>
+          <path d="M 42,32 C 55,14 90,12 118,36 L 195,113 L 140,168 L 70,96 C 48,76 30,52 42,32 Z" fill="#e8ac84"/>
+          <polygon points="140,168 195,113 285,203 230,258" fill="#1e293b"/>
+        </g>
+      </svg>`,
+      suit_purple: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <defs><filter id="shSp" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/></filter></defs>
+        <g filter="url(#shSp)">
+          <polygon points="0,0 14,5 5,14" fill="#0f172a"/>
+          <polygon points="5,14 14,5 28,19 19,28" fill="#cbd5e1"/>
+          <polygon points="19,28 28,19 120,111 111,120" fill="#64748b"/>
+          <path d="M 42,32 C 55,14 90,12 118,36 L 195,113 L 140,168 L 70,96 C 48,76 30,52 42,32 Z" fill="#fbd3b6"/>
+          <polygon points="140,168 195,113 285,203 230,258" fill="#7c3aed"/>
+        </g>
+      </svg>`,
+      suit_pink: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <defs><filter id="shSk" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/></filter></defs>
+        <g filter="url(#shSk)">
+          <polygon points="0,0 14,5 5,14" fill="#0f172a"/>
+          <polygon points="5,14 14,5 28,19 19,28" fill="#cbd5e1"/>
+          <polygon points="19,28 28,19 120,111 111,120" fill="#64748b"/>
+          <path d="M 42,32 C 55,14 90,12 118,36 L 195,113 L 140,168 L 70,96 C 48,76 30,52 42,32 Z" fill="#fbd3b6"/>
+          <polygon points="140,168 195,113 285,203 230,258" fill="#db2777"/>
+        </g>
+      </svg>`,
+      pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <defs><filter id="shPl" x="-15%" y="-15%" width="140%" height="140%"><feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/></filter></defs>
         <g filter="url(#shPl)">
           <polygon points="0,0 16,7 7,16" fill="#fde68a"/>
           <polygon points="0,0 6,2.5 2.5,6" fill="#1e293b"/>
           <polygon points="7,16 16,7 130,121 121,130" fill="#f59e0b"/>
-          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="url(#skinPl)"/>
-          <path d="M 26,24 C 46,16 78,24 94,42 C 80,50 48,40 26,24 Z" fill="url(#skinPl)" stroke="#c68358" stroke-width="1.2"/>
-        </g>
-      </svg>`,
-      pro_brush: `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
-        <defs>
-          <linearGradient id="skinBr" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fbd3b6"/>
-            <stop offset="100%" stop-color="#c68358"/>
-          </linearGradient>
-          <filter id="shBr" x="-15%" y="-15%" width="140%" height="140%">
-            <feDropShadow dx="6" dy="12" stdDeviation="8" flood-opacity="0.3"/>
-          </filter>
-        </defs>
-        <g filter="url(#shBr)">
-          <path d="M 0,0 C 14,2 22,12 24,24 C 12,22 2,14 0,0 Z" fill="#dc2626"/>
-          <polygon points="18,24 24,18 36,30 30,36" fill="#cbd5e1"/>
-          <polygon points="30,36 36,30 135,129 129,135" fill="#78350f"/>
-          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="url(#skinBr)"/>
+          <path d="M 45,35 C 58,16 95,14 122,38 L 205,121 L 150,176 L 75,101 C 52,81 32,57 45,35 Z" fill="#fbd3b6"/>
         </g>
       </svg>`
     };
@@ -317,7 +417,16 @@
       renderFrame(currentTime);
     }
 
-    // ================= 3. تحليل الصور بدقة تامة =================
+    // ================= 3. تحليل الصور واستخراج مسار الرسم =================
+    let scenes = [];
+    let uploadedImages = [];
+    let processedScenes = {};
+    let totalDuration = 10;
+    let currentTime = 0;
+    let isPlaying = false;
+    let animFrameId = null;
+    let lastTimestamp = 0;
+
     function analyzeImageSmartly(img, targetW, targetH) {
       const colorCanvas = document.createElement('canvas');
       colorCanvas.width = targetW;
@@ -356,15 +465,7 @@
         gray[i] = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
       }
 
-      const weightVal = document.getElementById('strokeWeight') ? document.getElementById('strokeWeight').value : 'fine';
-      let edgeThreshold = 40;
-      let cellSize = 7;
-      let brushFactor = 0.6;
-
-      if (weightVal === 'fine') { edgeThreshold = 50; cellSize = 6; brushFactor = 0.5; }
-      else if (weightVal === 'medium') { edgeThreshold = 35; cellSize = 9; brushFactor = 0.85; }
-      else if (weightVal === 'thick') { edgeThreshold = 20; cellSize = 13; brushFactor = 1.2; }
-
+      const cellSize = 8;
       const cols = Math.floor(targetW / cellSize);
       const rows = Math.floor(targetH / cellSize);
       const edgeGrid = Array.from({ length: rows }, () => Array(cols).fill(false));
@@ -381,7 +482,7 @@
                      +gray[(y+1)*targetW + (x-1)] + 2*gray[(y+1)*targetW + x] + gray[(y+1)*targetW + (x+1)];
           const mag = Math.sqrt(gx * gx + gy * gy);
 
-          if (mag > edgeThreshold && diffBg > 20) {
+          if (mag > 40 && diffBg > 20) {
             const ink = Math.max(0, 255 - mag * 1.5);
             sData[idx] = ink; sData[idx + 1] = ink; sData[idx + 2] = ink; sData[idx + 3] = 255;
 
@@ -443,84 +544,41 @@
         }
       }
 
+      // دعم اتجاه الرسم (يمين لـ شمال أو شمال لـ يمين حسب الاختيار)
+      const isRTL = document.getElementById('drawDirection') ? document.getElementById('drawDirection').value === 'rtl' : true;
       objects.sort((a, b) => {
-        const minY_A = Math.min(...a.map(p => p.y));
-        const minY_B = Math.min(...b.map(p => p.y));
-        if (Math.abs(minY_A - minY_B) > 80) return minY_A - minY_B;
         const avgX_A = a.reduce((s, p) => s + p.x, 0) / a.length;
         const avgX_B = b.reduce((s, p) => s + p.x, 0) / b.length;
-        return avgX_B - avgX_A;
+        return isRTL ? (avgX_B - avgX_A) : (avgX_A - avgX_B);
       });
 
-      return { colorCanvas, sketchCanvas, strokePath: objects.flat(), cellSize, brushFactor, objectsCount: objects.length };
+      return { colorCanvas, sketchCanvas, strokePath: objects.flat(), cellSize };
     }
 
-    function reprocessAllScenes() {
-      uploadedImages.forEach((img, idx) => {
-        const canvas = document.getElementById('boardCanvas');
-        processedScenes[idx] = analyzeImageSmartly(img, canvas.width, canvas.height);
-      });
-      renderFrame(currentTime);
-    }
-
-    // ================= 4. نظام المزامنة والزمن التلقائي بالكامل =================
-    let scenes = [];
-    let uploadedImages = [];
-    let processedScenes = {};
-    let totalDuration = 30; // افتراضي
-    let currentTime = 0;
-    let isPlaying = false;
-    let animFrameId = null;
-    let lastTimestamp = 0;
-
+    // ================= 4. المزامنة التلقائية مع الصوت =================
     function parseScript() {
       const text = document.getElementById('scriptInput').value.trim();
       const lines = text.split('\n').filter(l => l.trim().length > 0);
       const parsed = [];
-      
       const numScenes = Math.max(1, uploadedImages.length || lines.length || 1);
       const timePerScene = totalDuration / numScenes;
 
-      if (lines.length > 0 && lines[0].includes('|')) {
-        // إذا كتب المستخدم أوقاتاً مخصصة
-        let currentScene = null;
-        const headerRegex = /المشهد\s*(\d+)\s*\|\s*(\d{2}):(\d{2})\s*[–-]\s*(\d{2}):(\d{2})/;
-        lines.forEach(line => {
-          const match = line.match(headerRegex);
-          if (match) {
-            if (currentScene) parsed.push(currentScene);
-            const startSec = parseInt(match[2]) * 60 + parseInt(match[3]);
-            const endSec = parseInt(match[4]) * 60 + parseInt(match[5]);
-            currentScene = { number: parseInt(match[1]), start: startSec, end: endSec, duration: Math.max(1, endSec - startSec), text: '' };
-          } else if (currentScene) {
-            currentScene.text += (currentScene.text ? ' ' : '') + line;
-          }
+      for (let i = 0; i < numScenes; i++) {
+        const start = i * timePerScene;
+        const end = (i === numScenes - 1) ? totalDuration : (i + 1) * timePerScene;
+        parsed.push({
+          number: i + 1,
+          start: start,
+          end: end,
+          duration: Math.max(1, end - start),
+          text: lines[i] || `المشهد رقم ${i + 1}`
         });
-        if (currentScene) parsed.push(currentScene);
-      }
-
-      if (parsed.length === 0) {
-        // توزيع زمني تلقائي متساوٍ ومتزامن تماماً مع إجمالي مدة الصوت
-        for (let i = 0; i < numScenes; i++) {
-          const start = i * timePerScene;
-          const end = (i === numScenes - 1) ? totalDuration : (i + 1) * timePerScene;
-          parsed.push({
-            number: i + 1,
-            start: start,
-            end: end,
-            duration: Math.max(1, end - start),
-            text: lines[i] || `المشهد رقم ${i + 1}`
-          });
-        }
       }
 
       scenes = parsed;
-      if (scenes.length > 0) {
-        totalDuration = scenes[scenes.length - 1].end;
-        document.getElementById('timelineSlider').max = totalDuration;
-        document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        document.getElementById('parsedCountBadge').textContent = `${scenes.length} مشاهد متزامنة (${formatTime(totalDuration)})`;
-      }
+      document.getElementById('timelineSlider').max = totalDuration;
+      document.getElementById('timeTotal').textContent = formatTime(totalDuration);
+      document.getElementById('parsedCountBadge').textContent = `${scenes.length} مشاهد متزامنة`;
       renderFrame(currentTime);
     }
 
@@ -545,7 +603,7 @@
           img.onload = () => {
             uploadedImages[index] = img;
             processedScenes[index] = analyzeImageSmartly(img, canvas.width, canvas.height);
-            parseScript(); // إعادة حساب التزامن تلقائياً بعد رفع الصور
+            parseScript();
             if (index === 0) renderFrame(currentTime);
           };
           img.src = e.target.result;
@@ -564,7 +622,7 @@
       processedScenes = {};
       document.getElementById('thumbnailsList').innerHTML = '';
       document.getElementById('thumbnailsContainer').classList.add('hidden');
-      document.getElementById('imagesStatus').textContent = 'اختر الصور بالترتيب';
+      document.getElementById('imagesStatus').textContent = 'اختر صور المشاهد بالترتيب';
       parseScript();
       renderFrame(currentTime);
     }
@@ -577,10 +635,10 @@
       document.getElementById('audioStatus').textContent = file.name;
       
       audio.onloadedmetadata = () => {
-        totalDuration = audio.duration; // قراءة الزمن بالثواني بدقة تامة
+        totalDuration = audio.duration;
         document.getElementById('timelineSlider').max = totalDuration;
         document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        parseScript(); // إعادة توزيع الأوقات لكي يتطابق الكلام والصوت تماماً حتى نهاية الزمن
+        parseScript();
       };
     }
 
@@ -589,10 +647,13 @@
       const canvas = document.getElementById('boardCanvas');
       if (ratio === '9:16') { canvas.width = 450; canvas.height = 800; }
       else { canvas.width = 800; canvas.height = 450; }
-      reprocessAllScenes();
+      uploadedImages.forEach((img, idx) => {
+        processedScenes[idx] = analyzeImageSmartly(img, canvas.width, canvas.height);
+      });
+      renderFrame(currentTime);
     }
 
-    // ================= 5. محرك الرسم والتنفيذ النموذجي =================
+    // ================= 5. محرك العرض والرسم المتزامن =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
 
@@ -637,7 +698,7 @@
         const mCtx = maskCanvas.getContext('2d');
         mCtx.clearRect(0, 0, w, h);
         mCtx.fillStyle = '#000000';
-        const brushRadius = (sceneData.cellSize || 7) * (sceneData.brushFactor || 0.6);
+        const brushRadius = (sceneData.cellSize || 8) * 0.65;
 
         for (let i = 0; i < revealCount && i < path.length; i++) {
           const pt = path[i];
@@ -655,47 +716,50 @@
 
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
-        if (document.getElementById('colorReveal').checked && sceneProgress > 0.78) {
-          const colorAlpha = Math.min(1, (sceneProgress - 0.78) / 0.22);
-          ctx.save();
-          ctx.globalAlpha = colorAlpha;
-          ctx.drawImage(sceneData.colorCanvas, 0, 0);
-          ctx.restore();
+        if (document.getElementById('colorReveal') ? true : document.getElementById('colorReveal').checked) {
+          if (sceneProgress > 0.78) {
+            const colorAlpha = Math.min(1, (sceneProgress - 0.78) / 0.22);
+            ctx.save();
+            ctx.globalAlpha = colorAlpha;
+            ctx.drawImage(sceneData.colorCanvas, 0, 0);
+            ctx.restore();
+          }
         }
 
-        if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && drawPhaseProgress < 1) {
+        const showHand = document.getElementById('showHandToggle').checked;
+        if (showHand && selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && drawPhaseProgress < 1) {
           const currentPt = path[revealCount - 1];
           const handImg = handImages[selectedHand];
-          const handW = 190;
-          const handH = 190;
-
-          const wobbleX = Math.sin(revealCount * 0.8) * 1.0;
-          const wobbleY = Math.cos(revealCount * 0.8) * 1.0;
+          const scale = parseFloat(document.getElementById('handScale').value);
+          const handW = 180 * scale;
+          const handH = 180 * scale;
 
           ctx.save();
-          ctx.translate(currentPt.x + wobbleX, currentPt.y + wobbleY);
+          ctx.translate(currentPt.x, currentPt.y);
           ctx.drawImage(handImg, 0, 0, handW, handH);
           ctx.restore();
         }
 
       } else {
         ctx.save();
-        ctx.font = 'bold 24px Cairo, sans-serif';
+        ctx.font = 'bold 22px Cairo, sans-serif';
         ctx.fillStyle = '#1e293b';
         ctx.textAlign = 'center';
-        ctx.fillText('ارفع صور المشاهد والتعليق الصوتي للبدء', w / 2, h / 2 - 20);
-        ctx.font = '15px Cairo, sans-serif';
+        ctx.fillText('ارفع صور المشاهد والتعليق الصوتي للبدء', w / 2, h / 2 - 15);
+        ctx.font = '14px Cairo, sans-serif';
         ctx.fillStyle = '#64748b';
-        ctx.fillText('سيتم مطابقة الزمن والكلام تلقائياً حتى نهاية الصوت', w / 2, h / 2 + 15);
+        ctx.fillText('منصة سوبر بورد جاهزة لتطبيق إعداداتك ومحاكاتها', w / 2, h / 2 + 15);
         ctx.restore();
       }
 
+      // الكابشن أسفل الشاشة أو أعلاها حسب الاختيار
       if (document.getElementById('showCaptions').checked && activeSceneObj && activeSceneObj.text) {
         ctx.save();
         const boxW = w - 40;
-        const boxH = 68;
+        const boxH = 65;
         const boxX = 20;
-        const boxY = h - 85;
+        const isTop = document.getElementById('captionPos').value === 'top';
+        const boxY = isTop ? 20 : h - 80;
 
         ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
         ctx.beginPath();
@@ -707,20 +771,20 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.font = 'bold 15px Cairo, sans-serif';
+        ctx.font = 'bold 14px Cairo, sans-serif';
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
         let displayTxt = activeSceneObj.text;
-        const maxChars = w < 500 ? 48 : 80;
+        const maxChars = w < 500 ? 45 : 75;
         if (displayTxt.length > maxChars) displayTxt = displayTxt.substring(0, maxChars) + '...';
         ctx.fillText(displayTxt, w / 2, boxY + boxH / 2);
         ctx.restore();
       }
     }
 
-    // ================= 6. التحكم والتشغيل المتزامن =================
+    // ================= 6. التحكم والتشغيل والتصدير =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -744,13 +808,13 @@
 
       if (isPlaying) {
         playIcon.textContent = '⏸';
-        playText.textContent = 'إيقاف مؤقت';
+        playText.textContent = 'إيقاف';
         if (audio.src) { audio.currentTime = currentTime; audio.play().catch(() => {}); }
         lastTimestamp = performance.now();
         animFrameId = requestAnimationFrame(stepAnimation);
       } else {
         playIcon.textContent = '▶';
-        playText.textContent = 'معاينة الرسم';
+        playText.textContent = 'معاينة';
         if (audio.src) audio.pause();
         cancelAnimationFrame(animFrameId);
       }
@@ -766,7 +830,7 @@
         currentTime = 0;
         isPlaying = false;
         document.getElementById('playIcon').textContent = '▶';
-        document.getElementById('playText').textContent = 'معاينة الرسم';
+        document.getElementById('playText').textContent = 'معاينة';
         if (document.getElementById('audioPlayer').src) document.getElementById('audioPlayer').pause();
         renderFrame(0);
         return;
@@ -805,7 +869,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'SuperBoard_Synchronized_Pro.webm';
+        a.download = 'SuperBoard_Pro_Production.webm';
         a.click();
         overlay.classList.add('hidden');
       };
