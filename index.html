@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>استوديو الوايت بورد الاحترافي - SuperBoard Pro v3</title>
+  <title>استوديو الوايت بورد الاحترافي - SuperBoard Pro v4</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
@@ -42,8 +42,8 @@
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full mr-1">إصدار الأيدي الكيوت V3</span></h1>
-        <p class="text-xs text-slate-500">تحكم بسُمك السن • أيدي كرتونية جذابة • مزامنة مرنة</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">استوديو الوايت بورد الذكي <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full mr-1">الإصدار النهائي V4</span></h1>
+        <p class="text-xs text-slate-500">تحكم تام بالزمن • أيدي كرتونية كيوت • سُمك سن دقيق</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -88,30 +88,33 @@
         </div>
       </div>
 
-      <!-- 2. السكربت (فارغ وجاهز لأي قصة جديدة) -->
+      <!-- 2. السكربت (مفتوح وجاهز للقصة الجديدة) -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
           <h2 class="font-bold text-slate-800 flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">2</span>
-            السكربت والتوقيت الجديد
+            السكربت وتوقيت المشاهد
           </h2>
-          <span id="parsedCountBadge" class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">في انتظار السكربت</span>
+          <span id="parsedCountBadge" class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">جاهز للقصة الجديدة</span>
         </div>
-        <textarea id="scriptInput" rows="5" oninput="parseScript()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="الصقي السكربت الجديد هنا بالتوقيت...
+        <textarea id="scriptInput" rows="6" oninput="parseScript()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="الصقي السكربت هنا بالتوقيت...
 مثال:
-المشهد 01 | 00:00 – 00:10 | 10 ث
+المشهد 01 | 00:00 – 00:09 | 9 ث
+النص هنا...
+
+المشهد 02 | 00:09 – 00:18 | 9 ث
 النص هنا..."></textarea>
       </div>
 
-      <!-- 3. إعدادات اليد الكيوت وسُمك القلم -->
+      <!-- 3. إعدادات اليد وسُمك القلم -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
-          إعدادات اليد الكيوت وسُمك القلم
+          شكل اليد الكيوت وسُمك القلم الدقيق
         </h2>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد الكرتونية (Cute Hands):</label>
+          <label class="block text-xs font-bold text-slate-700 mb-2">اختر شكل اليد (Cute Hands):</label>
           <div class="grid grid-cols-4 gap-2" id="handSelector">
             <button type="button" onclick="selectHand('cute_pen', this)" class="hand-btn border-2 border-amber-500 bg-amber-50 rounded-xl p-2 text-center transition">
               <div class="text-xl mb-1">✍️</div>
@@ -143,9 +146,10 @@
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">سُمك سن القلم:</label>
             <select id="strokeWeight" onchange="reprocessAllScenes()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-              <option value="light">خفيف ونظيف (يحافظ على التفاصيل)</option>
-              <option value="medium" selected>متوسط واحترافي</option>
-              <option value="heavy">ثقيل وبارز</option>
+              <option value="ultra_fine">رفيع جداً ودقيق (يحافظ على التفاصيل)</option>
+              <option value="fine" selected>رفيع وواضح</option>
+              <option value="medium">متوسط</option>
+              <option value="thick">ثقيل</option>
             </select>
           </div>
         </div>
@@ -190,7 +194,7 @@
           
           <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/85 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20">
             <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <h3 class="font-bold text-lg mb-1">جاري تسجيل وتصدير الفيديو بجودة عالية...</h3>
+            <h3 class="font-bold text-lg mb-1">جاري تسجيل وتصدير الفيديو بالكامل حتى النهاية...</h3>
             <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden mt-3">
               <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-200"></div>
             </div>
@@ -235,71 +239,79 @@
     }
     if (sessionStorage.getItem('unlocked') === 'true') document.getElementById('lockScreen').classList.add('hidden');
 
-    // ================= 2. تصميم أيدي كرتونية "كيوت" وجذابة (Cute Cartoon Hands) =================
+    // ================= 2. تصميم أيدي كرتونية "كيوت" واحترافية عالية الجودة =================
     const handImages = {};
     const handSVGs = {
-      cute_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+      cute_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
         <defs>
-          <linearGradient id="cuteSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="skinCute" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffedd5"/>
-            <stop offset="100%" stop-color="#fed7aa"/>
+            <stop offset="60%" stop-color="#fed7aa"/>
+            <stop offset="100%" stop-color="#fdba74"/>
           </linearGradient>
-          <filter id="cuteShadow" x="-10%" y="-10%" width="130%" height="130%">
-            <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.2"/>
+          <linearGradient id="penGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#0284c7"/>
+          </linearGradient>
+          <filter id="shadowCute" x="-15%" y="-15%" width="140%" height="140%">
+            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25"/>
           </filter>
         </defs>
-        <g filter="url(#cuteShadow)">
-          <!-- سن القلم عند (0,0) -->
+        <g filter="url(#shadowCute)">
+          <!-- سن القلم الدقيق تماماً عند الإحداثي (0,0) -->
           <polygon points="0,0 12,4 4,12" fill="#0f172a"/>
-          <polygon points="4,12 12,4 24,16 16,24" fill="#38bdf8"/>
-          <polygon points="16,24 24,16 110,102 102,110" fill="#0284c7"/>
+          <polygon points="4,12 12,4 26,18 18,26" fill="#e2e8f0"/>
+          <polygon points="18,26 26,18 130,122 122,130" fill="url(#penGrad)"/>
+          <circle cx="40" cy="48" r="5" fill="#f59e0b"/>
+
+          <!-- الأصابع الكيوت الناعمة تحضن القلم -->
+          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="url(#skinCute)" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- الإبهام الكرتوني اللطيف -->
+          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="url(#skinCute)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
           
-          <!-- كم كرتوني لطيف وواسع -->
-          <path d="M 90,90 Q 130,130 170,110 L 230,170 Q 210,210 160,200 Z" fill="#f43f5e" stroke="#881337" stroke-width="2"/>
-          
-          <!-- كف وأصابع كرتونية كيوت مستديرة -->
-          <path d="M 35,30 Q 50,15 80,35 Q 110,55 125,85 L 145,125 Q 120,150 90,130 L 50,90 Q 30,70 35,30 Z" fill="url(#cuteSkin)" stroke="#c2410c" stroke-width="2"/>
-          <!-- الإبهام الكيوت المرتفع -->
-          <path d="M 40,45 Q 25,35 20,50 Q 25,65 45,60 Z" fill="url(#cuteSkin)" stroke="#c2410c" stroke-width="2"/>
-          <!-- تفاصيل الوداعة (خدود وخصلة) -->
-          <circle cx="65" cy="55" r="8" fill="#fda4af" opacity="0.6"/>
+          <!-- كم الملابس الكرتوني الملون المبهج -->
+          <path d="M 125,115 Q 165,155 210,135 L 285,215 Q 260,255 200,240 Z" fill="#f43f5e" stroke="#881337" stroke-width="2.5"/>
+          <!-- تفاصيل الوداعة والخدود -->
+          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
         </g>
       </svg>`,
-      cute_pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+      cute_pencil: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
         <defs>
-          <linearGradient id="cuteSkin2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="skinC2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffedd5"/>
             <stop offset="100%" stop-color="#fed7aa"/>
           </linearGradient>
-          <filter id="cuteShadow2" x="-10%" y="-10%" width="130%" height="130%">
-            <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.2"/>
+          <filter id="shadowC2" x="-15%" y="-15%" width="140%" height="140%">
+            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25"/>
           </filter>
         </defs>
-        <g filter="url(#cuteShadow2)">
-          <polygon points="0,0 15,6 6,15" fill="#fde68a"/>
-          <polygon points="0,0 5,2 2,5" fill="#1e293b"/>
-          <polygon points="6,15 15,6 115,106 106,115" fill="#f59e0b"/>
-          <polygon points="106,115 115,106 125,116 116,125" fill="#ec4899"/>
-          <path d="M 38,32 Q 55,18 85,38 Q 115,58 130,88 L 150,130 Q 125,155 95,135 L 52,95 Q 32,75 38,32 Z" fill="url(#cuteSkin2)" stroke="#c2410c" stroke-width="2"/>
-          <path d="M 42,48 Q 28,38 22,53 Q 28,68 48,63 Z" fill="url(#cuteSkin2)" stroke="#c2410c" stroke-width="2"/>
+        <g filter="url(#shadowC2)">
+          <polygon points="0,0 16,6 6,16" fill="#fde68a"/>
+          <polygon points="0,0 6,2.5 2.5,6" fill="#1e293b"/>
+          <polygon points="6,16 16,6 135,125 125,135" fill="#f59e0b"/>
+          <polygon points="125,135 135,125 145,135 135,145" fill="#ec4899"/>
+          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="url(#skinC2)" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="url(#skinC2)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
         </g>
       </svg>`,
-      cute_brush: `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+      cute_brush: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
         <defs>
-          <linearGradient id="cuteSkin3" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="skinC3" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffedd5"/>
             <stop offset="100%" stop-color="#fed7aa"/>
           </linearGradient>
-          <filter id="cuteShadow3" x="-10%" y="-10%" width="130%" height="130%">
-            <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.2"/>
+          <filter id="shadowC3" x="-15%" y="-15%" width="140%" height="140%">
+            <feDropShadow dx="4" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25"/>
           </filter>
         </defs>
-        <g filter="url(#cuteShadow3)">
-          <path d="M 0,0 Q 12,2 18,18 Q 8,16 0,0 Z" fill="#8b5cf6"/>
-          <polygon points="14,18 18,14 28,24 24,28" fill="#cbd5e1"/>
-          <polygon points="24,28 28,24 120,116 116,120" fill="#a16207"/>
-          <path d="M 40,35 Q 58,20 88,40 Q 118,60 133,90 L 155,135 Q 130,160 100,140 L 55,98 Q 35,78 40,35 Z" fill="url(#cuteSkin3)" stroke="#c2410c" stroke-width="2"/>
-          <path d="M 45,50 Q 30,40 25,55 Q 32,70 52,65 Z" fill="url(#cuteSkin3)" stroke="#c2410c" stroke-width="2"/>
+        <g filter="url(#shadowC3)">
+          <path d="M 0,0 Q 14,2 20,20 Q 8,18 0,0 Z" fill="#8b5cf6"/>
+          <polygon points="16,20 20,16 32,28 28,32" fill="#cbd5e1"/>
+          <polygon points="28,32 32,28 135,131 131,135" fill="#a16207"/>
+          <path d="M 45,35 Q 65,20 95,45 Q 125,70 140,105 L 165,155 Q 135,185 100,165 L 55,115 Q 35,90 45,35 Z" fill="url(#skinC3)" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 52,55 Q 35,42 28,60 Q 35,78 58,70 Z" fill="url(#skinC3)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="75" cy="68" r="9" fill="#fda4af" opacity="0.65"/>
         </g>
       </svg>`
     };
@@ -322,7 +334,7 @@
       renderFrame(currentTime);
     }
 
-    // ================= 3. تحليل الصور مع التحكم في سُمك السن =================
+    // ================= 3. تحليل الصور مع التحكم الفعلي في سُمك السن =================
     function analyzeImageSmartly(img, targetW, targetH) {
       const colorCanvas = document.createElement('canvas');
       colorCanvas.width = targetW;
@@ -361,12 +373,16 @@
         gray[i] = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
       }
 
-      // قراءة سُمك القلم المختار
-      const weightVal = document.getElementById('strokeWeight') ? document.getElementById('strokeWeight').value : 'medium';
-      let edgeThreshold = 40;
-      let cellSize = 10;
-      if (weightVal === 'light') { edgeThreshold = 65; cellSize = 8; } // خفيف ونظيف يحافظ على التفاصيل
-      else if (weightVal === 'heavy') { edgeThreshold = 25; cellSize = 12; } // ثقيل
+      // قراءة سُمك القلم المختار بدقة وتطبيق عتبة الحواف
+      const weightVal = document.getElementById('strokeWeight') ? document.getElementById('strokeWeight').value : 'fine';
+      let edgeThreshold = 35;
+      let cellSize = 8;
+      let brushFactor = 0.8;
+
+      if (weightVal === 'ultra_fine') { edgeThreshold = 60; cellSize = 5; brushFactor = 0.45; } // رفيع جداً ودقيق
+      else if (weightVal === 'fine') { edgeThreshold = 45; cellSize = 7; brushFactor = 0.65; } // رفيع وواضح
+      else if (weightVal === 'medium') { edgeThreshold = 30; cellSize = 10; brushFactor = 1.0; } // متوسط
+      else if (weightVal === 'thick') { edgeThreshold = 18; cellSize = 14; brushFactor = 1.4; } // ثقيل
 
       const cols = Math.floor(targetW / cellSize);
       const rows = Math.floor(targetH / cellSize);
@@ -384,8 +400,8 @@
                      +gray[(y+1)*targetW + (x-1)] + 2*gray[(y+1)*targetW + x] + gray[(y+1)*targetW + (x+1)];
           const mag = Math.sqrt(gx * gx + gy * gy);
 
-          if (mag > edgeThreshold && diffBg > 20) {
-            const ink = Math.max(0, 255 - mag * 1.6);
+          if (mag > edgeThreshold && diffBg > 18) {
+            const ink = Math.max(0, 255 - mag * 1.5);
             sData[idx] = ink; sData[idx + 1] = ink; sData[idx + 2] = ink; sData[idx + 3] = 255;
 
             const r = Math.floor(y / cellSize);
@@ -455,7 +471,7 @@
         return avgX_B - avgX_A;
       });
 
-      return { colorCanvas, sketchCanvas, strokePath: objects.flat(), cellSize, objectsCount: objects.length };
+      return { colorCanvas, sketchCanvas, strokePath: objects.flat(), cellSize, brushFactor, objectsCount: objects.length };
     }
 
     function reprocessAllScenes() {
@@ -466,11 +482,11 @@
       renderFrame(currentTime);
     }
 
-    // ================= 4. إدارة السكربت (يبدأ فارغاً وفقاً للطلب) =================
+    // ================= 4. إدارة السكربت والزمن بدقة =================
     let scenes = [];
     let uploadedImages = [];
     let processedScenes = {};
-    let totalDuration = 10;
+    let totalDuration = 30; // مدة افتراضية كافية
     let currentTime = 0;
     let isPlaying = false;
     let animFrameId = null;
@@ -503,14 +519,14 @@
         totalDuration = scenes[scenes.length - 1].end;
         document.getElementById('timelineSlider').max = totalDuration;
         document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        document.getElementById('parsedCountBadge').textContent = `${scenes.length} مشاهد`;
+        document.getElementById('parsedCountBadge').textContent = `${scenes.length} مشاهد (حتى ${formatTime(totalDuration)})`;
       } else {
-        // افتراضي في حال كان السكربت فارغاً
-        scenes = [{ number: 1, start: 0, end: 10, duration: 10, text: text || 'يرجى إدخال السكربت والملفات الخاصة بفيديوك الجديد' }];
-        totalDuration = 10;
+        // إذا كان السكربت فارغاً، نضع مشهداً افتراضياً بمدة 30 ثانية أو حسب الصوت
+        scenes = [{ number: 1, start: 0, end: 30, duration: 30, text: text || 'يرجى لصق السكربت والملفات هنا' }];
+        totalDuration = 30;
         document.getElementById('timelineSlider').max = totalDuration;
         document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-        document.getElementById('parsedCountBadge').textContent = 'فارغ / جاهز';
+        document.getElementById('parsedCountBadge').textContent = 'فارغ / قابل للضبط';
       }
       renderFrame(currentTime);
     }
@@ -580,7 +596,7 @@
       reprocessAllScenes();
     }
 
-    // ================= 5. محرك الرسم والتنفيذ =================
+    // ================= 5. محرك الرسم والمعاينة الشامل =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
 
@@ -615,18 +631,18 @@
         }
       }
 
-      // مطابقة المشهد الحالي مع الصورة المرفوعة بالترتيب
       const sceneData = processedScenes[activeSceneIndex] || processedScenes[0];
 
       if (sceneData && sceneData.strokePath && sceneData.strokePath.length > 0) {
         const path = sceneData.strokePath;
-        const drawPhaseProgress = Math.min(1, sceneProgress / 0.78);
+        // رسم الخطوط يأخذ 75% من وقت المشهد، والتلوين 25% الأخيرة
+        const drawPhaseProgress = Math.min(1, sceneProgress / 0.75);
         const revealCount = Math.floor(path.length * drawPhaseProgress);
 
         const mCtx = maskCanvas.getContext('2d');
         mCtx.clearRect(0, 0, w, h);
         mCtx.fillStyle = '#000000';
-        const brushRadius = sceneData.cellSize * 1.1;
+        const brushRadius = (sceneData.cellSize || 8) * (sceneData.brushFactor || 0.65);
 
         for (let i = 0; i < revealCount && i < path.length; i++) {
           const pt = path[i];
@@ -645,7 +661,7 @@
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
         if (document.getElementById('colorReveal').checked && sceneProgress > 0.75) {
-          const colorAlpha = Math.min(1, (sceneProgress - 0.75) / 0.22);
+          const colorAlpha = Math.min(1, (sceneProgress - 0.75) / 0.25);
           ctx.save();
           ctx.globalAlpha = colorAlpha;
           ctx.drawImage(sceneData.colorCanvas, 0, 0);
@@ -655,11 +671,11 @@
         if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && drawPhaseProgress < 1) {
           const currentPt = path[revealCount - 1];
           const handImg = handImages[selectedHand];
-          const handW = 190;
-          const handH = 190;
+          const handW = 180;
+          const handH = 180;
 
-          const wobbleX = Math.sin(revealCount * 0.9) * 1.2;
-          const wobbleY = Math.cos(revealCount * 0.9) * 1.2;
+          const wobbleX = Math.sin(revealCount * 0.8) * 1.0;
+          const wobbleY = Math.cos(revealCount * 0.8) * 1.0;
 
           ctx.save();
           ctx.translate(currentPt.x + wobbleX, currentPt.y + wobbleY);
@@ -672,10 +688,10 @@
         ctx.font = 'bold 24px Cairo, sans-serif';
         ctx.fillStyle = '#1e293b';
         ctx.textAlign = 'center';
-        ctx.fillText('ارفع صور المشاهد للبدء في الرسم الكيوت', w / 2, h / 2 - 20);
+        ctx.fillText('ارفع صور المشاهد للبدء في الرسم الكيوت الدقيق', w / 2, h / 2 - 20);
         ctx.font = '15px Cairo, sans-serif';
         ctx.fillStyle = '#64748b';
-        ctx.fillText('السكربت فارغ وجاهز لأي قصة جديدة', w / 2, h / 2 + 15);
+        ctx.fillText('الزمن والسكربت جاهزان لاستقبال قصتك الجديدة', w / 2, h / 2 + 15);
         ctx.restore();
       }
 
@@ -709,7 +725,7 @@
       }
     }
 
-    // ================= 6. التشغيل والتصدير =================
+    // ================= 6. التحكم والتشغيل حتى النهاية =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -794,7 +810,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'SuperBoard_Cute_Animation.webm';
+        a.download = 'SuperBoard_Final_Pro.webm';
         a.click();
         overlay.classList.add('hidden');
       };
