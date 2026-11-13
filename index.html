@@ -23,17 +23,32 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
+  <!-- شاشة قفل الخصوصية -->
+  <div id="lockScreen" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border border-slate-200">
+      <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">منصة خاصة محمية</h2>
+      <p class="text-slate-500 text-sm mb-6">أدخل كلمة المرور للمتابعة (الافتراضية: 1234).</p>
+      <input type="password" id="passwordInput" placeholder="كلمة المرور..." class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-lg tracking-widest mb-4 focus:outline-none focus:ring-2 focus:ring-amber-500" onkeypress="if(event.key==='Enter') checkPassword()">
+      <p id="passError" class="text-red-500 text-xs mb-3 hidden">كلمة المرور غير صحيحة.</p>
+      <button onclick="checkPassword()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition shadow-lg">دخول إلى الاستوديو</button>
+    </div>
+  </div>
+
   <!-- الهيدر -->
   <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">S</div>
       <div>
-        <h1 class="font-bold text-lg text-slate-800 leading-tight">SuperBoard Pro <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full mr-1">الإصدار القياسي المطور والمثالي</span></h1>
-        <p class="text-xs text-slate-500">فلترة التشكيل تلقائياً • تجاهل ترويسة المشاهد • كابشن نظيف ومثالي مثل النموذج</p>
+        <h1 class="font-bold text-lg text-slate-800 leading-tight">SuperBoard Pro <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full mr-1">الإصدار الخاص المحمي</span></h1>
+        <p class="text-xs text-slate-500">تلوين فوري أثناء الرسم • بدون برواز • كابشن نظيف متزامن</p>
       </div>
     </div>
-    <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
-      <span>✨</span> مزامنة معيارية دقيقة 100%
+    <div class="flex items-center gap-3">
+      <button onclick="changePasswordModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-semibold">تغيير كلمة المرور</button>
+      <button onclick="lockApp()" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-lg font-semibold">قفل</button>
     </div>
   </header>
 
@@ -75,16 +90,15 @@
         </div>
       </div>
 
-      <!-- 2. السكربت والكابشن (مع الفلترة التلقائية للتشكيل والترويسة) -->
+      <!-- 2. السكربت والكابشن (مع الفلترة التلقائية) -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex items-center justify-between border-b pb-2">
           <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">2</span>
-            السكربت (يقبل التشكيل ويُنظفه للكابشن تلقائياً)
+            السكربت (تجاهل الترويسة وفلترة التشكيل)
           </h2>
           <span id="syncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">جاهز</span>
         </div>
-        <p class="text-[11px] text-slate-500">الصق السكربت الخاص بك بكامل ترويساته وتشكيله. سيقوم النظام بتجاهل ترويسات المشاهد، وإزالة التشكيل للكابشن، وضبط التزامن بدقة:</p>
         <textarea id="scriptInput" rows="6" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="الصق السكربت هنا..."></textarea>
       </div>
 
@@ -132,14 +146,10 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 pt-2 border-t">
+        <div class="pt-2 border-t">
           <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
             <input type="checkbox" id="showCaptions" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-            إظهار الكابشن المتزامن
-          </label>
-          <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-            <input type="checkbox" id="enableColoring" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-            تلوين الرسمة تدريجياً
+            إظهار الكابشن المتزامن النظيف
           </label>
         </div>
       </div>
@@ -177,7 +187,7 @@
           <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20 rounded-xl">
             <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
             <h3 class="font-bold text-base mb-1">جاري تصدير الفيديو بالصوت الكامل...</h3>
-            <p class="text-xs text-slate-300 mb-3">يتم دمج الرسم والكابشن والصوت بدقة 30 إطار/ثانية</p>
+            <p class="text-xs text-slate-300 mb-3">يتم دمج الرسم والتلوين الفوري والكابشن بدقة 30 إطار/ثانية</p>
             <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden">
               <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-150"></div>
             </div>
@@ -202,7 +212,29 @@
   <audio id="audioPlayer" crossorigin="anonymous" class="hidden"></audio>
 
   <script>
-    // ================= 1. الأيدي الاحترافية =================
+    // ================= 1. إدارة كلمة المرور والخصوصية =================
+    const STORAGE_PASS_KEY = 'superboard_private_pass';
+    if (!localStorage.getItem(STORAGE_PASS_KEY)) localStorage.setItem(STORAGE_PASS_KEY, '1234');
+    
+    function checkPassword() {
+      if (document.getElementById('passwordInput').value === localStorage.getItem(STORAGE_PASS_KEY)) {
+        document.getElementById('lockScreen').classList.add('hidden');
+        sessionStorage.setItem('unlocked', 'true');
+      } else {
+        document.getElementById('passError').classList.remove('hidden');
+      }
+    }
+    function lockApp() {
+      sessionStorage.removeItem('unlocked');
+      document.getElementById('lockScreen').classList.remove('hidden');
+    }
+    function changePasswordModal() {
+      const p = prompt('كلمة المرور الجديدة:');
+      if (p && p.trim().length >= 3) { localStorage.setItem(STORAGE_PASS_KEY, p.trim()); alert('تم التحديث بنجاح!'); }
+    }
+    if (sessionStorage.getItem('unlocked') === 'true') document.getElementById('lockScreen').classList.add('hidden');
+
+    // ================= 2. تصميم الأيدي الاحترافية =================
     const handImages = {};
     const handSVGs = {
       suit_pen: `<svg xmlns="http://www.w3.org/2000/svg" width="340" height="340" viewBox="0 0 340 340">
@@ -259,14 +291,13 @@
       renderFrame(currentTime);
     }
 
-    // ================= 2. دالة تنظيف التشكيل (Arabic Diacritics Stripper) =================
+    // ================= 3. فلترة التشكيل =================
     function stripArabicDiacritics(text) {
       if (!text) return '';
-      // إزالة الفتحة، الضمة، الكسرة، التنوين، الشدة، السكون، والمدود
       return text.replace(/[\u064B-\u0652\u0670\u0640]/g, '');
     }
 
-    // ================= 3. محرك كشف الحواف والدمج =================
+    // ================= 4. محرك المعالجة والرسم بدون برواز ومع تلوين فوري =================
     let uploadedImages = [];
     let processedScenes = {};
     let timelineScenes = [];
@@ -288,9 +319,9 @@
       cCtx.fillStyle = bgColorHex;
       cCtx.fillRect(0, 0, targetW, targetH);
 
-      const padX = 24;
-      const padTop = 30;
-      const padBottom = 110;
+      const padX = 20;
+      const padTop = 20;
+      const padBottom = 100;
       const availW = targetW - padX * 2;
       const availH = targetH - padTop - padBottom;
       const scale = Math.min(availW / img.width, availH / img.height);
@@ -305,6 +336,7 @@
       const tCtx = tempCanvas.getContext('2d');
       tCtx.fillStyle = '#ffffff';
       tCtx.fillRect(0, 0, targetW, targetH);
+      // رسم مباشر للصورة بدون أي برواز أو إطار خارجي
       tCtx.drawImage(img, offsetX, offsetY, drawW, drawH);
 
       const rawData = tCtx.getImageData(0, 0, targetW, targetH);
@@ -446,7 +478,7 @@
       renderFrame(currentTime);
     }
 
-    // ================= 4. محلل السكربت الذكي (تجاهل الترويسة وفلترة التشكيل) =================
+    // ================= 5. السكربت والتزامن =================
     function rebuildTimeline() {
       const rawText = document.getElementById('scriptInput').value.trim();
       const rawLines = rawText.split('\n');
@@ -454,16 +486,11 @@
       const cleanScriptLines = [];
       const headerRegex = /المشهد\s*\d+\s*\|/i;
 
-      // تصفية السكربت لتجاهل أسطر ترويسة المشاهد (مثل: المشهد 01 | 00:00 ...)
       rawLines.forEach(line => {
         const trimmed = line.trim();
         if (!trimmed) return;
-        if (headerRegex.test(trimmed)) {
-          return; // تجاهل سطر الترويحة تماماً
-        }
-        // تنظيف التشكيل من السطر ليصبح نظيفاً ومثالياً للكابشن
-        const cleanLine = stripArabicDiacritics(trimmed);
-        cleanScriptLines.push(cleanLine);
+        if (headerRegex.test(trimmed)) return;
+        cleanScriptLines.push(stripArabicDiacritics(trimmed));
       });
 
       const numScenes = Math.max(1, uploadedImages.length || cleanScriptLines.length || 1);
@@ -479,7 +506,6 @@
         });
       }
 
-      // تقسيم النصوص النظيفة إلى عبارات قصيرة متزامنة
       captionChunks = [];
       const fullCleanText = cleanScriptLines.join(' ');
       if (fullCleanText.length > 0) {
@@ -582,9 +608,10 @@
       reprocessAll();
     }
 
-    // ================= 5. محرك العندر والكابشن المطابق للنموذج =================
+    // ================= 6. محرك الرندر مع التلوين الفوري أثناء الرسم =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
+    const revealedColorCanvas = document.createElement('canvas');
 
     function renderFrame(time) {
       const canvas = document.getElementById('boardCanvas');
@@ -596,6 +623,7 @@
       if (maskCanvas.width !== w || maskCanvas.height !== h) {
         maskCanvas.width = w; maskCanvas.height = h;
         revealedSketchCanvas.width = w; revealedSketchCanvas.height = h;
+        revealedColorCanvas.width = w; revealedColorCanvas.height = h;
       }
 
       ctx.fillStyle = bgColor;
@@ -624,8 +652,7 @@
 
       if (sceneData && sceneData.strokePath && sceneData.strokePath.length > 0) {
         const path = sceneData.strokePath;
-        const drawPhase = Math.min(1, sceneProgress / 0.75);
-        const revealCount = Math.floor(path.length * drawPhase);
+        const revealCount = Math.floor(path.length * sceneProgress);
 
         const mCtx = maskCanvas.getContext('2d');
         mCtx.clearRect(0, 0, w, h);
@@ -639,6 +666,7 @@
           mCtx.fill();
         }
 
+        // إظهار الخطوط السوداء تدريجياً
         const rCtx = revealedSketchCanvas.getContext('2d');
         rCtx.clearRect(0, 0, w, h);
         rCtx.globalCompositeOperation = 'source-over';
@@ -648,15 +676,21 @@
 
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
-        if (document.getElementById('enableColoring').checked && sceneProgress > 0.72) {
-          const colorAlpha = Math.min(1, (sceneProgress - 0.72) / 0.25);
-          ctx.save();
-          ctx.globalAlpha = colorAlpha;
-          ctx.drawImage(sceneData.colorCanvas, 0, 0);
-          ctx.restore();
-        }
+        // التلوين الفوري المباشر أثناء الرسم لكل جزئية يتم رسمها (مطابق للفيديو النموذجي)
+        const cRevCtx = revealedColorCanvas.getContext('2d');
+        cRevCtx.clearRect(0, 0, w, h);
+        cRevCtx.globalCompositeOperation = 'source-over';
+        cRevCtx.drawImage(maskCanvas, 0, 0);
+        cRevCtx.globalCompositeOperation = 'source-in';
+        cRevCtx.drawImage(sceneData.colorCanvas, 0, 0);
 
-        if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && drawPhase < 1) {
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, sceneProgress * 1.1); // تلوين سلس متزامن مع حركة القلم
+        ctx.drawImage(revealedColorCanvas, 0, 0);
+        ctx.restore();
+
+        // حركة اليد المتاحة
+        if (selectedHand !== 'none' && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
           const currentPt = path[revealCount - 1];
           const handImg = handImages[selectedHand];
           const handSize = w < 600 ? 220 : 260;
@@ -676,7 +710,7 @@
         ctx.fillText('ارفع صور المشاهد والسكربت للبدء', w / 2, h / 2 - 10);
         ctx.font = '15px Cairo, sans-serif';
         ctx.fillStyle = '#78716c';
-        ctx.fillText('سيتم رسم وتلوين العناصر وعرض الكابشن النظيف', w / 2, h / 2 + 22);
+        ctx.fillText('سيتم الرسم والتلوين الفوري بدون برواز', w / 2, h / 2 + 22);
         ctx.restore();
       }
 
@@ -716,7 +750,7 @@
       }
     }
 
-    // ================= 6. التشغيل والتصدير =================
+    // ================= 7. التشغيل والتصدير =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -806,68 +840,3 @@
         try {
           if (!audioCtx) {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            audioSourceNode = audioCtx.createMediaElementSource(audio);
-            audioDest = audioCtx.createMediaStreamDestination();
-            audioSourceNode.connect(audioDest);
-            audioSourceNode.connect(audioCtx.destination);
-          }
-          if (audioCtx.state === 'suspended') audioCtx.resume();
-          const audioTracks = audioDest.stream.getAudioTracks();
-          if (audioTracks.length > 0) {
-            combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioTracks]);
-          }
-        } catch (e) {
-          console.warn('Audio mux fallback:', e);
-        }
-      }
-
-      let recorder;
-      try {
-        recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm;codecs=vp9,opus' });
-      } catch (e) {
-        recorder = new MediaRecorder(combinedStream);
-      }
-
-      const chunks = [];
-      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/webm' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'SuperBoard_Clean_Captions.webm';
-        a.click();
-        overlay.classList.add('hidden');
-        if (audio.src) { audio.pause(); audio.currentTime = 0; }
-      };
-
-      recorder.start();
-      let startExportTime = performance.now();
-      if (audio.src) {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      }
-
-      function exportLoop(now) {
-        const elapsed = (audio.src && !audio.paused) ? audio.currentTime : (now - startExportTime) / 1000;
-        const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
-        progressBar.style.width = percent + '%';
-        percentText.textContent = percent + '%';
-
-        renderFrame(elapsed);
-
-        if (elapsed >= totalDuration) {
-          recorder.stop();
-        } else {
-          requestAnimationFrame(exportLoop);
-        }
-      }
-
-      requestAnimationFrame(exportLoop);
-    }
-
-    updateCanvasDimensions();
-    rebuildTimeline();
-  </script>
-</body>
-</html>
