@@ -1016,7 +1016,7 @@
     let audioDest = null;
     let audioSourceNode = null;
 
-    function exportVideo() {
+function exportVideo() {
       const overlay = document.getElementById('exportOverlay');
       const progressBar = document.getElementById('exportProgressBar');
       const percentText = document.getElementById('exportPercent');
@@ -1031,6 +1031,8 @@
       const canvasStream = canvas.captureStream(fps);
 
       let combinedStream = canvasStream;
+      
+      // التأكد من وجود ملف صوتي وربطه بـ Web Audio API
       if (audio.src) {
         try {
           if (!audioCtx) {
@@ -1040,27 +1042,87 @@
             audioSourceNode.connect(audioDest);
             audioSourceNode.connect(audioCtx.destination);
           }
-          if (audioCtx.state === 'suspended') audioCtx.resume();
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          
           const audioTracks = audioDest.stream.getAudioTracks();
           if (audioTracks.length > 0) {
-            combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioTracks]);
+            // دمج مسار الفيديو من الـ Canvas مع مسار الصوت الحقيقي
+            combinedStream = new MediaStream([
+              ...canvasStream.getVideoTracks(), 
+              ...audioTracks
+            ]);
+            console. تم دمج مسار الصوت بنجاح مع الفيديو!");
+          } else {
+            alert("تنبيه: لم يتم العثور على مسار صوتي نشط، قد يتم تصدير الفيديو صامتاً.");
           }
         } catch (e) {
-          console.warn('Audio mux fallback:', e);
+          console.error('خطأ في دمج الصوت:', e);
+          alert("حدث خطأ أثناء دمج الصوت: " + e.message);
         }
+      } else {
+        alert("تنبيه: لم تقم برفع ملف تعليق صوتي، سيتم تصدير الفيديو بدون صوت.");
       }
 
-      let mimeType = 'video/mp4';
-      if (!MediaRecorder.isTypeSupported('video/mp4')) {
-        mimeType = 'video/webm;codecs=vp9,opus';
+      // استخدام صيغة WebM لضمان دعم دمج الصوت والصورة بنجاح تامة في المتصفح
+      let mimeType = 'video/webm;codecs=vp9,opus';
+      if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus')) {
+        mimeType = 'video/webm;codecs=vp8,opus';
+      } else if (MediaRecorder.isTypeSupported('video/webm')) {
+        mimeType = 'video/webm';
       }
 
       let recorder;
       try {
         recorder = new MediaRecorder(combinedStream, { mimeType: mimeType });
       } catch (e) {
+        console.warn('Fallback to default MediaRecorder constructor');
         recorder = new MediaRecorder(combinedStream);
       }
+
+      const chunks = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+      
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `SuperBoard_Pro_Animation.webm`;
+        a.click();
+        overlay.classList.add('hidden');
+        if (audio.src) { audio.pause(); audio.currentTime = 0; }
+        alert('تم تصدير الفيديو بالصوت والصورة بنجاح وتحميله على جهازك!');
+      };
+
+      recorder.start();
+      let startExportTime = performance.now();
+      
+      if (audio.src) {
+        audio.currentTime = 0;
+        audio.play().catch(err => {
+          console.error("فشل تشغيل الصوت أثناء التصدير:", err);
+        });
+      }
+
+      function exportLoop(now) {
+        const elapsed = (audio.src && !audio.paused) ? audio.currentTime : (now - startExportTime) / 1000;
+        const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+        progressBar.style.width = percent + '%';
+        percentText.textContent = percent + '%';
+
+        renderFrame(elapsed);
+
+        if (elapsed >= totalDuration) {
+          recorder.stop();
+        } else {
+          requestAnimationFrame(exportLoop);
+        }
+      }
+
+      requestAnimationFrame(exportLoop);
+    }
 
       const chunks = [];
       recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
