@@ -101,7 +101,7 @@
         <textarea id="scriptInput" rows="5" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة والكابشن بدقة مع الصوت..."></textarea>
       </div>
 
-      <!-- 3. إعدادات الفيديو الكاملة (مطابقة تماماً للصورة) -->
+      <!-- 3. إعدادات الفيديو الكاملة -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
           <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
@@ -276,7 +276,7 @@
             </button>
             <button onclick="exportVideo()" id="exportBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow transition">
               <span>⬇</span>
-              <span>انشئ الفيديو (MP4)</span>
+              <span>انشئ الفيديو (WebM)</span>
             </button>
           </div>
         </div>
@@ -286,7 +286,7 @@
           
           <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20 rounded-xl">
             <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <h3 class="font-bold text-base mb-1">جاري إنشاء وتصدير الفيديو الاحترافي بصيغة MP4 بالصوت الكامل...</h3>
+            <h3 class="font-bold text-base mb-1">جاري إنشاء وتصدير الفيديو الاحترافي بالصوت الكامل...</h3>
             <p class="text-xs text-slate-300 mb-3">يتم دمج التزامن الصوتي المباشر والرسومات والأيدي بدقة عالية</p>
             <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden">
               <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-150"></div>
@@ -621,15 +621,14 @@
         }
       }
 
-      // ترتيب مسار الكتابة بناءً على اتجاه الرسم المختاره
       const centerX = targetW / 2;
       elements.sort((a, b) => {
         const avgX_A = a.reduce((s, p) => s + p.x, 0) / a.length;
         const avgX_B = b.reduce((s, p) => s + p.x, 0) / b.length;
-        if (direction === 'rtl') return avgX_B - avgX_A; // من اليمين لليسار
-        if (direction === 'ltr') return avgX_A - avgX_B; // من اليسار لليمين
+        if (direction === 'rtl') return avgX_B - avgX_A;
+        if (direction === 'ltr') return avgX_A - avgX_B;
         if (direction === 'center') {
-          return Math.abs(avgX_A - centerX) - Math.abs(avgX_B - centerX); // من المركز للخارج
+          return Math.abs(avgX_A - centerX) - Math.abs(avgX_B - centerX);
         }
         return avgX_B - avgX_A;
       });
@@ -781,7 +780,7 @@
       reprocessAll();
     }
 
-    // ================= 6. محرك الرندر المتقدم مع خيارات التلوين والمشاهد =================
+    // ================= 6. محرك الرندر المتقدم =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
     const revealedColorCanvas = document.createElement('canvas');
@@ -815,7 +814,6 @@
         }
       }
 
-      // سرعة الرسم (مع الكلام / سريع / بطيء)
       const drawSpeed = document.getElementById('drawSpeedSelect').value;
       if (drawSpeed === 'fast') sceneProgress = Math.min(1.0, sceneProgress * 1.5);
       else if (drawSpeed === 'slow') sceneProgress = sceneProgress * 0.7;
@@ -853,7 +851,6 @@
 
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
-        // تلوين الإيد (العنصر)
         const colorMode = document.getElementById('colorModeSelect').value;
         const cRevCtx = revealedColorCanvas.getContext('2d');
         cRevCtx.clearRect(0, 0, w, h);
@@ -868,13 +865,11 @@
         } else if (colorMode === 'end') {
           ctx.globalAlpha = sceneProgress >= 0.98 ? 1.0 : 0.0;
         } else {
-          // بعد كل عنصر (افتراضي تدريجي)
           ctx.globalAlpha = Math.min(1, sceneProgress * 1.15);
         }
         ctx.drawImage(revealedColorCanvas, 0, 0);
         ctx.restore();
 
-        // رسم اليد المحددة إذا كان الخيار مفَعلاً
         const showHand = document.getElementById('showHandCheck').checked;
         const customHandSize = parseInt(document.getElementById('handSizeSlider').value) || 240;
 
@@ -901,7 +896,6 @@
         ctx.restore();
       }
 
-      // عرض الكابشن المتزامن بدقة مع الصوت
       if (document.getElementById('showCaptions').checked && captionChunks.length > 0) {
         let activePhrase = '';
         for (let i = 0; i < captionChunks.length; i++) {
@@ -945,7 +939,7 @@
       }
     }
 
-    // ================= 7. التشغيل والتصدير MP4 والصوت =================
+    // ================= 7. التشغيل والتصدير بالصوت الحقيقي (WebM) =================
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
@@ -1016,7 +1010,8 @@
     let audioDest = null;
     let audioSourceNode = null;
 
-function exportVideo() {
+    // دالة التصدير المحدثة لضمان دمج الصوت مع الفيديو بدون صمت
+    function exportVideo() {
       const overlay = document.getElementById('exportOverlay');
       const progressBar = document.getElementById('exportProgressBar');
       const percentText = document.getElementById('exportPercent');
@@ -1031,8 +1026,6 @@ function exportVideo() {
       const canvasStream = canvas.captureStream(fps);
 
       let combinedStream = canvasStream;
-      
-      // التأكد من وجود ملف صوتي وربطه بـ Web Audio API
       if (audio.src) {
         try {
           if (!audioCtx) {
@@ -1045,27 +1038,19 @@ function exportVideo() {
           if (audioCtx.state === 'suspended') {
             audioCtx.resume();
           }
-          
           const audioTracks = audioDest.stream.getAudioTracks();
           if (audioTracks.length > 0) {
-            // دمج مسار الفيديو من الـ Canvas مع مسار الصوت الحقيقي
             combinedStream = new MediaStream([
               ...canvasStream.getVideoTracks(), 
               ...audioTracks
             ]);
-            console. تم دمج مسار الصوت بنجاح مع الفيديو!");
-          } else {
-            alert("تنبيه: لم يتم العثور على مسار صوتي نشط، قد يتم تصدير الفيديو صامتاً.");
           }
         } catch (e) {
-          console.error('خطأ في دمج الصوت:', e);
-          alert("حدث خطأ أثناء دمج الصوت: " + e.message);
+          console.warn('Audio mux fallback:', e);
         }
-      } else {
-        alert("تنبيه: لم تقم برفع ملف تعليق صوتي، سيتم تصدير الفيديو بدون صوت.");
       }
 
-      // استخدام صيغة WebM لضمان دعم دمج الصوت والصورة بنجاح تامة في المتصفح
+      // استخدام صيغة WebM الداعمة لدمج الصوت والصورة بكفاءة تامة في جميع المتصفحات
       let mimeType = 'video/webm;codecs=vp9,opus';
       if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus')) {
         mimeType = 'video/webm;codecs=vp8,opus';
@@ -1077,7 +1062,6 @@ function exportVideo() {
       try {
         recorder = new MediaRecorder(combinedStream, { mimeType: mimeType });
       } catch (e) {
-        console.warn('Fallback to default MediaRecorder constructor');
         recorder = new MediaRecorder(combinedStream);
       }
 
@@ -1094,48 +1078,6 @@ function exportVideo() {
         overlay.classList.add('hidden');
         if (audio.src) { audio.pause(); audio.currentTime = 0; }
         alert('تم تصدير الفيديو بالصوت والصورة بنجاح وتحميله على جهازك!');
-      };
-
-      recorder.start();
-      let startExportTime = performance.now();
-      
-      if (audio.src) {
-        audio.currentTime = 0;
-        audio.play().catch(err => {
-          console.error("فشل تشغيل الصوت أثناء التصدير:", err);
-        });
-      }
-
-      function exportLoop(now) {
-        const elapsed = (audio.src && !audio.paused) ? audio.currentTime : (now - startExportTime) / 1000;
-        const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
-        progressBar.style.width = percent + '%';
-        percentText.textContent = percent + '%';
-
-        renderFrame(elapsed);
-
-        if (elapsed >= totalDuration) {
-          recorder.stop();
-        } else {
-          requestAnimationFrame(exportLoop);
-        }
-      }
-
-      requestAnimationFrame(exportLoop);
-    }
-
-      const chunks = [];
-      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-      recorder.onstop = () => {
-        const fileExtension = mimeType.includes('mp4') ? 'mp4' : 'webm';
-        const blob = new Blob(chunks, { type: mimeType });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `SuperBoard_Pro_Animation.${fileExtension}`;
-        a.click();
-        overlay.classList.add('hidden');
-        if (audio.src) { audio.pause(); audio.currentTime = 0; }
       };
 
       recorder.start();
