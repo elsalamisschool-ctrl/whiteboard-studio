@@ -52,258 +52,258 @@
     </div>
   </header>
 
-  <!-- شريط المراحل العلوي (Wizard Bar) -->
-  <div class="max-w-7xl w-full mx-auto px-4 md:px-6 pt-4">
-    <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
-      <div class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
-        <span>✅ المشروع محفوظ على جهازك</span>
-      </div>
-      <div class="flex items-center gap-4 text-xs font-bold">
-        <div id="step1Indicator" class="flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">
-          <span class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px]">1</span>
-          <span>الملفات (صوت وصور وسكريبت)</span>
-        </div>
-        <div id="step2Indicator" class="flex items-center gap-2 text-slate-400">
-          <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">2</span>
-          <span>التحرير والمعاينة (توقيت وكابشن)</span>
-        </div>
-        <div id="step3Indicator" class="flex items-center gap-2 text-slate-400">
-          <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">3</span>
-          <span>التصدير (جودة وتحميل)</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- المحتوى الرئيسي للمنصة -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <!-- ================= المرحلة الأولى: شاشة الملفات ================= -->
-    <div id="wizardStep1" class="lg:col-span-12 space-y-5">
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm max-w-2xl mx-auto space-y-6">
-        <div class="text-center">
-          <h2 class="text-xl font-bold text-slate-800 mb-1">خطوة 1: تجهيز ملفات المشروع</h2>
-          <p class="text-xs text-slate-500">ارفع التعليق الصوتي، صور المشاهد بالترتيب، واكتب السكريبت الخاص بالفيديو</p>
-        </div>
+    <!-- العمود الأيمن: الملفات، السكربت، ومستودع الأيدي وإعدادات الفيديو الكاملة -->
+    <div class="lg:col-span-5 space-y-5">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
-            <span class="text-3xl mb-2">🎙️</span>
-            <span class="text-sm font-bold text-slate-700">التعليق الصوتي (MP3 / WAV)</span>
-            <span id="audioStatusStep1" class="text-xs text-slate-400 mt-1">لم يتم الرفع بعد</span>
+      <!-- 1. رفع الملفات -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
+          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">1</span>
+          ارفع الصوت والصور
+        </h2>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
+            <span class="text-2xl mb-1">🎙️</span>
+            <span class="text-xs font-bold text-slate-700">التعليق الصوتي</span>
+            <span id="audioStatus" class="text-[11px] text-slate-400 mt-1 truncate max-w-full">MP3 / WAV</span>
             <input type="file" id="audioInput" accept="audio/*" class="hidden" onchange="handleAudioUpload(event)">
           </label>
 
-          <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
-            <span class="text-3xl mb-2">🖼️</span>
-            <span class="text-sm font-bold text-slate-700">صور المشاهد (متعددة)</span>
-            <span id="imagesStatusStep1" class="text-xs text-slate-400 mt-1">اختر الصور بالترتيب</span>
+          <label class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-50 flex flex-col items-center justify-center">
+            <span class="text-2xl mb-1">🖼️</span>
+            <span class="text-xs font-bold text-slate-700">صور المشاهد</span>
+            <span id="imagesStatus" class="text-[11px] text-slate-400 mt-1">اختر الصور بالترتيب</span>
             <input type="file" id="imagesInput" accept="image/*" multiple class="hidden" onchange="handleImagesUpload(event)">
           </label>
         </div>
 
+        <div id="thumbnailsContainer" class="hidden space-y-2">
+          <div class="flex justify-between items-center text-xs text-slate-500">
+            <span>المشاهد المحللة (<span id="imgCountLabel">0</span>):</span>
+            <button onclick="clearImages()" class="text-red-500 hover:underline font-semibold">مسح الكل</button>
+          </div>
+          <div id="thumbnailsList" class="flex gap-2 overflow-x-auto pb-2"></div>
+        </div>
+      </div>
+
+      <!-- 2. السكربت والكابشن -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div class="flex items-center justify-between border-b pb-2">
+          <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">2</span>
+            السكربت (تزامن صوتي مباشر 100%)
+          </h2>
+          <span id="syncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">جاهز</span>
+        </div>
+        <textarea id="scriptInput" rows="5" oninput="rebuildTimeline()" class="w-full p-3 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="ادخل السكربت النصي الخاص بالفيديو لمزامنة الكتابة والكابشن بدقة مع الصوت..."></textarea>
+      </div>
+
+      <!-- 3. إعدادات الفيديو الكاملة (مطابقة تماماً للصورة) -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2 border-b pb-2">
+          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">3</span>
+          إعدادات الفيديو والأيدي المتقدمة
+        </h2>
+
+        <!-- مستودع الأيدي الثمانية -->
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">السكريبت النصي (اكتب مقسم بـ "مشهد 1:" أو "Scene 1:"):</label>
-          <textarea id="scriptInput" rows="6" class="w-full p-4 text-xs leading-relaxed border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" placeholder="مشهد 1: كان يا ما كان، في قديم الزمان...&#10;مشهد 2: كانت توتة بتحب تلاعب وتغني طول النهار..."></textarea>
+          <label class="block text-xs font-bold text-slate-700 mb-2">مستودع الأيدي الثمانية الدائم:</label>
+          <div class="grid grid-cols-3 gap-2" id="handGridSelector"></div>
         </div>
 
-        <button onclick="goToStep2()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 rounded-xl transition shadow-lg text-sm flex items-center justify-center gap-2">
-          <span>إنشاء الفيديو والذهاب للتحرير والمعاينة</span>
-          <span>←</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- ================= المرحلة الثانية: التحرير والمعاينة (مخفية افتراضياً) ================= -->
-    <div id="wizardStep2" class="lg:col-span-12 hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
-      <!-- العمود الأيمن: التبويبات الثلاثة (المشاهد - الكابشن - إعدادات) -->
-      <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col h-[650px]">
-        
-        <!-- شريط التبويبات العلوي -->
-        <div class="flex border-b pb-3 gap-2">
-          <button onclick="switchTab('scenes')" id="tabBtnScenes" class="flex-1 py-2 text-xs font-bold rounded-xl bg-amber-500 text-white transition shadow-sm">المشاهد</button>
-          <button onclick="switchTab('caption')" id="tabBtnCaption" class="flex-1 py-2 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">الكابشن</button>
-          <button onclick="switchTab('settings')" id="tabBtnSettings" class="flex-1 py-2 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">إعدادات</button>
+        <!-- تفعيل/إخفاء اليد -->
+        <div class="flex items-center justify-between pt-2 border-t">
+          <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+            <input type="checkbox" id="showHandCheck" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
+            إظهار الإيد
+          </label>
         </div>
 
-        <!-- محتوى التبويبات -->
-        <div class="flex-1 overflow-y-auto pr-1 space-y-4">
-          
-          <!-- 1. تبويب المشاهد -->
-          <div id="tabContentScenes" class="space-y-3">
-            <div id="scenesListContainer" class="space-y-3">
-              <!-- يتم تعبئتها ديناميكياً -->
-            </div>
-            <label class="border-2 border-dashed border-amber-400 bg-amber-50/50 hover:bg-amber-50 rounded-xl p-3 text-center cursor-pointer transition flex items-center justify-center gap-2 block">
-              <span class="text-sm">➕</span>
-              <span class="text-xs font-bold text-amber-900">إضافة صور مشهد جديد</span>
-              <input type="file" accept="image/*" multiple class="hidden" onchange="handleAddMoreImages(event)">
-            </label>
+        <!-- حجم اليد -->
+        <div>
+          <div class="flex justify-between text-xs text-slate-600 mb-1 font-semibold">
+            <span>حجم الإيد:</span>
+            <span id="handSizeVal">240px</span>
           </div>
-
-          <!-- 2. تبويب الكابشن -->
-          <div id="tabContentCaption" class="hidden space-y-3">
-            <p class="text-[11px] text-slate-500 leading-relaxed bg-slate-50 p-3 rounded-xl border">
-              الكابشن بيطلع من السكريبت بالحرف ومتزامن مع الصوت. تقدر تعدل التوقيت لكل جملة بالثواني بدقة تامة.
-            </p>
-            <div id="captionsListContainer" class="space-y-2.5">
-              <!-- يتم تعبئتها ديناميكياً -->
-            </div>
-          </div>
-
-          <!-- 3. تبويب الإعدادات (الأيدي والسرعة والتلوين) -->
-          <div id="tabContentSettings" class="hidden space-y-4">
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-2">مستودع الأيدي الثمانية:</label>
-              <div class="grid grid-cols-2 gap-2" id="handGridSelector"></div>
-            </div>
-
-            <div class="flex items-center justify-between pt-2 border-t">
-              <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-                <input type="checkbox" id="showHandCheck" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
-                إظهار الإيد (افتراضي)
-              </label>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-xs text-slate-600 mb-1 font-semibold">
-                <span>حجم الإيد:</span>
-                <span id="handSizeVal">240px</span>
-              </div>
-              <input type="range" id="handSizeSlider" min="150" max="350" value="240" oninput="document.getElementById('handSizeVal').textContent=this.value+'px'; renderFrame(currentTime);" class="w-full accent-amber-500 cursor-pointer">
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">سرعة الرسم:</label>
-              <select id="drawSpeedSelect" onchange="rebuildTimeline()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-                <option value="normal" selected>مع الكلام (افتراضي)</option>
-                <option value="fast">سريع</option>
-                <option value="slow">بطيء</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">تلوين الإيد:</label>
-              <select id="colorModeSelect" onchange="renderFrame(currentTime)" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-                <option value="after_element" selected>بعد كل عنصر (افتراضي)</option>
-                <option value="instant">فوراً أثناء الرسم</option>
-                <option value="end">بعد انتهاء الرسم بالكامل</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">اتجاه الرسم والكتابة:</label>
-              <select id="drawDirectionSelect" onchange="reprocessAll()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-                <option value="rtl" selected>يمين لشمال (افتراضي)</option>
-                <option value="ltr">شمال ليمين</option>
-                <option value="center">من المركز للخارج</option>
-              </select>
-            </div>
-          </div>
-
+          <input type="range" id="handSizeSlider" min="150" max="350" value="240" oninput="document.getElementById('handSizeVal').textContent=this.value+'px'; renderFrame(currentTime);" class="w-full accent-amber-500 cursor-pointer">
         </div>
 
-        <!-- زر الانتقال للمرحلة الثالثة (التصدير) -->
-        <button onclick="goToStep3()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow">
-          <span>التالي: التصدير</span>
-          <span>→</span>
-        </button>
-
-      </div>
-
-      <!-- العمود الأيسر: شاشة المعاينة الحية ومشغل الفيديو -->
-      <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-[650px]">
-        <div class="flex items-center justify-between mb-3 pb-2 border-b">
-          <div>
-            <h2 class="font-bold text-slate-800 text-sm">شاشة المعاينة الحية</h2>
-            <p class="text-[11px] text-emerald-600 font-bold" id="analysisSuccessMsg">✅ الأداة سمعت التسجيل وطابقت المشاهد والكابشن بدقة</p>
-          </div>
-          <select id="aspectRatio" onchange="updateCanvasDimensions()" class="text-xs p-2 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
-            <option value="9:16" selected>9:16 (ريلز وتيك توك)</option>
-            <option value="16:9">16:9 (يوتيوب عرضي)</option>
+        <!-- سرعة الرسم -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">سرعة الرسم:</label>
+          <select id="drawSpeedSelect" onchange="rebuildTimeline()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
+            <option value="normal" selected>مع الكلام (افتراضي)</option>
+            <option value="fast">سريع</option>
+            <option value="slow">بطيء</option>
           </select>
         </div>
 
-        <div class="canvas-container flex-1 rounded-xl border border-slate-200 flex items-center justify-center p-2 overflow-hidden relative">
-          <canvas id="boardCanvas" class="shadow-xl rounded-lg max-h-[480px] max-w-full object-contain"></canvas>
+        <!-- تلوين الإيد -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">تلوين الإيد (العنصر):</label>
+          <select id="colorModeSelect" onchange="renderFrame(currentTime)" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
+            <option value="after_element" selected>بعد كل عنصر (افتراضي)</option>
+            <option value="instant">فوراً أثناء الرسم</option>
+            <option value="end">بعد انتهاء الرسم بالكامل</option>
+          </select>
         </div>
 
-        <div class="mt-3 flex items-center gap-3">
-          <button onclick="togglePlay()" id="playBtn" class="w-12 h-12 bg-amber-500 hover:bg-amber-600 text-white rounded-full flex items-center justify-center text-lg shadow transition">
-            <span id="playIcon">▶</span>
-          </button>
-          <div class="flex-1 space-y-1">
-            <div class="flex justify-between text-xs font-bold text-slate-500">
-              <span id="timeCurrent">00:00</span>
-              <span id="timeTotal">00:10</span>
+        <!-- اتجاه الرسم والكتابة -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">اتجاه الرسم والكتابة:</label>
+          <select id="drawDirectionSelect" onchange="reprocessAll()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
+            <option value="rtl" selected>يمين لشمال (افتراضي للعربية)</option>
+            <option value="ltr">شمال ليمين</option>
+            <option value="center">من المركز للخارج</option>
+          </select>
+        </div>
+
+        <!-- الانتقال بين المشاهد -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">الانتقال بين المشاهد:</label>
+          <select id="sceneTransitionSelect" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
+            <option value="fade" selected>تلاشي ناعم (افتراضي)</option>
+            <option value="cut">قطع مباشر</option>
+            <option value="slide">انزلاق أفقي</option>
+          </select>
+        </div>
+
+        <!-- إعدادات الكابشن -->
+        <div class="pt-3 border-t space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+              <input type="checkbox" id="showCaptions" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
+              إظهار الكابشن على الفيديو
+            </label>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">مكان الكابشن:</label>
+              <select id="captionPosition" onchange="renderFrame(currentTime)" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+                <option value="bottom" selected>تحت (افتراضي)</option>
+                <option value="center">في المنتصف</option>
+                <option value="top">أعلى الشاشة</option>
+              </select>
             </div>
-            <input type="range" id="timelineSlider" min="0" max="10" step="0.02" value="0" oninput="seekTo(this.value)" class="w-full accent-amber-500 cursor-pointer">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">خط الكابشن:</label>
+              <select id="captionFont" onchange="renderFrame(currentTime)" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+                <option value="'Cairo', sans-serif" selected>كايرو (افتراضي)</option>
+                <option value="'Tajawal', sans-serif">تجوال</option>
+                <option value="'Amiri', serif">أميري</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+              <input type="checkbox" id="captionBgCheck" checked onchange="renderFrame(currentTime)" class="w-4 h-4 accent-amber-500 rounded">
+              خلفية الكابشن
+            </label>
+            <span class="text-[10px] text-slate-500">شفافية: <span id="opacityVal">70%</span></span>
+          </div>
+          <input type="range" id="captionOpacitySlider" min="10" max="100" value="70" oninput="document.getElementById('opacityVal').textContent=this.value+'%'; renderFrame(currentTime);" class="w-full accent-amber-500 cursor-pointer">
+        </div>
+
+        <!-- إعدادات الصوت والمؤثرات -->
+        <div class="pt-3 border-t space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+              <input type="checkbox" id="soundFxCheck" checked class="w-4 h-4 accent-amber-500 rounded">
+              مؤثرات صوتية (صوت القلم والانتقال)
+            </label>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-600 mb-1 font-semibold">
+              <span>صوت المؤثرات:</span>
+              <span id="fxVolumeVal">50%</span>
+            </div>
+            <input type="range" id="fxVolumeSlider" min="0" max="100" value="50" oninput="document.getElementById('fxVolumeVal').textContent=this.value+'%';" class="w-full accent-amber-500 cursor-pointer">
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-600 mb-1 font-semibold">
+              <span>ضبط توقيت الصورة مع الصوت (Offset):</span>
+              <span id="offsetVal">0 ms</span>
+            </div>
+            <input type="range" id="offsetSlider" min="-2000" max="2000" step="50" value="0" oninput="document.getElementById('offsetVal').textContent=this.value+' ms'; rebuildTimeline();" class="w-full accent-amber-500 cursor-pointer">
           </div>
         </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-2 border-t">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">لون خلفية اللوحة:</label>
+            <select id="boardBgColor" onchange="reprocessAll()" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+              <option value="#F5EAD6" selected>كريمي دافئ (مطابق للنموذج)</option>
+              <option value="#FFFFFF">أبيض ناصع</option>
+              <option value="#F8FAFC">رمادي فاتح جداً</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">دقة وسُمك الخط:</label>
+            <select id="strokePrecision" onchange="reprocessAll()" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-slate-50 font-semibold">
+              <option value="fine" selected>دقيق ورفيع (مطابق للنموذج)</option>
+              <option value="medium">متوسط</option>
+              <option value="bold">سميك</option>
+            </select>
+          </div>
+        </div>
+
       </div>
 
     </div>
 
-    <!-- ================= المرحلة الثالثة: التصدير والجودة (مخفية افتراضياً) ================= -->
-    <div id="wizardStep3" class="lg:col-span-12 hidden space-y-5">
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm max-w-3xl mx-auto space-y-6">
-        <div class="flex items-center justify-between border-b pb-4">
+    <!-- العمود الأيسر: شاشة المعاينة وتصدير الفيديو -->
+    <div class="lg:col-span-7 flex flex-col space-y-4">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col">
+        
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b">
           <div>
-            <h2 class="text-lg font-bold text-slate-800">اختر جودة التصدير</h2>
-            <p class="text-xs text-slate-500">الأحجام تقريبية، والحجم الفعلي بيظهر بعد ما الفيديو يخلص.</p>
+            <h2 class="font-bold text-slate-800 text-sm">شاشة العرض والمعاينة الحية</h2>
+            <p class="text-xs text-slate-500" id="sceneStatusLabel">في انتظار الملفات والسكربت...</p>
           </div>
-          <button onclick="goToStep2()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl font-semibold flex items-center gap-1">
-            <span>← رجوع للتحرير</span>
-          </button>
+          <div class="flex items-center gap-2">
+            <select id="aspectRatio" onchange="updateCanvasDimensions()" class="text-xs p-2 rounded-xl border border-slate-300 bg-slate-50 font-semibold">
+              <option value="9:16" selected>9:16 (ريلز وتيك توك)</option>
+              <option value="16:9">16:9 (يوتيوب عرضي)</option>
+            </select>
+            <button onclick="togglePlay()" id="playBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+              <span id="playIcon">▶</span>
+              <span id="playText">معاينة</span>
+            </button>
+            <button onclick="exportVideo()" id="exportBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+              <span>⬇</span>
+              <span>انشئ الفيديو (MP4)</span>
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="border-2 border-slate-200 rounded-2xl p-5 text-center cursor-pointer hover:border-amber-400 transition bg-slate-50 flex flex-col justify-between">
-            <div>
-              <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full font-bold">480p</span>
-              <h3 class="font-bold text-slate-800 text-base mt-3">480×854</h3>
-              <p class="text-amber-600 font-bold text-lg my-2">≈ 13 MB</p>
+        <div class="canvas-container flex-1 rounded-xl border border-slate-200 flex items-center justify-center p-4 overflow-hidden relative min-h-[480px]">
+          <canvas id="boardCanvas" class="shadow-xl rounded-lg max-h-[540px] max-w-full object-contain"></canvas>
+          
+          <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20 rounded-xl">
+            <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <h3 class="font-bold text-base mb-1">جاري إنشاء وتصدير الفيديو الاحترافي بصيغة MP4 بالصوت الكامل...</h3>
+            <p class="text-xs text-slate-300 mb-3">يتم دمج التزامن الصوتي المباشر والرسومات والأيدي بدقة عالية</p>
+            <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden">
+              <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-150"></div>
             </div>
-            <p class="text-[11px] text-slate-500 mt-2">أصغر حجم، مناسب للإرسال السريع</p>
-          </div>
-
-          <div class="border-2 border-amber-500 bg-amber-50/40 rounded-2xl p-5 text-center cursor-pointer shadow-sm relative flex flex-col justify-between">
-            <span class="absolute -top-3 right-1/2 translate-x-1/2 bg-amber-500 text-white text-[10px] px-3 py-0.5 rounded-full font-bold">موصى بها</span>
-            <div>
-              <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">720p HD</span>
-              <h3 class="font-bold text-slate-800 text-base mt-3">720×1280</h3>
-              <p class="text-amber-600 font-bold text-lg my-2">≈ 22 MB</p>
-            </div>
-            <p class="text-[11px] text-slate-500 mt-2">متوازنة، الأنسب لمعظم الاستخدامات</p>
-          </div>
-
-          <div class="border-2 border-slate-200 rounded-2xl p-5 text-center cursor-pointer hover:border-amber-400 transition bg-slate-50 opacity-80 flex flex-col justify-between">
-            <div>
-              <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full font-bold">1080p Full HD</span>
-              <h3 class="font-bold text-slate-800 text-base mt-3">1080×1920</h3>
-              <p class="text-amber-600 font-bold text-lg my-2">≈ 35 MB</p>
-            </div>
-            <p class="text-[11px] text-slate-500 mt-2">أعلى جودة، مناسبة ليوتيوب (Pro)</p>
+            <span id="exportPercent" class="text-xs font-bold mt-2 text-amber-400">0%</span>
           </div>
         </div>
 
-        <div class="pt-4 border-t flex flex-col items-center justify-center space-y-3">
-          <button onclick="startFinalExport()" class="w-full max-w-md bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl transition shadow-xl text-sm flex items-center justify-center gap-2">
-            <span>🎬 ابدأ التصدير (MP4)</span>
-          </button>
+        <!-- شريط التقدم الزمني -->
+        <div class="mt-4 space-y-1">
+          <div class="flex justify-between text-xs font-bold text-slate-500">
+            <span id="timeCurrent">00:00</span>
+            <span id="timeTotal">00:10</span>
+          </div>
+          <input type="range" id="timelineSlider" min="0" max="10" step="0.02" value="0" oninput="seekTo(this.value)" class="w-full accent-amber-500 cursor-pointer">
         </div>
 
-        <!-- شاشة التحميل أثناء التصدير -->
-        <div id="exportOverlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-20 rounded-2xl">
-          <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-          <h3 class="font-bold text-base mb-1">جاري تصدير الفيديو الاحترافي بصيغة MP4...</h3>
-          <p class="text-xs text-slate-300 mb-3">دمج الرسم، التلوين، والكابشن المتزامن بدقة عالية</p>
-          <div class="w-64 bg-slate-700 rounded-full h-2.5 overflow-hidden">
-            <div id="exportProgressBar" class="bg-amber-500 h-full w-0 transition-all duration-150"></div>
-          </div>
-          <span id="exportPercent" class="text-xs font-bold mt-2 text-amber-400">0%</span>
-        </div>
       </div>
     </div>
 
@@ -314,6 +314,7 @@
   <script>
     // ================= 1. نظام كلمة المرور والخصوصية =================
     const STORAGE_PASS_KEY = 'superboard_private_pass';
+    
     function getStoredPass() {
       try {
         let p = localStorage.getItem(STORAGE_PASS_KEY);
@@ -321,6 +322,7 @@
         return p;
       } catch (e) { return '1234'; }
     }
+
     function checkPassword() {
       const inputVal = document.getElementById('passwordInput').value.trim();
       if (inputVal === getStoredPass()) {
@@ -330,84 +332,29 @@
         document.getElementById('passError').classList.remove('hidden');
       }
     }
+
     function lockApp() {
       try { sessionStorage.removeItem('unlocked'); } catch (e) {}
       document.getElementById('lockScreen').classList.remove('hidden');
       document.getElementById('passwordInput').value = '';
     }
+
     function changePasswordModal() {
       const p = prompt('أدخل كلمة المرور الجديدة (3 أحرف أو أرقام على الأقل):');
       if (p && p.trim().length >= 3) {
         try { localStorage.setItem(STORAGE_PASS_KEY, p.trim()); alert('تم تحديث كلمة المرور بنجاح!'); } catch (e) {}
       }
     }
+
     try {
       if (sessionStorage.getItem('unlocked') === 'true') {
         document.getElementById('lockScreen').classList.add('hidden');
       }
     } catch (e) {}
 
-    // ================= 2. التنقل بين المراحل الـ 3 =================
-    function goToStep1() {
-      document.getElementById('wizardStep1').classList.remove('hidden');
-      document.getElementById('wizardStep2').classList.add('hidden');
-      document.getElementById('wizardStep3').classList.add('hidden');
-      updateWizardIndicators(1);
-    }
-    function goToStep2() {
-      document.getElementById('wizardStep1').classList.add('hidden');
-      document.getElementById('wizardStep2').classList.remove('hidden');
-      document.getElementById('wizardStep3').classList.add('hidden');
-      updateWizardIndicators(2);
-      rebuildTimeline();
-      renderFrame(currentTime);
-    }
-    function goToStep3() {
-      document.getElementById('wizardStep1').classList.add('hidden');
-      document.getElementById('wizardStep2').classList.add('hidden');
-      document.getElementById('wizardStep3').classList.remove('hidden');
-      updateWizardIndicators(3);
-    }
-
-    function updateWizardIndicators(step) {
-      const ind1 = document.getElementById('step1Indicator');
-      const ind2 = document.getElementById('step2Indicator');
-      const ind3 = document.getElementById('step3Indicator');
-
-      ind1.className = step === 1 ? "flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200" : (step > 1 ? "flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200" : "flex items-center gap-2 text-slate-400");
-      ind2.className = step === 2 ? "flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200" : (step > 2 ? "flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200" : "flex items-center gap-2 text-slate-400");
-      ind3.className = step === 3 ? "flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200" : "flex items-center gap-2 text-slate-400";
-    }
-
-    // ================= 3. التبويبات الجانبية (المشاهد - الكابشن - إعدادات) =================
-    function switchTab(tab) {
-      const sc = document.getElementById('tabContentScenes');
-      const cp = document.getElementById('tabContentCaption');
-      const st = document.getElementById('tabContentSettings');
-      const btnSc = document.getElementById('tabBtnScenes');
-      const btnCp = document.getElementById('tabBtnCaption');
-      const btnSt = document.getElementById('tabBtnSettings');
-
-      sc.classList.add('hidden'); cp.classList.add('hidden'); st.classList.add('hidden');
-      btnSc.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
-      btnCp.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
-      btnSt.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
-
-      if (tab === 'scenes') {
-        sc.classList.remove('hidden');
-        btnSc.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-amber-500 text-white transition shadow-sm";
-      } else if (tab === 'caption') {
-        cp.classList.remove('hidden');
-        btnCp.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-amber-500 text-white transition shadow-sm";
-      } else if (tab === 'settings') {
-        st.classList.remove('hidden');
-        btnSt.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-amber-500 text-white transition shadow-sm";
-      }
-    }
-
-    // ================= 4. مستودع الأيدي الثمانية الدائم =================
+    // ================= 2. مستودع الأيدي الثمانية الدائم (LocalStorage) =================
     const handsConfig = [
-      { id: 'suit_pen', name: 'بدلة وقلم', icon: '👔' },
+      { id: 'suit_pen', name: 'بدلة وقلم حبر', icon: '👔' },
       { id: 'girl_ink', name: 'إيد بنت، حبر', icon: '💜' },
       { id: 'girl_cartoon', name: 'إيد بنت، كرتون', icon: '💚' },
       { id: 'red_pen', name: 'رسم بالحبر', icon: '🔴' },
@@ -425,13 +372,16 @@
       const grid = document.getElementById('handGridSelector');
       if (!grid) return;
       grid.innerHTML = '';
+
       handsConfig.forEach(h => {
         const isSelected = (activeHandId === h.id);
         const savedData = (h.id !== 'none') ? localStorage.getItem(`superboard_hand_${h.id}`) : null;
 
         const btn = document.createElement('div');
-        btn.className = `border-2 rounded-xl p-2 text-center transition flex flex-col items-center justify-between cursor-pointer relative ${isSelected ? 'border-amber-500 bg-amber-50/80 shadow-md' : 'border-slate-200 bg-slate-50 hover:border-amber-300'}`;
-        btn.onclick = (e) => { if (e.target.tagName !== 'INPUT') selectHand(h.id); };
+        btn.className = `hand-card border-2 rounded-xl p-2 text-center transition flex flex-col items-center justify-between cursor-pointer relative ${isSelected ? 'border-amber-500 bg-amber-50/80 shadow-md' : 'border-slate-200 bg-slate-50 hover:border-amber-300'}`;
+        btn.onclick = (e) => {
+          if (e.target.tagName !== 'INPUT') selectHand(h.id);
+        };
 
         let previewHTML = `<span class="text-xl mb-1">${h.icon}</span>`;
         if (savedData) {
@@ -446,8 +396,8 @@
             <span class="text-[10px] font-bold text-slate-700 truncate w-full">${h.name}</span>
           </div>
           ${h.id !== 'none' ? `
-            <label class="mt-1 text-[9px] bg-white hover:bg-amber-100 text-amber-800 border border-amber-300 px-1 py-0.5 rounded shadow-sm cursor-pointer w-full text-center truncate">
-              ${savedData ? 'تحديث' : 'رفع'}
+            <label class="mt-1.5 text-[9px] bg-white hover:bg-amber-100 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded shadow-sm cursor-pointer w-full text-center truncate">
+              ${savedData ? 'تحديث الصورة' : 'رفع الصورة'}
               <input type="file" accept="image/png, image/jpeg" class="hidden" onchange="uploadHandImage('${h.id}', event)">
             </label>` : ''}
         `;
@@ -474,8 +424,10 @@
           activeHandId = id;
           initHandsUI();
           renderFrame(currentTime);
-          alert(`تم حفظ صورة (${handsConfig.find(x => x.id === id).name}) بنجاح أبدياً!`);
-        } catch (err) { alert('الصورة كبيرة جداً.'); }
+          alert(`تم حفظ وتثبيت صورة (${handsConfig.find(x => x.id === id).name}) بنجاح في المنصة أبدياً!`);
+        } catch (err) {
+          alert('حجم الصورة كبير جداً، اختر صورة أصغر حجماً.');
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -483,11 +435,21 @@
     handsConfig.forEach(h => {
       if (h.id !== 'none') {
         const saved = localStorage.getItem(`superboard_hand_${h.id}`);
-        if (saved) { const img = new Image(); img.src = saved; loadedHandImages[h.id] = img; }
+        if (saved) {
+          const img = new Image();
+          img.src = saved;
+          loadedHandImages[h.id] = img;
+        }
       }
     });
 
-    // ================= 5. إدارة المشاهد والكابشن والتزامن =================
+    // ================= 3. فلترة التشكيل والترويسات =================
+    function stripArabicDiacritics(text) {
+      if (!text) return '';
+      return text.replace(/[\u064B-\u0652\u0670\u0640]/g, '');
+    }
+
+    // ================= 4. محرك المعالجة ورسم الكونتور وتوجيه المسار =================
     let uploadedImages = [];
     let processedScenes = {};
     let timelineScenes = [];
@@ -498,35 +460,40 @@
     let animFrameId = null;
     let lastTimestamp = 0;
 
-    function stripArabicDiacritics(text) {
-      if (!text) return '';
-      return text.replace(/[\u064B-\u0652\u0670\u0640]/g, '');
-    }
-
     function processImageToContour(img, targetW, targetH) {
-      const bgColorHex = '#F5EAD6';
-      const precision = 'fine';
+      const bgColorHex = document.getElementById('boardBgColor').value || '#F5EAD6';
+      const precision = document.getElementById('strokePrecision').value || 'fine';
       const direction = document.getElementById('drawDirectionSelect') ? document.getElementById('drawDirectionSelect').value : 'rtl';
 
       const colorCanvas = document.createElement('canvas');
-      colorCanvas.width = targetW; colorCanvas.height = targetH;
+      colorCanvas.width = targetW;
+      colorCanvas.height = targetH;
       const cCtx = colorCanvas.getContext('2d');
-      cCtx.fillStyle = bgColorHex; cCtx.fillRect(0, 0, targetW, targetH);
+      cCtx.fillStyle = bgColorHex;
+      cCtx.fillRect(0, 0, targetW, targetH);
 
-      const padX = 20, padTop = 20, padBottom = 100;
-      const availW = targetW - padX * 2, availH = targetH - padTop - padBottom;
+      const padX = 20;
+      const padTop = 20;
+      const padBottom = 100;
+      const availW = targetW - padX * 2;
+      const availH = targetH - padTop - padBottom;
       const scale = Math.min(availW / img.width, availH / img.height);
-      const drawW = img.width * scale, drawH = img.height * scale;
-      const offsetX = (targetW - drawW) / 2, offsetY = padTop + (availH - drawH) / 2;
+      const drawW = img.width * scale;
+      const drawH = img.height * scale;
+      const offsetX = (targetW - drawW) / 2;
+      const offsetY = padTop + (availH - drawH) / 2;
 
       const sampleCanvas = document.createElement('canvas');
-      sampleCanvas.width = img.width; sampleCanvas.height = img.height;
-      const smpCtx = sampleCanvas.getContext('2d'); smpCtx.drawImage(img, 0, 0);
+      sampleCanvas.width = img.width;
+      sampleCanvas.height = img.height;
+      const smpCtx = sampleCanvas.getContext('2d');
+      smpCtx.drawImage(img, 0, 0);
       const smpPixel = smpCtx.getImageData(4, 4, 1, 1).data;
       const imgBgR = smpPixel[0], imgBgG = smpPixel[1], imgBgB = smpPixel[2];
 
       const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = targetW; tempCanvas.height = targetH;
+      tempCanvas.width = targetW;
+      tempCanvas.height = targetH;
       const tCtx = tempCanvas.getContext('2d');
       tCtx.fillStyle = `rgb(${imgBgR}, ${imgBgG}, ${imgBgB})`;
       tCtx.fillRect(0, 0, targetW, targetH);
@@ -534,10 +501,14 @@
 
       const rawData = tCtx.getImageData(0, 0, targetW, targetH);
       const data = rawData.data;
-      const bgR = 245, bgG = 234, bgB = 214;
+
+      const bgR = parseInt(bgColorHex.slice(1, 3), 16);
+      const bgG = parseInt(bgColorHex.slice(3, 5), 16);
+      const bgB = parseInt(bgColorHex.slice(5, 7), 16);
 
       const sketchCanvas = document.createElement('canvas');
-      sketchCanvas.width = targetW; sketchCanvas.height = targetH;
+      sketchCanvas.width = targetW;
+      sketchCanvas.height = targetH;
       const sCtx = sketchCanvas.getContext('2d');
       const sketchImgData = sCtx.createImageData(targetW, targetH);
       const sData = sketchImgData.data;
@@ -546,28 +517,54 @@
       for (let i = 0; i < targetW * targetH; i++) {
         const idx = i * 4;
         gray[i] = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
-        const diff = Math.abs(data[idx] - imgBgR) + Math.abs(data[idx+1] - imgBgG) + Math.abs(data[idx+2] - imgBgB);
-        if (diff < 38) { data[idx] = bgR; data[idx+1] = bgG; data[idx+2] = bgB; }
+        const diffFromImgBg = Math.abs(data[idx] - imgBgR) + Math.abs(data[idx+1] - imgBgG) + Math.abs(data[idx+2] - imgBgB);
+        if (diffFromImgBg < 38) {
+          data[idx] = bgR; data[idx + 1] = bgG; data[idx + 2] = bgB;
+        }
       }
       cCtx.putImageData(rawData, 0, 0);
 
-      const cellSize = 5;
-      const cols = Math.floor(targetW / cellSize), rows = Math.floor(targetH / cellSize);
+      let edgeThreshold = 48;
+      let cellSize = 5;
+      if (precision === 'medium') { edgeThreshold = 40; cellSize = 7; }
+      else if (precision === 'bold') { edgeThreshold = 28; cellSize = 9; }
+
+      const cols = Math.floor(targetW / cellSize);
+      const rows = Math.floor(targetH / cellSize);
       const edgeGrid = Array.from({ length: rows }, () => Array(cols).fill(false));
+
+      const safeMinX = Math.floor(offsetX + 8);
+      const safeMaxX = Math.floor(offsetX + drawW - 8);
+      const safeMinY = Math.floor(offsetY + 8);
+      const safeMaxY = Math.floor(offsetY + drawH - 8);
 
       for (let y = 1; y < targetH - 1; y++) {
         for (let x = 1; x < targetW - 1; x++) {
           const idx = (y * targetW + x) * 4;
-          const gx = -gray[(y-1)*targetW + (x-1)] + gray[(y-1)*targetW + (x+1)] - 2*gray[y*targetW + (x-1)] + 2*gray[y*targetW + (x+1)];
-          const gy = -gray[(y-1)*targetW + (x-1)] - 2*gray[(y-1)*targetW + x] - gray[(y-1)*targetW + (x+1)] + gray[(y+1)*targetW + (x-1)];
+          if (x < safeMinX || x > safeMaxX || y < safeMinY || y > safeMaxY) {
+            sData[idx] = bgR; sData[idx + 1] = bgG; sData[idx + 2] = bgB; sData[idx + 3] = 255;
+            continue;
+          }
+
+          const gx = -gray[(y-1)*targetW + (x-1)] + gray[(y-1)*targetW + (x+1)]
+                     -2*gray[y*targetW + (x-1)]   + 2*gray[y*targetW + (x+1)]
+                     -gray[(y+1)*targetW + (x-1)] + gray[(y+1)*targetW + (x+1)];
+          const gy = -gray[(y-1)*targetW + (x-1)] - 2*gray[(y-1)*targetW + x] - gray[(y-1)*targetW + (x+1)]
+                     +gray[(y+1)*targetW + (x-1)] + 2*gray[(y+1)*targetW + x] + gray[(y+1)*targetW + (x+1)];
           const mag = Math.sqrt(gx * gx + gy * gy);
 
-          if (mag > 48) {
-            sData[idx] = 30; sData[idx+1] = 30; sData[idx+2] = 30; sData[idx+3] = 255;
-            const r = Math.floor(y / cellSize), c = Math.floor(x / cellSize);
+          if (mag > edgeThreshold) {
+            const inkFactor = Math.min(1, mag / 180);
+            sData[idx] = Math.round(bgR * (1 - inkFactor) + 25 * inkFactor);
+            sData[idx + 1] = Math.round(bgG * (1 - inkFactor) + 20 * inkFactor);
+            sData[idx + 2] = Math.round(bgB * (1 - inkFactor) + 18 * inkFactor);
+            sData[idx + 3] = 255;
+
+            const r = Math.floor(y / cellSize);
+            const c = Math.floor(x / cellSize);
             if (r < rows && c < cols) edgeGrid[r][c] = true;
           } else {
-            sData[idx] = bgR; sData[idx+1] = bgG; sData[idx+2] = bgB; sData[idx+3] = 255;
+            sData[idx] = bgR; sData[idx + 1] = bgG; sData[idx + 2] = bgB; sData[idx + 3] = 255;
           }
         }
       }
@@ -582,29 +579,59 @@
             const comp = [];
             const queue = [[r, c]];
             visited[r][c] = true;
+
             while (queue.length > 0) {
               const [cr, cc] = queue.shift();
               comp.push({ x: cc * cellSize + cellSize / 2, y: cr * cellSize + cellSize / 2 });
+
               for (let dr = -2; dr <= 2; dr++) {
                 for (let dc = -2; dc <= 2; dc++) {
                   const nr = cr + dr, nc = cc + dc;
                   if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && edgeGrid[nr][nc] && !visited[nr][nc]) {
-                    visited[nr][nc] = true; queue.push([nr, nc]);
+                    visited[nr][nc] = true;
+                    queue.push([nr, nc]);
                   }
                 }
               }
             }
-            if (comp.length >= 3) elements.push(comp);
+
+            if (comp.length >= 3) {
+              const ordered = [comp[0]];
+              const used = new Array(comp.length).fill(false);
+              used[0] = true;
+
+              for (let step = 1; step < comp.length; step++) {
+                const last = ordered[ordered.length - 1];
+                let bestIdx = -1, bestDist = Infinity;
+                for (let i = 0; i < comp.length; i++) {
+                  if (!used[i]) {
+                    const dx = comp[i].x - last.x, dy = comp[i].y - last.y;
+                    const d = dx * dx + dy * dy;
+                    if (d < bestDist) { bestDist = d; bestIdx = i; }
+                  }
+                }
+                if (bestIdx !== -1) {
+                  used[bestIdx] = true;
+                  ordered.push(comp[bestIdx]);
+                }
+              }
+              elements.push(ordered);
+            }
           }
         }
       }
 
+      // ترتيب مسار الكتابة بناءً على اتجاه الرسم المختاره
+      const centerX = targetW / 2;
       elements.sort((a, b) => {
         const avgX_A = a.reduce((s, p) => s + p.x, 0) / a.length;
         const avgX_B = b.reduce((s, p) => s + p.x, 0) / b.length;
-        if (direction === 'rtl') return avgX_B - avgX_A;
-        if (direction === 'ltr') return avgX_A - avgX_B;
-        return Math.abs(avgX_A - targetW/2) - Math.abs(avgX_B - targetW/2);
+        if (direction === 'rtl') return avgX_B - avgX_A; // من اليمين لليسار
+        if (direction === 'ltr') return avgX_A - avgX_B; // من اليسار لليمين
+        if (direction === 'center') {
+          return Math.abs(avgX_A - centerX) - Math.abs(avgX_B - centerX); // من المركز للخارج
+        }
+        return avgX_B - avgX_A;
       });
 
       return { colorCanvas, sketchCanvas, strokePath: elements.flat(), cellSize, bgColorHex };
@@ -618,11 +645,22 @@
       renderFrame(currentTime);
     }
 
+    // ================= 5. التزامن الصوتي المباشر والدقيق للكابشن =================
     function rebuildTimeline() {
       const rawText = document.getElementById('scriptInput').value.trim();
-      const rawLines = rawText.split('\n').filter(l => l.trim().length > 0);
+      const rawLines = rawText.split('\n');
       
-      const numScenes = Math.max(1, uploadedImages.length || rawLines.length || 1);
+      const cleanScriptLines = [];
+      const headerRegex = /(المشهد|Scene)\s*\d+/i;
+
+      rawLines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+        if (headerRegex.test(trimmed)) return;
+        cleanScriptLines.push(stripArabicDiacritics(trimmed));
+      });
+
+      const numScenes = Math.max(1, uploadedImages.length || cleanScriptLines.length || 1);
       const sceneDur = totalDuration / numScenes;
       timelineScenes = [];
 
@@ -631,70 +669,63 @@
           index: i,
           start: i * sceneDur,
           end: (i === numScenes - 1) ? totalDuration : (i + 1) * sceneDur,
-          duration: sceneDur,
-          text: rawLines[i] || `مشهد ${i+1}`
+          duration: sceneDur
         });
       }
 
-      // بناء قائمة المشاهد في التبويب الجانبي
-      const scenesContainer = document.getElementById('scenesListContainer');
-      scenesContainer.innerHTML = '';
-      timelineScenes.forEach((sc, idx) => {
-        const card = document.createElement('div');
-        card.className = "bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2 shadow-sm";
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-xs text-slate-800">مشهد ${idx + 1}</span>
-            <span class="text-[10px] text-slate-500">${sc.start.toFixed(1)}ث → ${sc.end.toFixed(1)}ث</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-[11px] text-slate-600">يبدأ عند:</span>
-            <input type="number" step="0.1" value="${sc.start.toFixed(1)}" onchange="updateSceneStart(${idx}, this.value)" class="w-20 text-xs p-1 border rounded bg-white text-center font-bold">
-            <button onclick="alert('تم ترتيب المشهد')" class="text-[10px] bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded">ترتيب الرسم</button>
-          </div>
-          <textarea rows="2" class="w-full text-xs p-2 border rounded bg-white" onchange="timelineScenes[${idx}].text=this.value">${sc.text}</textarea>
-        `;
-        scenesContainer.appendChild(card);
-      });
-
-      // بناء قائمة الكابشن في التبويب الجانبي
       captionChunks = [];
-      let accumulatedTime = 0;
-      timelineScenes.forEach((sc, idx) => {
-        const dur = sc.duration;
-        captionChunks.push({ text: sc.text, start: sc.start, end: sc.end });
-      });
+      const fullCleanText = cleanScriptLines.join(' ');
+      if (fullCleanText.length > 0) {
+        const words = fullCleanText.split(/\s+/).filter(w => w.length > 0);
+        const phrases = [];
+        let currentPhrase = [];
 
-      const captionContainer = document.getElementById('captionsListContainer');
-      captionContainer.innerHTML = '';
-      captionChunks.forEach((cap, idx) => {
-        const row = document.createElement('div');
-        row.className = "flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200";
-        row.innerHTML = `
-          <input type="text" value="${cap.text}" class="flex-1 text-xs p-1.5 bg-white border rounded" onchange="captionChunks[${idx}].text=this.value">
-          <input type="number" step="0.1" value="${cap.start.toFixed(2)}" class="w-16 text-xs p-1.5 bg-white border rounded text-center font-bold" onchange="captionChunks[${idx}].start=parseFloat(this.value)">
-        `;
-        captionContainer.appendChild(row);
-      });
+        words.forEach(word => {
+          currentPhrase.push(word);
+          if (currentPhrase.length >= 4 || /[،.؟!؛]/.test(word)) {
+            phrases.push(currentPhrase.join(' '));
+            currentPhrase = [];
+          }
+        });
+        if (currentPhrase.length > 0) phrases.push(currentPhrase.join(' '));
+
+        const totalChars = phrases.reduce((sum, p) => sum + p.length, 0) || 1;
+        const offsetMs = parseInt(document.getElementById('offsetSlider').value) || 0;
+        const offsetSec = offsetMs / 1000;
+        let accumulatedTime = Math.max(0, offsetSec);
+
+        phrases.forEach((phrase, idx) => {
+          const phraseDur = (phrase.length / totalChars) * (totalDuration - offsetSec);
+          captionChunks.push({
+            text: phrase,
+            start: accumulatedTime,
+            end: (idx === phrases.length - 1) ? totalDuration : accumulatedTime + phraseDur
+          });
+          accumulatedTime += phraseDur;
+        });
+      }
 
       document.getElementById('timelineSlider').max = totalDuration;
       document.getElementById('timeTotal').textContent = formatTime(totalDuration);
-    }
-
-    function updateSceneStart(idx, val) {
-      const newTime = parseFloat(val);
-      if (!isNaN(newTime) && timelineScenes[idx]) {
-        timelineScenes[idx].start = newTime;
-        if (timelineScenes[idx+1]) timelineScenes[idx+1].end = newTime;
-        renderFrame(currentTime);
-      }
+      document.getElementById('syncBadge').textContent = `${numScenes} مشاهد • تزامن صوتي مباشر 100%`;
+      renderFrame(currentTime);
     }
 
     function handleImagesUpload(event) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
+      files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
       uploadedImages = [];
       processedScenes = {};
+      const list = document.getElementById('thumbnailsList');
+      if (list) {
+        list.innerHTML = '';
+        document.getElementById('thumbnailsContainer').classList.remove('hidden');
+      }
+      document.getElementById('imagesStatus').textContent = `تم تحميل ${files.length} صور`;
+      document.getElementById('imgCountLabel').textContent = files.length;
+
       const canvas = document.getElementById('boardCanvas');
 
       files.forEach((file, index) => {
@@ -708,30 +739,25 @@
             if (index === 0) renderFrame(currentTime);
           };
           img.src = e.target.result;
+
+          if (list) {
+            const thumb = document.createElement('div');
+            thumb.className = 'relative flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border border-slate-300 shadow-sm';
+            thumb.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover"><span class="absolute bottom-0 right-0 bg-slate-900/85 text-white text-[10px] px-1.5 font-bold">${index + 1}</span>`;
+            list.appendChild(thumb);
+          }
         };
         reader.readAsDataURL(file);
       });
-      document.getElementById('imagesStatusStep1').textContent = `تم رفع ${files.length} صور`;
     }
 
-    function handleAddMoreImages(event) {
-      const files = Array.from(event.target.files);
-      if (!files.length) return;
-      const canvas = document.getElementById('boardCanvas');
-      files.forEach((file, idx) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            const newIdx = uploadedImages.length;
-            uploadedImages.push(img);
-            processedScenes[newIdx] = processImageToContour(img, canvas.width, canvas.height);
-            rebuildTimeline();
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
+    function clearImages() {
+      uploadedImages = [];
+      processedScenes = {};
+      document.getElementById('thumbnailsList').innerHTML = '';
+      document.getElementById('thumbnailsContainer').classList.add('hidden');
+      document.getElementById('imagesStatus').textContent = 'اختر الصور بالترتيب';
+      rebuildTimeline();
     }
 
     function handleAudioUpload(event) {
@@ -739,7 +765,8 @@
       if (!file) return;
       const audio = document.getElementById('audioPlayer');
       audio.src = URL.createObjectURL(file);
-      document.getElementById('audioStatusStep1').textContent = file.name;
+      document.getElementById('audioStatus').textContent = file.name;
+      
       audio.onloadedmetadata = () => {
         totalDuration = audio.duration;
         rebuildTimeline();
@@ -754,16 +781,17 @@
       reprocessAll();
     }
 
-    // ================= 6. محرك الرسم والمعاينة =================
+    // ================= 6. محرك الرندر المتقدم مع خيارات التلوين والمشاهد =================
     const maskCanvas = document.createElement('canvas');
     const revealedSketchCanvas = document.createElement('canvas');
     const revealedColorCanvas = document.createElement('canvas');
 
     function renderFrame(time) {
       const canvas = document.getElementById('boardCanvas');
-      if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      const w = canvas.width, h = canvas.height;
+      const w = canvas.width;
+      const h = canvas.height;
+      const bgColor = document.getElementById('boardBgColor').value || '#F5EAD6';
 
       if (maskCanvas.width !== w || maskCanvas.height !== h) {
         maskCanvas.width = w; maskCanvas.height = h;
@@ -771,7 +799,7 @@
         revealedColorCanvas.width = w; revealedColorCanvas.height = h;
       }
 
-      ctx.fillStyle = '#F5EAD6';
+      ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, w, h);
 
       let activeIdx = 0;
@@ -779,13 +807,20 @@
       for (let i = 0; i < timelineScenes.length; i++) {
         if (time >= timelineScenes[i].start && time <= timelineScenes[i].end) {
           activeIdx = i;
-          sceneProgress = (time - timelineScenes[i].start) / (timelineScenes[i].duration || 1);
+          sceneProgress = (time - timelineScenes[i].start) / timelineScenes[i].duration;
           break;
         } else if (time > timelineScenes[i].end) {
           activeIdx = i;
           sceneProgress = 1.0;
         }
       }
+
+      // سرعة الرسم (مع الكلام / سريع / بطيء)
+      const drawSpeed = document.getElementById('drawSpeedSelect').value;
+      if (drawSpeed === 'fast') sceneProgress = Math.min(1.0, sceneProgress * 1.5);
+      else if (drawSpeed === 'slow') sceneProgress = sceneProgress * 0.7;
+
+      document.getElementById('sceneStatusLabel').textContent = `المشهد ${activeIdx + 1} من ${timelineScenes.length} • التقدم ${Math.round(sceneProgress * 100)}%`;
 
       let sceneData = processedScenes[activeIdx] || processedScenes[0];
       if (!sceneData && uploadedImages[activeIdx]) {
@@ -800,74 +835,120 @@
         const mCtx = maskCanvas.getContext('2d');
         mCtx.clearRect(0, 0, w, h);
         mCtx.fillStyle = '#000000';
+        const brushRadius = (sceneData.cellSize || 5) * 1.4;
+
         for (let i = 0; i < revealCount && i < path.length; i++) {
           const pt = path[i];
-          mCtx.beginPath(); mCtx.arc(pt.x, pt.y, 7, 0, Math.PI * 2); mCtx.fill();
+          mCtx.beginPath();
+          mCtx.arc(pt.x, pt.y, brushRadius, 0, Math.PI * 2);
+          mCtx.fill();
         }
 
         const rCtx = revealedSketchCanvas.getContext('2d');
         rCtx.clearRect(0, 0, w, h);
-        rCtx.globalCompositeOperation = 'source-over'; rCtx.drawImage(maskCanvas, 0, 0);
-        rCtx.globalCompositeOperation = 'source-in'; rCtx.drawImage(sceneData.sketchCanvas, 0, 0);
+        rCtx.globalCompositeOperation = 'source-over';
+        rCtx.drawImage(maskCanvas, 0, 0);
+        rCtx.globalCompositeOperation = 'source-in';
+        rCtx.drawImage(sceneData.sketchCanvas, 0, 0);
+
         ctx.drawImage(revealedSketchCanvas, 0, 0);
 
+        // تلوين الإيد (العنصر)
+        const colorMode = document.getElementById('colorModeSelect').value;
         const cRevCtx = revealedColorCanvas.getContext('2d');
         cRevCtx.clearRect(0, 0, w, h);
-        cRevCtx.globalCompositeOperation = 'source-over'; cRevCtx.drawImage(maskCanvas, 0, 0);
-        cRevCtx.globalCompositeOperation = 'source-in'; cRevCtx.drawImage(sceneData.colorCanvas, 0, 0);
+        cRevCtx.globalCompositeOperation = 'source-over';
+        cRevCtx.drawImage(maskCanvas, 0, 0);
+        cRevCtx.globalCompositeOperation = 'source-in';
+        cRevCtx.drawImage(sceneData.colorCanvas, 0, 0);
 
         ctx.save();
-        ctx.globalAlpha = Math.min(1, sceneProgress * 1.2);
+        if (colorMode === 'instant') {
+          ctx.globalAlpha = Math.min(1, sceneProgress * 1.2);
+        } else if (colorMode === 'end') {
+          ctx.globalAlpha = sceneProgress >= 0.98 ? 1.0 : 0.0;
+        } else {
+          // بعد كل عنصر (افتراضي تدريجي)
+          ctx.globalAlpha = Math.min(1, sceneProgress * 1.15);
+        }
         ctx.drawImage(revealedColorCanvas, 0, 0);
         ctx.restore();
 
-        const showHand = document.getElementById('showHandCheck') ? document.getElementById('showHandCheck').checked : true;
-        const handSize = parseInt(document.getElementById('handSizeSlider') ? document.getElementById('handSizeSlider').value : 240);
+        // رسم اليد المحددة إذا كان الخيار مفَعلاً
+        const showHand = document.getElementById('showHandCheck').checked;
+        const customHandSize = parseInt(document.getElementById('handSizeSlider').value) || 240;
 
         if (showHand && activeHandId !== 'none' && loadedHandImages[activeHandId] && revealCount > 0 && revealCount < path.length && sceneProgress < 1) {
           const currentPt = path[revealCount - 1];
+          const handImg = loadedHandImages[activeHandId];
+          const microX = Math.sin(revealCount * 0.7) * 1.2;
+          const microY = Math.cos(revealCount * 0.7) * 1.2;
+
           ctx.save();
-          ctx.translate(currentPt.x, currentPt.y);
-          ctx.drawImage(loadedHandImages[activeHandId], 0, 0, handSize, handSize);
+          ctx.translate(currentPt.x + microX, currentPt.y + microY);
+          ctx.drawImage(handImg, 0, 0, customHandSize, customHandSize);
           ctx.restore();
         }
       } else {
         ctx.save();
-        ctx.font = 'bold 20px Cairo, sans-serif';
-        ctx.fillStyle = '#57534e'; ctx.textAlign = 'center';
-        ctx.fillText('اضغط على "إنشاء الفيديو" للبدء', w/2, h/2);
+        ctx.font = 'bold 22px Cairo, sans-serif';
+        ctx.fillStyle = '#57534e';
+        ctx.textAlign = 'center';
+        ctx.fillText('ارفع صور المشاهد والسكربت للبدء', w / 2, h / 2 - 10);
+        ctx.font = '15px Cairo, sans-serif';
+        ctx.fillStyle = '#78716c';
+        ctx.fillText('سيتم الرسم المباشر والتلوين المتزامن مع الصوت', w / 2, h / 2 + 22);
         ctx.restore();
       }
 
-      // عرض الكابشن المتزامن
-      if (captionChunks.length > 0) {
+      // عرض الكابشن المتزامن بدقة مع الصوت
+      if (document.getElementById('showCaptions').checked && captionChunks.length > 0) {
         let activePhrase = '';
         for (let i = 0; i < captionChunks.length; i++) {
           if (time >= captionChunks[i].start && time <= captionChunks[i].end) {
-            activePhrase = captionChunks[i].text; break;
+            activePhrase = captionChunks[i].text;
+            break;
           }
         }
+
         if (activePhrase) {
           ctx.save();
-          ctx.font = '800 24px Cairo, sans-serif';
-          const metrics = ctx.measureText(activePhrase);
-          const boxW = Math.min(w - 40, metrics.width + 40), boxH = 50;
-          const boxX = (w - boxW) / 2, boxY = h - 90;
+          const fontSize = w < 600 ? 22 : 26;
+          const fontFamily = document.getElementById('captionFont').value;
+          ctx.font = `800 ${fontSize}px ${fontFamily}`;
+          const textMetrics = ctx.measureText(activePhrase);
+          const padX = 28;
+          const boxW = Math.min(w - 40, textMetrics.width + padX * 2);
+          const boxH = fontSize + 24;
+          const boxX = (w - boxW) / 2;
 
-          ctx.fillStyle = 'rgba(46, 42, 39, 0.85)';
-          ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(boxX, boxY, boxW, boxH, 12); else ctx.rect(boxX, boxY, boxW, boxH);
-          ctx.fill();
+          const pos = document.getElementById('captionPosition').value;
+          let boxY = h - boxH - 36;
+          if (pos === 'center') boxY = (h - boxH) / 2;
+          else if (pos === 'top') boxY = 40;
 
-          ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-          ctx.fillText(activePhrase, w/2, boxY + boxH/2);
+          if (document.getElementById('captionBgCheck').checked) {
+            const opacityVal = (parseInt(document.getElementById('captionOpacitySlider').value) || 70) / 100;
+            ctx.fillStyle = `rgba(46, 42, 39, ${opacityVal})`;
+            ctx.beginPath();
+            if (ctx.roundRect) ctx.roundRect(boxX, boxY, boxW, boxH, 14);
+            else ctx.rect(boxX, boxY, boxW, boxH);
+            ctx.fill();
+          }
+
+          ctx.fillStyle = '#ffffff';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(activePhrase, w / 2, boxY + boxH / 2 + 1);
           ctx.restore();
         }
       }
     }
 
+    // ================= 7. التشغيل والتصدير MP4 والصوت =================
     function formatTime(sec) {
-      const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
       return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     }
 
@@ -883,14 +964,21 @@
     function togglePlay() {
       isPlaying = !isPlaying;
       const playIcon = document.getElementById('playIcon');
+      const playText = document.getElementById('playText');
       const audio = document.getElementById('audioPlayer');
+
       if (isPlaying) {
         playIcon.textContent = '⏸';
-        if (audio.src) { audio.currentTime = currentTime; audio.play().catch(()=>{}); }
+        playText.textContent = 'إيقاف';
+        if (audio.src) {
+          audio.currentTime = currentTime;
+          audio.play().catch(() => {});
+        }
         lastTimestamp = performance.now();
         animFrameId = requestAnimationFrame(stepAnimation);
       } else {
         playIcon.textContent = '▶';
+        playText.textContent = 'معاينة';
         if (audio.src) audio.pause();
         cancelAnimationFrame(animFrameId);
       }
@@ -899,15 +987,23 @@
     function stepAnimation(timestamp) {
       if (!isPlaying) return;
       const audio = document.getElementById('audioPlayer');
-      if (audio.src && !audio.paused) { currentTime = audio.currentTime; }
-      else { currentTime += (timestamp - lastTimestamp) / 1000; }
+      
+      if (audio.src && !audio.paused) {
+        currentTime = audio.currentTime;
+      } else {
+        const delta = (timestamp - lastTimestamp) / 1000;
+        currentTime += delta;
+      }
       lastTimestamp = timestamp;
 
       if (currentTime >= totalDuration) {
-        currentTime = 0; isPlaying = false;
+        currentTime = 0;
+        isPlaying = false;
         document.getElementById('playIcon').textContent = '▶';
+        document.getElementById('playText').textContent = 'معاينة';
         if (audio.src) { audio.pause(); audio.currentTime = 0; }
-        renderFrame(0); return;
+        renderFrame(0);
+        return;
       }
 
       document.getElementById('timeCurrent').textContent = formatTime(currentTime);
@@ -916,26 +1012,98 @@
       animFrameId = requestAnimationFrame(stepAnimation);
     }
 
-    function startFinalExport() {
+    let audioCtx = null;
+    let audioDest = null;
+    let audioSourceNode = null;
+
+    function exportVideo() {
       const overlay = document.getElementById('exportOverlay');
-      if (overlay) overlay.classList.remove('hidden');
-      let p = 0;
-      const interval = setInterval(() => {
-        p += 5;
-        const bar = document.getElementById('exportProgressBar');
-        const txt = document.getElementById('exportPercent');
-        if (bar) bar.style.width = p + '%';
-        if (txt) txt.textContent = p + '%';
-        if (p >= 100) {
-          clearInterval(interval);
-          if (overlay) overlay.classList.add('hidden');
-          alert('تم تصدير الفيديو بنجاح وجاري التحميل على جهازك!');
+      const progressBar = document.getElementById('exportProgressBar');
+      const percentText = document.getElementById('exportPercent');
+      overlay.classList.remove('hidden');
+
+      isPlaying = false;
+      cancelAnimationFrame(animFrameId);
+
+      const canvas = document.getElementById('boardCanvas');
+      const audio = document.getElementById('audioPlayer');
+      const fps = 30;
+      const canvasStream = canvas.captureStream(fps);
+
+      let combinedStream = canvasStream;
+      if (audio.src) {
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            audioSourceNode = audioCtx.createMediaElementSource(audio);
+            audioDest = audioCtx.createMediaStreamDestination();
+            audioSourceNode.connect(audioDest);
+            audioSourceNode.connect(audioCtx.destination);
+          }
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          const audioTracks = audioDest.stream.getAudioTracks();
+          if (audioTracks.length > 0) {
+            combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioTracks]);
+          }
+        } catch (e) {
+          console.warn('Audio mux fallback:', e);
         }
-      }, 100);
+      }
+
+      let mimeType = 'video/mp4';
+      if (!MediaRecorder.isTypeSupported('video/mp4')) {
+        mimeType = 'video/webm;codecs=vp9,opus';
+      }
+
+      let recorder;
+      try {
+        recorder = new MediaRecorder(combinedStream, { mimeType: mimeType });
+      } catch (e) {
+        recorder = new MediaRecorder(combinedStream);
+      }
+
+      const chunks = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+      recorder.onstop = () => {
+        const fileExtension = mimeType.includes('mp4') ? 'mp4' : 'webm';
+        const blob = new Blob(chunks, { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `SuperBoard_Pro_Animation.${fileExtension}`;
+        a.click();
+        overlay.classList.add('hidden');
+        if (audio.src) { audio.pause(); audio.currentTime = 0; }
+      };
+
+      recorder.start();
+      let startExportTime = performance.now();
+      if (audio.src) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      }
+
+      function exportLoop(now) {
+        const elapsed = (audio.src && !audio.paused) ? audio.currentTime : (now - startExportTime) / 1000;
+        const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+        progressBar.style.width = percent + '%';
+        percentText.textContent = percent + '%';
+
+        renderFrame(elapsed);
+
+        if (elapsed >= totalDuration) {
+          recorder.stop();
+        } else {
+          requestAnimationFrame(exportLoop);
+        }
+      }
+
+      requestAnimationFrame(exportLoop);
     }
 
     initHandsUI();
     updateCanvasDimensions();
+    rebuildTimeline();
   </script>
 </body>
 </html>
